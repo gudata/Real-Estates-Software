@@ -17,7 +17,7 @@ set :scm, :git
 set :scm_verbose, true
 set :keep_releases, 3
 
-#set :ssh_options, { :forward_agent => true }
+set :ssh_options, { :forward_agent => true }
 #ssh_options[:forward_agent] = true
 #ssh_options[:paranoid] = false
 
