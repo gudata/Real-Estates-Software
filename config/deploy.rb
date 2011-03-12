@@ -28,7 +28,7 @@ role :db,  "sarah.gudasoft.com", :primary => true # This is where Rails migratio
 
 set :user, "mongrel"
 set :runner, "mongrel"
-set :branch, "rails3"
+set :branch, "master"
 
 #set :deploy_via, :copy
 set :deploy_via, :remote_cache
