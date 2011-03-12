@@ -1,0 +1,102 @@
+<div class="box">
+  <%= check_box_tag "projects[checked][]", project.id, false, :id => "#{project.id}_checked" %>
+</div>
+<div class="box">
+  <%= Project.human_attribute_name(:id) %> :
+  <b><%= h project.id %></b>
+</div>
+<div class="box">
+  <%= Project.model_name.human %> :
+  <b>
+    <%= h truncate(project.name, :lenght => 225) %>
+  </b>
+</div>
+<div class="box">
+  <%= Project.human_attribute_name(:property_category_location) %> :
+  <b><%= h project.property_category_location.name rescue "---" %></b>
+</div>
+
+<div class="box">
+  <% unless project.start_date.blank? %>
+    <%= Project.human_attribute_name(:start_date) %> :
+    <b><%= h project.start_date %></b>
+  <% end %>
+</div>
+
+<div class="box">
+  <% unless project.start_date.blank? %>
+    <%= Project.human_attribute_name(:finish_date) %> :
+    <b><%= h project.finish_date %></b>
+  <% end %>
+</div>
+
+<div class="box">
+  <%= Project.human_attribute_name(:status) %> :
+  <b><%= h project.status.name %></b>
+</div>
+
+<div class="clear"></div>
+<hr />
+
+<div class="property_details">
+  <div class="box">
+    <%= Address.model_name.human %> :
+    <% if project.address %>
+      <strong>
+        <% if can?(:edit, project) %>
+          <%= show_address(project.address, :long) %>
+        <% else %>
+          <%= show_address(project.address, :short) %>
+        <% end %>
+      </strong>
+    <% end %>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<div class="sell_description box">
+  <%
+  chunk_size = 92
+  if project.description.length > chunk_size
+  %>
+    <%= image_tag("info.png", :rel=> "tipsy_right",  :title => project.description) + content_tag(:span, truncate(project.description, :length => chunk_size, :separator => ' ')) %>
+  <% else %>
+    <%= content_tag :span, project.description %>
+  <% end %>
+</div>
+
+<div class="clear"></div>
+
+<div class="sell_contact box">
+  <% unless project.user_id == current_user.id %>
+    <div>
+      <%= t("Брокер",:scope => [:admin, :sells, :search_results]) %>:
+      <b><%= h project.user.display_name(:short) %></b>,
+      <%= User.human_attribute_name(:phone) %>: <b><%= h project.user.phone %></b>,
+      <%= User.human_attribute_name(:mobile) %>: <b><%= project.user.mobile %></b>,
+      <%= User.human_attribute_name(:email) %>: <b><%= project.user.email %></b>
+    </div>
+  <% end %>
+
+  <% if can?(:edit, project)%>
+    <div>
+      <%= t("Клиент",:scope => [:admin, :sells, :search_results]) %>:
+      <%= h project.contact.name %>
+      <%= h project.contact.phones.first.phone_type.name %> :
+      <%= h project.contact.phones.first.number %>
+
+      <%  if project.contact.internet_comunicators.size > 0 %>
+        <%= h project.contact.internet_comunicators.first.internet_comunicator_type.name %>  :
+        <%= h project.contact.internet_comunicators.first.value %>
+      <% end %>
+
+    </div>
+    <div>
+      <%= t("Лице за контакт", :scope => [:admin, :project]) %> :
+      <b><%= h project.contact_person %></b> ,
+      <%= t("Телефон", :scope => [:admin, :project]) %> :
+      <b><%= h project.contact_person_phone  %></b>
+    </div>
+  <% end %>
+</div>

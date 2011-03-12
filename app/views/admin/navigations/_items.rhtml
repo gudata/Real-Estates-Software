@@ -1,0 +1,70 @@
+<% content_for :head do %>
+ <% stylesheet_link_tag 'admin_with_column' %>
+<% end %>
+
+<% content_for :left_column do %>
+  <h2 class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+    <%= t("Списък с номеклатури", :scope => [:admin, :dashboard]) %>
+  </h2>
+  <ul>
+    <%=
+    controllers = [
+      :countries,
+      :districts,
+      :municipalities,
+      :cities,
+      :offices,
+      :teams,
+      :spheres,
+      :contact_categories,
+      :phone_types,
+      :internet_comunicator_types,
+      :furnishes,
+      :sources,
+      :statuses,
+      :buy_statuses,
+      :property_types,
+      :construction_types,
+      :exposure_types,
+      :heating_types,
+      :infrastructure_types,
+      :road_types,
+      :room_types,
+      :floor_types,
+      :apartment_types,
+      :street_types,
+      :canceled_types,
+      :building_types,
+      :fence_types,
+      :property_locations,
+      :property_functions,
+      :keywords,
+      :validation_types,
+      :offer_types,
+      :property_category_locations,
+      :standart_choices,
+      :project_stages,
+      :roles,
+      #:quarters,
+      #:inspections,
+      #:buildings,
+      #:phones,
+      #:pictures
+    ]
+    labels = {}
+    controllers.each {|navigation| labels[t(navigation, :scope => [:admin, :dashboard])] = navigation}
+    labels.keys.sort.collect do |label|
+      #params[:controller] returns "admin/products"
+      #controller.controller_name return "products"
+      strong_or_span = controller.controller_name.to_sym == labels[label] ? :strong : :span
+      content_tag strong_or_span,
+        content_tag(:li,
+        link_to(label,
+          self.send("admin_#{labels[label]}_url")
+        )
+      )
+    end.join("\n ").html_safe
+  %>
+  </ul>
+
+<% end %>

@@ -1,0 +1,26 @@
+<% title t("Оферти към проект",
+    :name => @project.name, :scope => [:admin, :project])
+%>
+
+<div>
+  <%= link_to "Добави нова оферта към проекта", new_admin_contact_project_sell_url(
+    :contact_id => @contact.id, :project_id => @project), :class=> "action new"%>
+</div>
+
+<div id="projects_sells" style="margin-top: 5px;">
+  <% if @sells.size > 0 %>
+    <%= 
+      render :partial => '/admin/shared/sell',
+        :collection => @sells,
+        :locals => {
+          :contact => @contact,
+          :actions => "/admin/project_sells/sell_actions"
+        }
+    %>
+    <%= will_paginate @sells  %>
+  <% else %>
+    <p>
+      <%= t("Няма оферти към проекта", :scope => [:admin, :project]) %>
+    </p>
+  <% end %>
+</div>

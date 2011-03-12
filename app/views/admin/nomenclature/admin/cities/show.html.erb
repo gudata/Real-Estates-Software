@@ -1,0 +1,25 @@
+<% title h(t ".title") %>
+
+<p>
+  <strong><%= Country.model_name.human({:name => "name"}) %></strong>
+  <%=h @city.municipality.district.country.name%>
+</p>
+<p>
+  <strong><%= District.model_name.human({:name => "name"}) %></strong>
+  <%=h @city.municipality.district.name %>
+</p>
+
+<p>
+  <strong><%= Municipality.model_name.human({:name => "name"}) %></strong>
+  <%=h @city.municipality.name %>
+</p>
+<p>
+<strong><%= City.model_name.human({:name => "name"}) %></strong>
+  <%=h @city.name %>
+</p>
+
+<p>
+  <%= link_to t(:edit), edit_admin_city_path(@city) %> |
+  <%= link_to t(:delete), [:admin, @city], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %> |
+  <%= link_to t(:index), admin_cities_path %>
+</p>

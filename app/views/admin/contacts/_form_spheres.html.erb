@@ -1,0 +1,16 @@
+<%
+selected = @contact.contacts_spheres.collect do |sphere|
+  sphere.sphere_id if sphere.user_id == current_user.id
+end.compact
+%>
+
+<%= field_set_tag t("spheres", :scope => [:admin, :contacts, :form]), {:class => "inputs"} do %>
+  <ul>
+    <% $cache['Sphere'].each do |sphere|%>
+      <li>
+        <%= check_box_tag "sphere_ids[]", sphere.id, selected.include?(sphere.id) %>
+        <%= label_tag "spheres_ids", sphere.name %>
+      </li>
+    <%end%>
+  </ul>
+<% end %>

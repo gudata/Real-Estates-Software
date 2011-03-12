@@ -1,0 +1,33 @@
+<% title t(:".login")  %>
+<div id="login_box" class="logo ">
+  <%= image_tag("pb_logo.png") %>
+  <%= form_for @user_session, :url => { :action => "create" } do |f| %>
+    <%= f.error_messages %>
+    <%= f.label t(:login, :scope => [:user_sessions, :new]) %><br />
+    <%= f.text_field :login %>
+
+    <br />
+    <%= f.label :password, t(:password, :scope => [:user_sessions, :new]) %><br />
+    <%= f.password_field :password %><br />
+    <br />
+    <%= f.check_box :remember_me %><%= f.label t(:remember_me, :scope => [:user_sessions, :new]) %><br />
+    <br />
+    <%= f.submit t(:".login") %>
+  <% end %>
+
+</div>
+<% if RAILS_ENV == "development" %>
+  <h1>Списък на потребителите </h1>
+  <p>(видим само в режим на разработка)</p>
+  <table>
+    <%= User.all.collect do |user|
+      content_tag(:tr,
+        content_tag(:td, user.login) +
+          content_tag(:td, user.try(:role).try(:name)) +
+          content_tag(:td, user.try(:parent).try(:login))
+      )
+    end.join("\n").html_safe %>
+  </table>
+  <p>Парола по подразбиране 1122</p>
+
+<% end %>

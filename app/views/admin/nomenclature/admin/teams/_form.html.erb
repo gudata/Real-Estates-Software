@@ -1,0 +1,11 @@
+<%= semantic_form_for [:admin, @team] do |f| %>
+  <%= f.input :locale, :value => I18n.locale, :as => :hidden %>
+  <%= f.inputs  :active, :name %>
+  <%= f.input :description, :as => :text %>
+
+  <p>
+    <%= f.submit t(:create) %> |
+    <%= link_to t(".index"), admin_teams_path %>
+  </p>
+  
+<% end %>

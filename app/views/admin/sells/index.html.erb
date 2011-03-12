@@ -1,0 +1,26 @@
+<% title(t("Оферти предлага",
+    :client => @contact.name, :scope => [:admin, :sells]))
+%>
+
+<%= breadcrumbs_for_contact(@contact, :contact_sells_index) %>
+
+<div style="clear:both;margin: 0 0 2px 0;">
+  <%= render :partial => '/admin/contacts/button_add_sell', :locals => {
+    :contact => @contact
+  }
+%>
+</div>
+
+<% if @sells.size > 0 %>
+  <%= render :partial => 'admin/shared/sell',
+    :collection => @sells,
+    :locals => {
+    :contact => @contact,
+    :actions => "/admin/sells/sell_actions"
+  }
+%>
+  <%= will_paginate @sells  %>
+<% else %>
+  <p><%= t("Няма оферти Предлага", :scope => [:admin, :sells]) %></p>
+<% end %>
+

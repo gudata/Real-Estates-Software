@@ -1,0 +1,16 @@
+<%= form_for [:admin, @building] do |f| %>
+  <p>
+    <%= f.label :building_type_id %><br />
+    <%= f.text_field :building_type_id %>
+  </p>
+  <p>
+    <%= f.label :property_type_id %><br />
+    <%= f.text_field :property_type_id %>
+  </p>
+  <p>
+    <%= f.label :area %><br />
+    <%= f.text_field :area %>
+  </p>
+	<br />
+  <p><%= f.submit "Submit" %> &nbsp;or&nbsp; <%= link_to 'Cancel', admin_buildings_path %></p>
+<% end %>

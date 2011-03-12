@@ -1,0 +1,59 @@
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    var position_in_list = 0;
+    $('.sortable').sortable({
+      stop: function(event, ui) {
+        $(ui.item).effect("highlight");
+<%#*console.log("ui:" + jQuery.dump(ui));%>
+<%#*console.log("prev items " + ui.item.prev("div").lenght);%>
+        
+        $("#property_type_keywords_list div").each(function(index, element) {
+<%#*console.log($(element));%>
+          $(element).find("input[name*=position]").val(Math.round($(element).position()['top']));
+<%#*console.log($(element).find("input[name*=position]"));%>
+<%#*console.log("-----")%>
+        });
+      },
+      opacity: 0.6,
+      axis: "y",
+      containment: "parent",
+      scroll: true,
+      cursor: "move"
+    });
+  });
+
+</script>
+
+<ul id="property_type_keywords_list" class="sortable">
+  <%
+  keywords_property_types = property_type_form.object.keywords_property_types.sort{|x, y| x.position <=> y.position}
+  keywords_property_types.each_with_index do |keywords_property_type, index|
+  %>
+    <div class="property_type_keyword" id="<%= dom_id(keywords_property_type) %>_div" style="padding-top: 6px;">
+      <%= image_tag "move.png"  %>
+      <%=
+      check_box_tag "property_type[keywords_property_types_attributes][#{keywords_property_type.keyword_id}][keyword_id]",
+        keywords_property_type.keyword_id,
+        !keywords_property_type.new_record?
+    %>
+      <%= hidden_field_tag "property_type[keywords_property_types_attributes][#{keywords_property_type.keyword_id}][position]", keywords_property_type.position %>
+
+      <div style="float:left"><%= keywords_property_type.keyword.name %></div>
+
+      <div style="float:right">
+        <div style="float:left"><%= t("стил", :scope => [:admin, :property_types]) %>:</div>
+
+        <%= text_field_tag "property_type[keywords_property_types_attributes][#{keywords_property_type.keyword_id}][style]",
+          keywords_property_type.style
+      %>
+        <div style="float:left"><%= t("последна в реда", :scope => [:admin, :property_types]) %>:</div>
+
+        <%= check_box_tag "property_type[keywords_property_types_attributes][#{keywords_property_type.keyword_id}][end_of_line]",
+          true,
+          keywords_property_type.end_of_line
+      %>
+      </div>
+    </div>
+  <% end %>
+</ul>

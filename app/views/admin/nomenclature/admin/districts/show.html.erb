@@ -1,0 +1,16 @@
+<% title h(t ".title") %>
+
+<p>
+  <strong><%= h(Country.model_name.human({:name => "name"})) %></strong>
+  <%=h @district.country.name %>
+</p>
+<p>
+  <strong><%= h(District.model_name.human({:name => "name"})) %></strong>
+  <%=h @district.name %>
+</p>
+
+<p>
+  <%= link_to h(t :edit), edit_admin_district_path(@district) %> |
+  <%= link_to h(t :delete), [:admin, @district], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %> |
+  <%= link_to h(t :index), admin_districts_path %>
+</p>

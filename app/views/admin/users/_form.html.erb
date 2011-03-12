@@ -1,0 +1,87 @@
+<%= semantic_form_for [:admin, @user] do |f| %>
+  <%= f.error_messages %>
+  <%= hidden_field_tag :locale, I18n.locale %>
+
+  <%#= raise @user.errors.inspect %>
+  <% if @user.parent %>
+    <h3>
+      <%= t("Потребителя е създаден от", :scope =>[:admin, :users]) %>:
+      <%= @user.parent.email %>
+    </h3>
+  <% end %>
+
+  <%= f.inputs t("Basic user data", :scope =>[:admin, :users]) do %>
+    <%= f.input :login %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :second_name %>
+    <%= f.input :email %>
+    <%= f.input :phone %>
+    <%= f.input :mobile %>
+    <%= f.input :webpage %>
+    <%= f.input :company_webpage %>
+    <%= f.input :chat %>
+    <%= f.input :locale, :as => :select, :collection => AVAILABLE_LOCALES %>
+    <%= f.input :signature %>
+    <%= f.input(:birth, :as => :calendar, :allow_nil => true) %>
+  <% end %>
+
+
+  <% if current_user.id != @user.id %>
+    <%= f.inputs t("Assigned permissions", :scope =>[:admin, :users]) do  %>
+      <% if can? :set_role, @user %>
+        <%= f.input :role_id,
+          :collection => current_user.available_roles.collect{|role| [role.name, role.id]}, :include_blank => false %>
+      <% else %>
+        <%= content_tag :li, t("Role", :scope =>[:admin, :users]) %>:
+        <%= content_tag :li, @user.role.name  %>,
+      <% end %>
+
+      <% if can? :set_assistant, @user %>
+        <%= f.input :assistant %>
+      <% else %>
+        <%= content_tag :li, t("Assistant", :scope =>[:admin, :users]) %>:
+        <%= content_tag :li, @user.assistant ? t("Да", :scope =>[:admin, :users]) : "Не", :scope =>[:admin, :users]%>,
+      <% end %>
+
+      <% if can? :set_owner, @user %>
+        <%= f.input :parent_id,
+          :collection => current_user.self_and_descendants.collect{|chield| [chield.email, chield.id]},
+          :include_blank => current_user.root?,
+          :label => t("Ръководител", :scope => [:admin, :users])
+      %>
+      <% else %>
+        <%= content_tag :li, t("Ръководител", :scope =>[:admin, :users]) %>
+        <%= content_tag :li, @user.try(:parent).try(:email) %>
+      <% end %>
+    <% end %>
+
+    <%= f.inputs t(("User affiliation"), :scope => [:admin, :users]) do %>
+      <%= f.input :office_id,
+        :as => :select,
+        :collection => Office.all.collect{|office| [office.name, office.id]},
+        :selected => current_user.office_id
+    %>
+
+    <% end %>
+
+
+    <% if current_user.role?(:manager) %>
+      <%= f.input :team_id,
+        :as => :select,
+        :collection => Team.all.collect{|office| [office.name, office.id]}
+    %>
+    <% else %>
+      <%= f.input :team_id, :as => :hidden, :value => current_user.team.id %>
+    <% end  %>
+  <% end  %>
+
+
+  <%= f.inputs t("Парола", :scope =>[:admin, :users]) do  %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+  <% end %>
+
+  <p><%= f.submit t("Запис", :scope =>[:admin, :users]) %>
+    <%= link_to t("Назад", :scope =>[:admin, :users]), admin_users_path, :class =>"action list", :style => "float: right;" %></p>
+<% end %> 

@@ -1,0 +1,22 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+<table>
+  <tr>
+    <th><%= RoomType.model_name.human(:name => "name")%> </th>
+    <th><%= t("status", :scope => [:admin, :room_types])%> </th>
+  </tr>
+  <% for room_type in @room_types %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(room_type.name), edit_admin_room_type_path(room_type) %></td>
+      <td><%= room_type.active == true ? t("active", :scope => [:admin, :room_types]) : t("unactive", :scope => [:admin, :room_types]) %></td>
+      <td><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, room_type], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t(".add"), new_admin_room_type_path,
+          :class => "action new" %>
+  
+</p>

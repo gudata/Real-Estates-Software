@@ -1,0 +1,97 @@
+<%= buy_form.inputs t(:"Оферта търси", :scope => [:admin, :buys]) do %>
+  <%#= buy_form.input :number %>
+  <h2>
+    <%= t(:"Номер", :scope => [:admin, :buys]) %>
+    <%= @buy.number %>
+  </h2>
+  <%# buy_form.input :offer_type_id, :collection => OfferType.buy_type.all, :as => :radio %>
+  <%= buy_form.input :offer_type_id, :as => :hidden %>
+  <div style="clean: both"></div>
+
+  <%= buy_form.input :name %>
+
+
+  <% if can? :set_owner, @buy %>
+    <%= buy_form.input :user_id,
+      :required => true,
+      :collection => current_user.my_users.collect{|chield| [chield.email, chield.id]},
+      :include_blank => current_user.root?,
+      :label => t("Обслужва се от", :scope => [:admin, :sells])
+  %>
+
+      <%= buy_form.input :co_owner_id,
+      :required => false,
+      :collection => current_user.my_users.collect{|chield| [chield.email, chield.id]},
+      :include_blank => true,
+      :label => t("Възложена на", :scope => [:admin, :sells])
+  %>
+  <% else %>
+    <%= buy_form.input :user_id, :as => :hidden, :value => @sell.user_id %>
+    <li><%= @buy.co_owner ? t("Възложена на", :scope => [:admin, :sells]) + " " + @sell.co_owner.email : "" %></li>
+  <% end %>
+
+
+  <%= buy_form.input :status_id, :collection =>  $cache['Status'], :selected => @buy.status_id.to_i %>
+  <%=
+  buy_form.input :source_id,
+    :required => true,
+    :as => :select,
+    :collection => $cache['Source'].collect{|source| [source.name, source.id.to_s]},
+    :include_blank => true
+%>
+  <%= buy_form.input :source_value %>
+  <%= buy_form.input :canceled_type,
+    :required => false,
+    :collection => CanceledType.all,
+    :include_blank => true,
+    :label => t("Отказана", :scope => [:admin, :sells])
+%>
+
+  <%= buy_form.input :canceled_until,
+    :required => false,
+    :as => :calendar,
+    #:input_html => { :class => 'calendar' },
+  :include_blank => true,
+    :label => t("Отказана до", :scope => [:admin, :sells])
+%>
+
+  <%= buy_form.input :description, :as => :text %>
+
+  <%# buy_form.inputs t(:"Документи на проекта", :scope => [:admin, :project]), :id => "document_forms" do %>
+  <%#= nested_edit buy_form, :documents, "/admin/shared/document_fields", t(:"Добави файл", :scope => [:partials, :documents]), Proc.new{|item| item.document.file? }  %>
+  <%# end %>
+<% end %>
+
+<% unless @buy.new_record?  %>
+  <%= buy_form.inputs t("Управление на документи", :scope => [:admin, :buys]) do %>
+    <%=
+    content_tag(:li, link_to( t("Редакция документи", :scope => [:admin, :buys], :count => @buy.attachments.count),
+        admin_contact_buy_attachments_path(@contact, @buy), :class => 'nyroModal action documents', :target => '_blank')
+    )
+  %>
+    <%= render :partial => 'attachments_list' %>
+  <% end %>
+  <script type="text/javascript">
+    $.nyroModalSettings({
+      type: 'iframe',
+      height: 355,
+      width: 625,
+      resizable: true,
+      autoSizable: true,
+      titleFromIframe: true,
+      // modal: true,
+      // selIndicator: '#loading',
+      contentLoading: "", // use our own
+      endRemove: function() {
+        var url = "<%= show_attachments_admin_contact_buys_url(:contact_id => @contact.id, :id => @buy.id.to_param, :key => @contact.key, :current_tab => 0) %> ul.list#attachments"
+        $('ul.list#attachments').load(url);
+      }
+    });
+
+    $('a.nyroModal').nyroModal();
+
+  </script>
+<% end %>
+<%= buy_form.buttons do %>
+  <%= buy_form.commit_button  :button_html => { :class => "large" } %>
+<% end %>

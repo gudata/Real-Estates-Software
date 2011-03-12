@@ -1,0 +1,12 @@
+- title "<%= singular_name.titleize %>"
+
+<%- for attribute in attributes -%>
+%p
+  %strong <%= attribute.column.human_name.titleize %>:
+  =h @<%= singular_name %>.<%= attribute.name %>
+<%- end -%>
+
+%p
+  <%- if action? :index -%>
+  = link_to "View All", admin_<%= plural_name %>_path
+  <%- end -%>

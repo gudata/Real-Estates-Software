@@ -1,0 +1,17 @@
+<%=
+    link_to(t(:edit),
+    edit_admin_contact_project_path(
+      contact,
+        project,
+        :key => contact.key
+    ),
+    :class => "action edit") if can? :edit, project
+%>
+<%=
+    link_to(t(:show),
+    admin_contact_project_path(
+      contact,
+        project
+    ),
+    :class => "action show") if can? :show, project
+%>

@@ -1,0 +1,17 @@
+<% if object.created_at or object.updated_at %>
+  <div class="timestamps">
+    <% if object.created_at  %>
+      <div>
+        <%= t("Дата на създаване", :scope => [:shared]) %> :
+        <%= l object.created_at, :format => :human %>
+      </div>
+    <% end %>
+
+    <% if object.updated_at %>
+      <div>
+        <%= t("Последно обновена", :scope => [:shared]) %> :
+        <%= l object.updated_at, :format => :human %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

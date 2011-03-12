@@ -1,0 +1,9 @@
+<%= semantic_fields_for search_object_name do |f| %>
+  <% if quarters.size > 0 %>
+    <%= f.input :quarter_ids, :as => :check_boxes,
+      :collection => quarters,
+      :label => t("Квартали", :scope => [:admin, :sell_search]) %>
+  <% else %>
+    <%= content_tag :li, t("Няма квартали за това населено място", :scope => [:admin, :sell_search]) %>
+  <% end %>
+<% end %>

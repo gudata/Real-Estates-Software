@@ -1,0 +1,21 @@
+<%= semantic_form_for [:admin, @office]  do |f| %>
+  <%= f.input :locale, :value => I18n.locale, :as => :hidden %>
+  <%= f.inputs :class => "block" do %>
+    <%= f.input :name %>
+    <%= f.input :mobile_phone %>
+    <%= f.input :phone %>
+    <%= f.input :fax %>
+    <%= f.input :description, :as => :text %>
+    <%= f.input :active %>
+  <% end %>
+
+  <%= f.semantic_fields_for :address do |address_fields| %>
+    <%= render :partial => "admin/addresses/address_form", :locals => {:f => address_fields} %>
+  <% end %>
+  <div class="clear"></div>
+
+  <p>
+    <%= f.submit t(:create) %> |
+    <%= link_to t('.index'), admin_offices_path %>
+  </p>
+<% end %>

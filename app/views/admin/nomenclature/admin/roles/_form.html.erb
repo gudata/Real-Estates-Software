@@ -1,0 +1,8 @@
+<%= semantic_form_for [:admin, @role] do |f| %>
+  <%= f.error_messages %>
+  <% f.inputs do  %>
+  <%= f.input :name %>
+  <%= f.input :type, :as => :select, :collection => Role::TYPES, :selected => @role.ident.to_i %>
+  <% end   %>
+  <%= f.buttons %>
+<% end %>

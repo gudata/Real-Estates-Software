@@ -1,0 +1,22 @@
+<% title t("Оферти към проект", :name => @project.name, :scope => [:admin, :project]) %>
+
+<%= breadcrumbs_for_contact(@project.contact, :contact_projects_index, @project) %>
+
+<div id="projects_sells" style="margin-top: 5px;">
+
+  <% if @sells.size > 0 %>
+    <%=
+    render :partial => '/admin/shared/sell',
+      :collection => @sells,
+      :locals => {
+      :contact => @project.contact,
+      :actions => "/admin/sells/sell_actions"
+    }
+  %>
+    <%= will_paginate @sells %>
+  <% else %>
+    <p>
+      <%= t("Няма оферти към проекта", :scope => [:admin, :project]) %>
+    </p>
+  <% end %>
+</div>

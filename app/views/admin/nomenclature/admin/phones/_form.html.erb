@@ -1,0 +1,8 @@
+<%= form_for [:admin, @phone] do |f| %>
+  <p>
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </p>
+	<br />
+  <p><%= f.submit "Submit" %> &nbsp;or&nbsp; <%= link_to 'Cancel', admin_phones_path %></p>
+<% end %>

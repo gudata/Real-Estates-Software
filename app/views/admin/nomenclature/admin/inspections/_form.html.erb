@@ -1,0 +1,24 @@
+<%= form_for [:admin, @inspection] do |f| %>
+  <p>
+    <%= f.label :data %><br />
+    <%= f.text_field :data %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :inspectable_type %><br />
+    <%= f.text_field :inspectable_type %>
+  </p>
+  <p>
+    <%= f.label :inspectaable_id %><br />
+    <%= f.text_field :inspectaable_id %>
+  </p>
+	<br />
+  <p><%= f.submit "Submit" %> &nbsp;or&nbsp; <%= link_to 'Cancel', admin_inspections_path %></p>
+<% end %>

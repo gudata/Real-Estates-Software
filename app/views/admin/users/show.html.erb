@@ -1,0 +1,68 @@
+<div id="user">
+  <div style="float: left; margin: 5px;">
+    <%= image_tag (@user.picture.file? ? @user.picture.url(:thumb) : "/images/missing.jpeg")  %>
+  </div>
+  <% title "User" %>
+
+  <p>
+    <strong><%= t("Login", :scope => [:admin, :users]) %>:</strong>
+    <%=h @user.login %>
+  </p>
+  <p>
+    <strong><%= t("Email", :scope => [:admin, :users]) %>:</strong>
+    <%=h @user.email %>
+  </p>
+  <p>
+    <strong><%= t("Login Count", :scope => [:admin, :users]) %></strong>
+    <%=h @user.login_count %>
+  </p>
+  <p>
+    <strong><%= t("Failed Login Count", :scope => [:admin, :users]) %></strong>
+    <%=h @user.failed_login_count %>
+  </p>
+  <p>
+    <strong><%= t("Last Request At", :scope => [:admin, :users]) %></strong>
+    <%=h @user.last_request_at %>
+  </p>
+  <p>
+    <strong><%= t("Current Login At", :scope => [:admin, :users]) %></strong>
+    <%=h @user.current_login_at %>
+  </p>
+  <p>
+    <strong><%= t("Last Login At", :scope => [:admin, :users]) %></strong>
+    <%=h @user.last_login_at %>
+  </p>
+  <p>
+    <strong><%= t("Current Login Ip", :scope => [:admin, :users]) %></strong>
+    <%=h @user.current_login_ip %>
+  </p>
+  <p>
+    <strong><%= t("Last Login Ip", :scope => [:admin, :users]) %></strong>
+    <%=h @user.last_login_ip %>
+  </p>
+  <p>
+    <strong><%= t("Signature", :scope => [:admin, :users]) %></strong>
+    <%=h @user.signature %>
+  </p>
+  <p>
+    <strong><%= t("Chat", :scope => [:admin, :users]) %></strong>
+    <%=h @user.chat %>
+  </p>
+
+  <p>
+    <strong><%= t("Webpage", :scope => [:admin, :users]) %></strong>
+    <%=h @user.webpage %>
+  </p>
+  <p>
+    <strong><%= t("Company Webpage", :scope => [:admin, :users]) %></strong>
+    <%=h @user.company_webpage %>
+  </p>
+  <p>
+    <strong><%= t("Role", :scope => [:admin, :users]) %>:</strong>
+    <%=h @user.role.name %>
+  </p>
+
+  <p>
+    <%= link_to "View All", admin_users_path %>
+  </p>
+</div>

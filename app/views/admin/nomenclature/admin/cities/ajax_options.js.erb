@@ -1,0 +1,4 @@
+<%
+options = options_from_collection_for_select(@collection, :id, @name_method)
+%>
+$("#<%= @replace_selector %>").html("<option>----</option><%= escape_javascript(options) %>");

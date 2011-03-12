@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title><%%= h(yield(:title) || "Untitled") %></title>
+    <%- if options[:compass] -%>
+    <%%= stylesheet_link_tag 'compiled/screen', :media => 'projection, screen' %>
+    <%%= stylesheet_link_tag 'compiled/print', :media => 'print' %>
+    <!--[if lt IE 8]>
+      <%%= stylesheet_link_tag 'compiled/ie', :media => "screen, projection" %>
+    <![endif]-->
+    <%- else -%>
+    <%%= stylesheet_link_tag '<%= file_name %>' %>
+    <%- end -%>
+    <%%= yield(:head) %>
+  </head>
+  <body<% if options[:compass] %> id="bp"<% end %>>
+    <div id="container">
+      <%%- flash.each do |name, msg| -%>
+        <%%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <%%- end -%>
+      
+      <%%- if show_title? -%>
+        <h2><%%=h yield(:title) %></h2>
+      <%%- end -%>
+      
+      <%%= yield %>
+    </div>
+  </body>
+</html>

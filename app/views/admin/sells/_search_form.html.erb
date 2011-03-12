@@ -1,0 +1,54 @@
+<script type="text/javascript">
+  $(document).ready(function($) {   
+
+  // Change our search form to ajax
+    $('#search_form').submit(function() {
+      var params = $(this).serialize()
+      $.ajax(
+      {
+        type: "GET",
+        url: "<%= tab_offers_admin_contact_path(:id => @contact.id,:key => @contact.key) %>",
+        data: params,
+        cache: false,
+        // ПРОВЕРКА: async: false,
+        success: function(html){
+          $("#ui-tabs-15").replaceWith(html);
+        }
+      });
+    return false;
+    });
+})
+</script>
+
+<%= form_for @search, :url => tab_offers_admin_contact_path(:id => @contact.id, :key => @contact.key), :html => {:id => "search_form", :method => :get}  do |f| %>
+  <% params[:key] = @contact.key %>
+  <%= hidden_field_tag "action" %>
+  <fieldset>
+    <div style="float:left; width: 90%">
+      <div style="float:left;">
+        <%=  %>
+        <%= f.label :id%>
+        <%= f.text_field :id %>
+      </div>
+      <div style="float:left;">
+        <%= f.label :property_type_id_equals %>
+        <%= f.select :property_type_id_equals, $cache['PropertyType'].collect{|property_type| [property_type.name, property_type.id]}, {:include_blank => true} %>
+      </div>
+      <div style="float:left;">
+        <% offer_sells = $cache['OfferType'].select{|offer_type| (offer_type.tag == "sellers" or offer_type.tag == "renters")} %>
+        <%= f.label :offer_type_id_equals %>
+        <%= f.select :offer_type_id_equals, offer_sells.collect{|offer_sell| [offer_sell.name, offer_sell.id]}, {:include_blank => true} %>
+      </div>
+      <div style="float:left;">
+        <%= f.label :keywords_tag_like, t("price_from", :scope =>[:admin, :sells, :search_form]) %>
+        <%# price = $cache['Keyword'].select{|keyword| keyword.tag == "price"} %>
+        <%#= f.hidden_field :keywords_sells_keyword_id, :value => price.id %>
+        <%= f.text_field :keywords_sells_value_gt  %>
+      </div>
+    </div>
+    <div style="float:left;">  
+      <%= submit_tag t(:search), :key => @contact.key %>
+      <%= link_to t(:clear), nil, :class => "clear_form" %>
+    </div>
+  </fieldset>
+<% end %>

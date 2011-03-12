@@ -1,0 +1,23 @@
+<% if contact.buys.count > 0 %>
+  <h1>Оферти Търси/Наема</h1>
+  <%= render :partial => "/admin/shared/buy", :collection => contact.buys, :locals => {
+    :actions => "/admin/indexes/buys/buy_actions",
+    :contact => contact,
+  } %>
+<% end %>
+
+<% if contact.sell_documents.count > 0 %>
+  <h1>Оферти Продава/Отдава</h1>
+  <%= render :partial => "/admin/shared/sell", :collection => contact.sell_documents, :locals => {
+    :actions => "/admin/indexes/sells/sell_actions",
+    :contact => contact,
+  } %>
+<% end %>
+
+<% if contact.projects.count > 0 %>
+  <h1>Проекти</h1>
+  <%= render :partial => "/admin/shared/project", :collection => contact.projects, :locals => {
+    :actions => "/admin/projects/project_actions",
+    :contact => contact,
+  } %>
+<% end %>

@@ -1,0 +1,26 @@
+<% title t("Проект", :project => @project.name, :scope => [:admin, :project]) %>
+
+<%= breadcrumbs_for_contact(@project.contact, :contact_projects_index, @project) %>
+
+<%= render :partial => '/admin/projects/basic_data', :locals => {:project => @project} %>
+<%= render :partial => '/admin/shared/documents_list', :locals => {:object => @project} %>
+
+
+<% if @project.pictures.size > 0 %>
+  <h2><%= t("Галерия на проекта", :scope => [:admin, :project]) %></h2>
+  <div id="sell_galery" >
+    <% @project.pictures.each do |picture| %>
+      <div style="float:left; padding: 2px" style="page-break-before: always">
+        <%= image_tag picture.url(:normal) %>
+        <br/>
+        <%= picture.description %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<p style="clear: both">
+  <%= link_to t("View All", :scope => [:admin, :project]), admin_contact_projects_path(:contact_id => @contact) %>
+  <%= link_to t("Edit", :scope => [:admin, :project]),
+    edit_admin_contact_project_path(:contact_id => @contact, :key => @contact.key, :id => @project) if can? :edit, @project %>
+</p>

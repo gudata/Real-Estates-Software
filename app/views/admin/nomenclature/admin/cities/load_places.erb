@@ -1,0 +1,3 @@
+@update_options.each do |update_option|
+      page.replace_html update_option.first, :partial => "options", :locals => {:options => update_option.last}
+  end

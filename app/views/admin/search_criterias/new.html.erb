@@ -1,0 +1,14 @@
+<%= breadcrumbs_for_contact(@contact, :contact_buys_index, @buy, :search_criteria_index, @search_criteria) %>
+<div class="search_criteria new">
+  <% title(t("Критерий", :scope => [:admin, :buys, :search_criteria])) %>
+
+  <%= semantic_form_for [:admin, @contact, @buy, @search_criteria], :html => {:multipart => true}  do |search_criteria_form| %>
+    <%= search_criteria_form.error_messages %>
+
+    <%=
+    render :partial => 'form', :locals => {
+      :search_criteria_form => search_criteria_form
+    }
+  %>
+  <% end %>
+</div>

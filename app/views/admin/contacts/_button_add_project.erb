@@ -1,0 +1,12 @@
+<div id="add_project_content" >
+  <fieldset>
+    <legend><%= t('Добавяне на нов', :scope => [:admin, :contacts, :form]) %></legend>
+    <ul class="sf-menu">
+      <li>
+        <%= link_to t("Add Project", :scope =>[:admin, :project]),
+          new_admin_contact_project_path(@contact),
+          :class => "ui-widget ui-state-default ui-corner-all" %>
+      </li>
+    </ul>
+  </fieldset>
+</div>

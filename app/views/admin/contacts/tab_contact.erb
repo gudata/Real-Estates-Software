@@ -1,0 +1,117 @@
+<div id="contact_details">
+  <%= semantic_form_for [:admin, @contact] do |f| %>
+    <%= f.error_messages %>
+    <%= f.input :added_by, :as => :hidden, :value => current_user.id  %>
+
+
+    <%= f.inputs t("contact_type", :scope => [:admin, :contacts]) do %>
+      <%= f.label :is_company, t("chose_contact_type", :scope => [:admin, :contacts]) %>
+      <%=
+      f.select :is_company,
+        t("contact_types", :scope => [:admin, :contacts]).collect{|key, value| [value, key.to_s]},
+        {:include_blank => false},
+        {:id => "is_company"}
+    %>
+    <% end %>
+
+    <div style="padding:0;margin:0">
+      <div id="active_data">
+        <!-- Физическо/Юридическо типа зависи от set_company_fields - JS-->
+        <div class="current_data">
+        </div>
+      </div>
+    </div>
+
+    <div id="contact_categorize">
+      <%= f.inputs t("description", :scope => [:admin, :contacts]) do %>
+        <%= f.input :description, :as => :text, :label => false, :input_html => {
+          :style => "width:420px;height: 102px;"} %>
+      <% end %>
+      <!-- категории за контакта-->
+      <div id="contact_categories">
+        <%= f.semantic_fields_for :contact_categories, :id => "categories" do |contact_category_fields| %>
+          <%= render :partial => "form_contact_categories", :locals => {:f => contact_category_fields} %>
+        <% end %>
+      </div>
+
+      <!-- сфери на влияние за контакта-->
+      <div id="spheres">
+        <%= f.semantic_fields_for :spheres do |spheres_fields| %>
+          <%= render :partial => "form_spheres", :locals => {:f => spheres_fields} %>
+        <% end %>
+      </div>
+
+    </div>
+
+    <div style="display: inline-block; width: 100%">
+      <!-- Телефони-->
+
+      <div style="float:left;">
+        <%= f.inputs t(:"phones", :scope => [:admin, :contacts, :form]),
+          #:style =>  "width: 435px",
+        :id => "phones_form" do %>
+          <%=
+          nested_edit f,
+            :phones, "/admin/shared/phone_fields",
+            t(:"add_phone", :scope => [:admin, :contacts, :form]),
+            Proc.new{|item| !item.try(:number).try(:"empty?")  }
+        %>
+        <% end %>
+      </div>
+
+      <!-- Интернет комуникатори-->
+      <div style="float:left;">
+        <%= f.inputs t(:"internet_comunicators", :scope => [:admin, :contacts, :form]),
+          :style =>  "width: 430px",
+          :id => "internet_comunicators_form" do %>
+          <%=
+          nested_edit f,
+            :internet_comunicators, "/admin/shared/internet_comunicator_fields",
+            t(:"add_internet_comunicator", :scope => [:admin, :contacts, :form]),
+            Proc.new{|item| !item.value.blank?  }
+        %>
+        <% end %>
+
+        <div>
+          <fieldset style="width: 430px;clear:both"  id="aditional_information" >
+            <legend><%= t("Потребители с достъп до този контакт", :scope => [:admin, :contacts]) %></legend>
+
+            <ul class="reset">
+              <% @contact.users.each do |user|%>
+                <%= content_tag :li, user.display_name %>
+                <%= content_tag :ul, user.get_bosses.reverse.collect { |boss|
+                  content_tag :li, boss.display_name
+                }.join("").html_safe, :class => "reset"
+              %>
+              <% end %>
+            </ul>
+          </fieldset>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <%= f.inputs :style => "clear: both" do %>
+      <%= f.submit t(:update) %>
+    <% end %>
+
+  <% end %>
+
+
+  <!-- Данни за физическо лице и юридическо лице които се зареждат от JS скрипта -->
+  <div style="display: none">
+    <%= semantic_form_for [:admin, @contact], :id => 'dummy' do |f| %>
+      <%= render :partial => "contact_fields", :locals => {:contact => @contact} %>
+    <% end %>
+  </div>
+
+</div>
+
+<div id="address_form" title="Адрес" style="display: none">
+  <%= form_for [:admin, @contact.address], :id => "address_form" do |address|%>
+    <%= render :partial => "admin/addresses/address_form", :locals => {:f => address} %>
+  <% end %>
+</div>

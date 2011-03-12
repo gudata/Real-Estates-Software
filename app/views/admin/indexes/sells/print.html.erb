@@ -1,0 +1,80 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    window.print();
+  })
+</script>
+
+<% title t("title", :scope => [:admin, :sells, :print]) %>
+
+<div id="offer_sell_preview" class="ui-widget ui-widget-content ui-corner-all" style="margin: 6px;padding: 4px;display: inline-block; width: 98%">
+
+  <div style="float: left;width: 48%;padding: 4px;margin: 4px;" class="ui-widget ui-widget-content ui-corner-all">
+    <div>
+      <%= t("Код",:scope => [:admin, :sells, :search_results]) %>:
+      <b><%= @sell.id %></b>
+    </div>
+    <div>
+      <%= t(:Имот, :scope => [:admin, :sells]) %> :
+      <strong>
+        <%= @sell.property_type.name %>
+        <br/>
+        <%= @sell.offer_type.name %>
+      </strong>
+    </div>
+    <div>
+      <%= t("Адрес", :scope => [:admin, :sells]) %> :
+      <strong>
+        <%=  can?(:peek_offer_from_contact, @sell) ? show_address(@sell.address, :long) : show_address(@sell.address, :short) %>
+      </strong>
+    </div>
+    <br/>
+
+    <div id="sell_keyords">
+      <% @sell.keywords_sells.each do |keywords_sell| %>
+        <% unless keywords_sell.value.blank? %>
+          <div id="keyword">
+            <%= show_keyword(@sell, keywords_sell.keyword.tag) %>
+          </div>
+        <% end %>
+      <% end %>
+      <br/>
+      <div id="sell_description" class="ui-widget ui-widget-content ui-corner-all">
+        <b>
+          <%= Sell.human_attribute_name(:description) %> :
+        </b>
+        <br/>
+        <%= @sell.description %>
+      </div>
+      <br/>
+      <div id="broker_info" class="ui-widget ui-widget-content ui-corner-all">
+        <%= t("Брокер",:scope => [:admin, :sells, :search_results]) %> :
+        <b><%= @sell.user.display_name(:short) %></b><br/>
+        <%= User.human_attribute_name(:phone) %>: <b><%= @sell.user.phone %></b><br/>
+        <%= User.human_attribute_name(:mobile) %>: <b><%= @sell.user.mobile %></b><br/>
+        <%= User.human_attribute_name(:email) %>: <b><%= @sell.user.email %></b>
+      </div>
+    </div>
+  </div>
+
+  <% if @sell.pictures.first %>
+    <div style="float: left; width: 48%; padding: 4px; margin: 4px;">
+      <%= image_tag @sell.pictures.first.url(:small) %>
+    </div>
+  <% end %>
+
+  <% if @sell.pictures.size > 1 %>
+    <div id="sell_galery" style="page-break-before: always">
+      <% @sell.pictures.each do |picture| %>
+        <div style="float:left; padding: 2px">
+          <%= image_tag picture.url(:normal) %>
+          <br/>
+          <%= picture.description %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="clear"></div>
+  <br/>
+
+</div>

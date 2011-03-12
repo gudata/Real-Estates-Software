@@ -1,0 +1,20 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title "Phones" %>
+
+<table>
+  <tr>
+    <th>Number</th>
+  </tr>
+  <% for phone in @phones %>
+    <tr>
+      <td><%=h link_to image_tag("edit.png", :class => :icon) + phone.number, edit_admin_phone_path(phone) %></td>
+      <td width="31"><%= link_to t("Show",:scope => [:admin]), [:admin, phone] %></td>
+      <td width="37"><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, phone], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p><%= link_to "Add Phone", new_admin_phone_path,
+          :class => "action new" %>
+  
+</p>

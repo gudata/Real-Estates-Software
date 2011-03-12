@@ -1,0 +1,139 @@
+<div id="project">
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+
+      // The tabs http://jqueryui.com/demos/tabs/#method-widget
+      var $tabs = $('#project_tabs').tabs(
+      { cookie: { expires: 7, name: "project_tabs_<%= dom_id(@project) %> " },
+        ajaxOptions: { async: false }
+      });
+
+
+
+      /*
+      var $tabs = $('#project_tabs').tabs();
+      var $selected = $tabs.tabs('select', <%= params[:current_tab] || 0 %> );
+
+      $('.ui-tabs-selected').click(
+      function() {
+        if ($(this) != $selected) {
+          $selected.addClass('ui-tabs-hide');
+          $(this).removeClass('ui-tabs-hide');
+          $selected = $(this);
+        }
+      })
+
+      $('form').submit(function() {
+        var selected = $tabs.tabs('option', 'selected'); 
+        $('#current_tab').val(selected);
+      });
+       */
+    });
+  </script>
+
+  <%= semantic_form_for [:admin, @contact, @project], :html => {:multipart => true}  do |project_form| %>
+    <%= project_form.error_messages %>
+
+
+    <%= tabs_for(:id => :project_tabs) do |tab| %>
+
+      <% tab.create('basic_info', t('tab:Информация за проекта', :scope => [:admin, :project])) do %>
+        <%= project_form.inputs t(:"За проекта", :scope => [:admin, :project]), :id => "phone_form" do %>
+          <div style="clear:both">
+            <%= project_form.input :active, :as => :hidden, :value => true %>
+          </div>
+
+          <%= project_form.input :name %>
+
+          <% if can? :set_owner, @project %>
+            <%= project_form.input :user_id,
+              :required => true,
+              :collection => current_user.my_users.collect{|chield| [chield.display_name, chield.id]},
+              :include_blank => current_user.root?,
+              :label => t("Консултант", :scope => [:admin, :project])
+          %>
+          <% else %>
+            <%= content_tag :li, @user.try(:parent).try(:email) %>
+          <% end %>
+
+          <%=
+          project_form.input :status_id,
+            :required => true,
+            :as => :select,
+            :collection => $cache['Status'].collect{|status| [status.name, status.id]},
+            :include_blank => false
+        %>
+          <%= project_form.input :project_stage %>
+          <%= project_form.input :source %>
+          <%= project_form.input :source_value %>
+          <%= project_form.input :property_category_location %>
+          <%= project_form.input :reference_point %>
+          <%= project_form.input :contact_person %>
+          <%= project_form.input :contact_person_phone %>
+          <%= project_form.input :website %>
+          <%= project_form.input :start_date, :as => :calendar, :allow_nil => true %>
+          <%= project_form.input :finish_date, :as => :calendar, :allow_nil => true %>
+          <%= project_form.input :furnish %>
+          <%= project_form.input :managment_fee%>
+          <%= project_form.input :discount %>
+          <%= project_form.input :brokerage %>
+          <div class="clear"></div>
+          <%= project_form.input :description, :as => :text, :input_html => {:style => "width: 570px"} %>
+
+          <%= project_form.semantic_fields_for :address do |address| %>
+            <%= render :partial => "admin/addresses/address_form", :locals => {:f => address} %>
+            <div class="clear"></div>
+          <% end %>
+
+        <% end %>
+
+        <%= project_form.buttons do %>
+          <%= project_form.commit_button  :button_html => { :class => "large" } %>
+        <% end %>
+
+      <% end %>
+
+      <% unless @project.new_record? %>
+        <%
+        tab.create(tab_project_sells_admin_contact_project_url(:id => @project.id, :contact_id => @contact.id, :key => @contact.key, :current_tab => 0),
+          t("Оферти към проекта", :scope => [:admin, :project])) {} unless @project.new_record?
+      %>
+
+        <% tab.create('inspections', t('tab:Огледи', :scope => [:admin, :project])) do %>
+          <%= project_form.inputs t(:"Огледи", :scope => [:admin, :project]), :id => "inspection_forms" do %>
+            <%= nested_edit project_form, :inspections, "/admin/shared/inspection_fields",  t("Добави оглед", :scope => [:partials, :inspections]), Proc.new{|item| !item.new_record? }  %>
+          <% end %>
+          <%= project_form.buttons do %>
+            <%= project_form.commit_button  :button_html => { :class => "large" } %>
+          <% end %>
+        <% end %>
+
+        <% tab.create('pictures', t('tab:Галерия', :scope => [:admin, :project])) do %>
+          <%= project_form.inputs t(:"Галерия на проекта", :scope => [:admin, :project]), :id => "picture_forms" do %>
+            <%= nested_edit project_form, :pictures, "/admin/shared/picture_fields", t(:"Добави снимка", :scope => [:partials,  :pictures]), Proc.new{|item| item.picture.file? } %>
+          <% end %>
+          <%= project_form.buttons do %>
+            <%= project_form.commit_button  :button_html => { :class => "large" } %>
+          <% end %>
+        <% end %>
+
+        <% tab.create('documents', t('tab:Документи', :scope => [:admin, :project])) do %>
+          <%= project_form.inputs t(:"Документи на проекта", :scope => [:admin, :project]), :id => "document_forms" do %>
+            <%= nested_edit project_form, :documents, "/admin/shared/document_fields", t(:"Добави файл", :scope => [:partials, :documents]), Proc.new{|item| item.document.file? }  %>
+          <% end %>
+          <%= project_form.buttons do %>
+            <%= project_form.commit_button  :button_html => { :class => "large" } %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+
+
+
+
+  <% end %>
+
+  <%= render :partial => "/admin/shared/timestamps", :locals => {:object => @project} %>
+</div>

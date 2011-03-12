@@ -1,0 +1,10 @@
+
+<div>
+  <%= link_to t("Списък с офертите към проекта", :scope => [:admin, :project]), admin_contact_project_sells_url(
+    :contact_id => @contact.id, :project_id => @project), :class => :action %>
+</div>
+
+<% title t("Добавяне на нова оферта към проект", :scope => [:admin, :project], :name => @project.name, :offers => @project.sells.count) %>
+
+
+<%= render :partial => 'form' %>

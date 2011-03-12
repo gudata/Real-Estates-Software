@@ -1,0 +1,193 @@
+fieldset, fieldset.inputs {
+  display: block;
+  background:#FCFDFD url(/images/ui-bg_inset-hard_100_fcfdfd_1x100.png) repeat-x scroll 50% bottom;
+  border:1px solid #A6C9E2;
+  color:#222222;
+  margin: 4px 2px 4px 4px;;
+  -moz-border-radius-bottomleft:5px;
+  -moz-border-radius-bottomright:5px;
+  -moz-border-radius-topleft:5px;
+  -moz-border-radius-topright:5px;
+}
+
+fieldset legend {
+  /*  float:left;*/
+  margin:1px;
+  padding:2px 4px 2px 4px;
+  position:relative;
+  background:#F5F8F9 url(/images/ui-bg_inset-hard_100_f5f8f9_1x100.png) repeat-x scroll 50% 50%;
+  border:1px solid #79B7E7;
+  color:#E17009;
+  font-weight:bold;
+  outline-color:-moz-use-text-color;
+  outline-style:none;
+  outline-width:medium;
+  -moz-border-radius-bottomleft:5px;
+  -moz-border-radius-bottomright:5px;
+  -moz-border-radius-topleft:5px;
+  -moz-border-radius-topright:5px;
+}
+
+
+fieldset label{
+  margin: 2px;
+  padding: 2px;
+  width:120px;
+  float:left;
+}
+fieldset label abbr{
+  text-decoration: none; border-bottom-width: 0; color: #ff2b2b;
+}
+
+fieldset li.boolean{    
+  width:298px;
+}
+
+fieldset li.boolean label{
+  margin: 2px;
+  padding: 2px;
+}
+
+fieldset li.boolean input[type=checkbox] {    
+  padding: 2px;
+}
+
+fieldset input[type=checkbox] {
+  display: inline-block;
+  margin: 2px 4px 2px 0;
+  float: left;
+}
+
+fieldset input[type=text], fieldset input[type=password] {
+  margin: 2px;
+  padding: 2px;
+  float:left;
+  width: 160px;
+  border:1px solid #A6C9E2;
+}
+
+li.required input[type=text], li.required select
+{
+  border:1px solid maroon;
+}
+
+fieldset input[type=text]:focus,
+fieldset input[type=text]:hover,
+fieldset input[type=password]:hover, fieldset input[type=password]:focus {
+  border:1px solid #1583ab;
+  background: #f1f1f1;
+}
+
+form input[type=submit] {
+  display: inline-block;
+  height: 20px;
+  width: 80px;
+  margin: 2px;
+  font-size:1em;
+  background:#F5F8F9 url(/images/ui-bg_inset-hard_100_f5f8f9_1x100.png) repeat-x scroll 50% 50%;
+  border:1px solid #79B7E7;
+  color:#E17009;
+  outline-color:-moz-use-text-color;
+  outline-style:none;
+  outline-width:medium;
+}
+
+form input[type=submit]:hover{
+  color:#a9550a;
+  border:1px solid #A6C9E2;
+}
+
+
+fieldset select {
+  margin: 2px;
+  padding: 2px;
+  float:left;
+  width: 166px;
+  border:1px solid #A6C9E2;
+}
+
+fieldset li.check_boxes{
+  clear: both;
+  width: 100%;
+}
+fieldset textarea {
+  display: block;
+  clear: both;
+  width: 440px;
+  height: 100px;
+  padding: 4px;
+  border:1px solid #A6C9E2;
+  color:#222222;
+  margin-top: 4px;
+  -moz-border-radius-bottomleft:5px;
+  -moz-border-radius-bottomright:5px;
+  -moz-border-radius-topleft:5px;
+  -moz-border-radius-topright:5px;
+}
+
+fieldset textarea:focus, fieldset textarea:hover {
+  border:1px solid #1583ab;
+  background: #f1f1f1;
+}
+
+
+fieldset.inputs ol {
+  display: block;
+  clear: both;
+  padding: 4px;
+  margin: 2px 2px 2px 10px;
+}
+
+fieldset.inputs ol li, fieldset.buttons ol li{
+  display: inline-block;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  /*clear: both;*/
+}
+
+fieldset ul {clear: left;}
+
+fieldset ul.odd { background: #FCFDFE}
+fieldset ul.even { background: #E5F1FF}
+
+fieldset ul, fieldset li{
+  border:0; margin:0; padding:0; list-style:none;
+}
+
+fieldset li {
+  clear:both;
+  list-style:none;
+  padding-bottom:4px;
+}
+
+fieldset label a, fieldset label a:hover {
+  text-decoration: none;
+  color: #5591bf;
+  border-bottom: dashed 1px #5591bf;
+}
+
+
+
+
+/* INLINE HINTS
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset ol li p.inline-hints { color:#666; margin:0.5em 0 0 25%; }
+
+
+/* INLINE ERRORS
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset ol li p.inline-errors { color:#cc0000;display: inline; float: none; width: 100px; }
+form.formtastic fieldset ol li ul.errors { color:#cc0000; margin:0.5em 0 0 25%; list-style:square; }
+form.formtastic fieldset ol li ul.errors li { padding:0; border:none; display:list-item; }
+
+
+form.formtastic fieldset ol li p.inline-errors {
+  clear:both;
+  color:#CC0000;
+  display:block;
+  float:none;
+  width:200px;
+}
+
+fieldset #nav li,  fieldset .sf-menu li  { clear: none;}

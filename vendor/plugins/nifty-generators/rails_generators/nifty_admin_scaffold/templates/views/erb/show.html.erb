@@ -1,0 +1,14 @@
+<%% title "<%= singular_name.titleize %>" %>
+
+<%- for attribute in attributes -%>
+<p>
+  <strong><%= attribute.column.model_name.human.titleize %>:</strong>
+  <%%=h @<%= singular_name %>.<%= attribute.name %> %>
+</p>
+<%- end -%>
+
+<p>
+<%- if action? :index -%>
+  <%%= link_to "View All", admin_<%= plural_name %>_path %>
+<%- end -%>
+</p>

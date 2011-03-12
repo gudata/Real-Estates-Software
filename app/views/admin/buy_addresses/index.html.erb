@@ -1,0 +1,36 @@
+<% title(t("Филтриране по адрес",
+    :client => @contact.name, :scope => [:admin, :buys, :address_document]))
+%>
+
+<!-- class="ui-helper-reset ui-helper-clearfix ui-corner-all ui-widget-content" -->
+<div>
+  <%= link_to t("Добави адрес", :scope => [:partials, :address]),
+    new_admin_contact_buy_buy_address_path(@contact, @buy),
+    :class => "action new", :id => :add_address_link %>
+
+  <% if @address_documents.size > 0 %>
+    <table>
+      <% @address_documents.each_with_index do |address_document, i| %>
+        <%= content_tag :tr do %>
+          <%= content_tag :td, link_to(
+            can?(:edit, address_document) ? image_tag("edit.png", :class => :icon) : "", edit_admin_contact_buy_buy_address_path(
+              :contact_id => @contact.id, :buy_id => @buy.id.to_param, :id => address_document.id.to_param
+            )
+          )  +
+            show_address(address_document, :till_street) %>
+
+          <%= content_tag :td, link_to(
+            can?(:edit, address_document) ? image_tag("delete.png") : "",
+            admin_contact_buy_buy_address_path(
+              :contact_id => @contact.id, :buy_id => @buy, :id => address_document
+            ),
+            :confirm => t(:confirm_delete),
+            :method => :delete
+          ) %>
+        <% end %>
+      <% end %>
+    </table>
+  <% else %>
+    <p><%= t("Няма зададени ограничения за адреса", :scope => [:admin, :buys, :address_document]) %></p>
+  <% end %>
+</div>

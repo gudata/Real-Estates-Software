@@ -1,0 +1,22 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+<table>
+  <tr>
+    <th><%= ExposureType.model_name.human(:name => "name")%> </th>
+    <th><%= t("status", :scope => [:admin, :exposure_types])%> </th>
+  </tr>
+  <% for exposure_type in @exposure_types %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(exposure_type.name), edit_admin_exposure_type_path(exposure_type) %></td>
+      <td><%= exposure_type.active == true ? t("active", :scope => [:admin, :exposure_types]) : t("unactive", :scope => [:admin, :exposure_types]) %></td>
+      <td><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, exposure_type], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t(".add"), new_admin_exposure_type_path,
+          :class => "action new" %>
+  
+</p>

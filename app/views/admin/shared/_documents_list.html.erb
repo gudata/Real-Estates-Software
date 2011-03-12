@@ -1,0 +1,10 @@
+<% if object.documents.size > 0 %>
+  <h2><%= t("Документи", :scope => [:admin, :project]) %></h2>
+  <% object.documents.each do |document| %>
+    <p>
+      <%= link_to document.document_file_name, document.document.url, :target => "_blank" %>
+      <%= document.name %><br/>
+      <%= document.description %><br/>
+    </p>
+  <% end %>
+<% end %>

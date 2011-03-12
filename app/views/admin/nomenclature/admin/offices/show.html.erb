@@ -1,0 +1,22 @@
+<% title t(".title")%>
+
+<p>
+  <strong><%= Office.human_attribute_name(:name) %></strong>
+  <%=h @office.address_id %>
+</p>
+<p>
+  <strong><%= @office.human_attribute_name(:mobile_phone) %></strong>
+  <%=h @office.mobile_phone %>
+</p>
+<p>
+  <strong><%= @office.human_attribute_name(:mobile_phone) %></strong>
+  <%=h @office.phone %>
+</p>
+<p>
+  <strong><%= @office.human_attribute_name(:fax) %></strong>
+  <%=h @office.fax %>
+</p>
+
+<p>
+  <%= link_to "View All", admin_offices_path %>
+</p>

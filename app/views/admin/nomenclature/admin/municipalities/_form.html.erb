@@ -1,0 +1,53 @@
+<script type="text/javascript">
+  jQuery(function($) {
+
+    $("#country_id").change(function(event) {
+      element = $(event.target);
+      var input_value = element.val();
+      var input_id = element.attr("id");
+      var data = {
+        country_id: input_value,
+        replace_selector: "municipality_district_id"
+      };
+      $.ajax({
+        // type:"POST",
+        url: '<%= load_districts_admin_cities_path() %>',
+        data: data,
+        cache: false,
+        async: false,
+        success: function (html) {
+          // $('#property_type_keywords').html(html);
+        }
+      });
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return false;
+    });
+  });
+</script>
+
+<%= semantic_form_for [:admin, @municipality]  do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs do %>
+    <%= label_tag "country_id", Country.model_name.human({:name => ".name"}) %>
+    <select name="country_id" id="country_id">
+      <%= options_for_select(Country.all.collect {|c| [ c.name, c.id ]}) %>
+    </select>
+    <%=
+    if f.object.new_record?
+      collection = Country.first.districts
+    else
+      collection = @municipality.district.country.districts
+    end
+
+    f.input :district_id, :as => :select, :collection => collection, :include_blank => false %>
+    <%= f.input :name %>
+  <% end %>
+
+  <p>
+    <%= f.submit t(:create) %> |
+    <%= link_to t('.index'), admin_municipalities_path %>
+  </p>
+
+<% end %>

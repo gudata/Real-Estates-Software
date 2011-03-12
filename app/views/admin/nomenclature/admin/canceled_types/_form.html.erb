@@ -1,0 +1,8 @@
+<%= semantic_form_for [:admin, @canceled_type] do |f| %>
+  <%= f.inputs do  %>
+    <%= f.input :active, :as => :radio %>
+    <%= f.input :position %>
+    <%= f.input :name %>
+  <% end %>
+  <p><%= f.submit "Submit" %> &nbsp;or&nbsp; <%= link_to 'Cancel', admin_canceled_types_path %></p>
+<% end %>

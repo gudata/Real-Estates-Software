@@ -1,0 +1,112 @@
+body { color : #000000; background : #ffffff; font-size : 12pt; }
+h1 {font-size: 15pt;}
+h2 {font-size: 14pt; font-style: italic; font-weight: bold;}
+h3 {font-size: 12pt; font-style: normal; font-weight: bold;}
+
+a { text-decoration : underline; color : #0000ff; }
+
+div.user_navigation { display : none; }
+.ui-widget-header {
+  background: white;
+  color: black;
+  border: none;
+  border-bottom: solid 1px black;
+}
+
+div.content {
+  border: none;
+  border-bottom: solid 1px gray;
+}
+div#container {
+  border: none;
+  margin: 20px 20px 0 20px;
+  padding: 0 0;
+  min-height: inherit;
+  overflow: visible;
+}
+
+.ui-widget-content {
+  border: none;
+}
+
+div#footer {
+  display: none;
+}
+
+div#print_footer {
+  display: block;
+  padding: 0px 0 0 0;
+  margin: 30px 0 0 0;
+  height: 50px;
+  border-top: dashed 1px black;
+}
+div#print_header {
+  display: block;
+  font-size: 10pt;
+  overflow: auto;
+  clear: both;
+}
+
+div#print_header .broker_data .photo {
+  float: left;
+  padding: 0 7px 0 0;
+}
+div#print_header .broker_data {
+  clear: both;
+  float: left;
+  overflow: auto;
+  width: 400px;
+}
+
+div#print_footer div.time {
+  float:left;
+  width: 400px;
+}
+
+div#print_footer div.copyright {
+  float:right;
+  width: 500px;
+  text-align: right;
+}
+
+#flash_notice {display: none;}
+#flash_warning {display: none;}
+.noprint, .no-print {display: none;}
+
+
+.offer_actions, .contact_actions {display: none;}
+#check_contact .header {display: none;}
+
+.show_address .c_name_print {display: inline;}
+.show_address .c_flag {display: none;}
+
+
+.ui-tabs .ui-tabs-hide {
+  display:none;
+  height: 0px;
+  min-height: 0px;
+}
+.ui-tabs-nav { display: none;}
+.ui-tabs .ui-tabs-panel {
+  clear:both;
+  display:block;
+  height:auto !important;
+  margin:0;
+  min-height:inherit;
+  overflow:inherit;
+  padding:5px 3px;
+}
+
+.buttons {display: none;}
+
+.admin-sells  div.breadcrumb a {color: black;}
+.admin-sells #add_sell_content {display: none;}
+
+.page_break {
+  page-break-before: always;
+}
+
+
+#sell_search_new, #buy_search_new, #project_search_new, .search_form  {
+  display: none;
+}

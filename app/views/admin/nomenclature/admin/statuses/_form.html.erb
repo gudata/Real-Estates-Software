@@ -1,0 +1,10 @@
+<%= semantic_form_for [:admin, @status] do |f| %>
+  <% f.inputs t("Данни за статуса", :scope => [:admin, :statuses]) do  %>
+    <%= f.input :name  %>
+    <%= f.input :hide_on_this_status %>
+    <%= f.input :client_visible, :as => :radio %>
+    <%= f.input :default %>
+  <% end %>
+
+  <p><%= f.submit "Submit" %> &nbsp;or&nbsp; <%= link_to 'Cancel', admin_statuses_path %></p>
+<% end %>

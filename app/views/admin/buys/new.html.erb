@@ -1,0 +1,10 @@
+<%= breadcrumbs_for_contact(@contact, :contact_buys_index, @buy) %>
+<% title(t("Оферта търси", :scope => [:admin, :buys])) %>
+
+<%= semantic_form_for [:admin, @contact, @buy], :html => {:multipart => true}  do |buy_form| %>
+  <%= buy_form.error_messages %>
+
+  <%= render :partial => 'basic_data_form', :locals => {:buy_form => buy_form} %>
+
+<% end %>
+

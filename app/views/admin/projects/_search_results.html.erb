@@ -1,0 +1,36 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a.show').click(function(){
+      window.open(this.href);
+      return false;
+    });
+
+    $(".pagination a").click(function() {
+      $("#ui-tabs-32").load(this.href, function() {
+        // fire tabload event
+        $('#contact_tabs').trigger('tabsload')
+      });
+      return false;
+    });
+    //http://stackoverflow.com/questions/168963/stop-jquery-load-response-from-being-cached
+  });
+</script>
+
+<div id="project_search_results">
+  <% if @projects.size == 0 %>
+    <h2>
+      <%= t("Няма налични проекти",  :scope => [:admin, :contacts]) %>
+    </h2>
+  <% else %>
+    <%=
+      render :partial => "/admin/shared/project",
+        :locals => {
+          :contact => @contact,
+          :actions => "/admin/projects/project_actions"
+        },
+        :collection => @projects
+    %>
+  <% end %>
+</div>
+
+<%= will_paginate @projects  %>

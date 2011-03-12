@@ -1,0 +1,22 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+<table>
+  <tr>
+    <th width="200"><%= FloorType.model_name.human(:name => "name") %></th>
+    <th><%= t("status", :scope => [:admin, :floor_types]) %></th>
+  </tr>
+
+  <% for canceled_type in @canceled_types %>
+    <tr>
+      <td "><%= link_to (image_tag("edit.png", :class => :icon) + " " + canceled_type.name).html_safe, edit_admin_canceled_type_path(canceled_type) %></td>
+      <td><%= canceled_type.active == true ? t("active", :scope => [:admin, :canceled_types]) : t("unactive", :scope => [:admin, :canceled_types]) %></td>
+      <td width="37"><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, canceled_type], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p><%= link_to "Добави причина за отказ", new_admin_canceled_type_path,
+    :class => "action new" %>
+
+</p>

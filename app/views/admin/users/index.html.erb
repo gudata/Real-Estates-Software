@@ -1,0 +1,100 @@
+<div id="user">
+  <% title "Users" %>
+
+  <%=
+  # http://github.com/binarylogic/searchlogic/blob/master/lib/searchlogic/named_scopes/conditions.rb
+  form_for [:admin, @search], :html => {:class => :search_form} do |f|
+  %>
+
+    <%= f.label :login_contains,  sort_link(@search, :login, t("Име за вход", :scope =>[:admin, :users]))  %>
+    <%= f.text_field :login_contains, :size => 10 %>
+
+    <%= f.label :phone_matches, t("Телефон", :scope =>[:admin, :users]) %>
+    <%= f.text_field :phone_matches, :size => 10 %>
+
+
+    <%= f.label :email_contains, t("Email", :scope =>[:admin, :users]) %>
+    <%= f.text_field :email_contains, :size => 20 %>
+
+    <%= f.label :name_matches, t("Име", :scope =>[:admin, :users])  %>
+    <%= f.text_field :name_matches, :size => 10 %>
+
+
+    <%= f.label :active_equals, sort_link(@search, :active_eq, t("Активен", :scope =>[:admin, :users])) %>
+    <%= f.check_box :active_equals %>
+    <br/>
+    <%=
+    f.label :team_id_equals,
+      sort_link(@search, :team_id_equals, t("Team", :scope =>[:admin, :users]))
+  %><%=
+    f.select :team_id_equals,
+      Team.active.all.collect{|c| [c.name, c.id]},
+      {:include_blank => true}
+  %>
+
+    <%=
+    f.label :office_id_equals,
+      sort_link(@search, :office_id, t("Office", :scope =>[:admin, :users]))
+  %><%=
+    f.select :office_id_equals,
+      Office.active.all.collect{|c| [c.name, c.id]},
+      {:include_blank => true}
+  %>
+    <%= submit_tag t("Търси", :scope => [:admin, :users])%>
+
+    <p>
+      <%= t("Сортирай по", :scope => [:admin, :users]) %>
+
+      <%= sort_link(@search, :first_name, t("first_name", :scope => [:admin, :users])) %> |
+      <%= sort_link(@search, :last_name, t("last_name", :scope => [:admin, :users])) %>
+
+    </p>
+  <% end %>
+
+
+  <table>
+    <tr>
+      <th><%= t("Picture", :scope =>[:admin, :users]) %></th>
+      <th><%= t("Login", :scope =>[:admin, :users]) %></th>
+      <th><%= t("Email", :scope =>[:admin, :users]) %></th>
+      <th><%= t("Role", :scope =>[:admin, :users]) %></th>
+      <th><%= t("Team", :scope =>[:admin, :users]) %></th>
+      <th><%= t("Office", :scope =>[:admin, :users]) %></th>
+      <th><%= t("City", :scope =>[:admin, :users]) %></th>
+      <th><%= t("Assistant", :scope =>[:admin, :users]) %></th>
+      <th><%= t("Активиране", :scope =>[:admin, :users]) %></th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= image_tag (user.picture.file? ? user.picture.url(:small_thumb): "/images/missing.jpeg"), :size => "36x36"  %></td>
+        <td>
+          <%= h [user.first_name, user.second_name, user.last_name].compact.join(" ") %>
+          <br/>
+          <%=  link_to_if can?(:update, user), user.login, edit_admin_user_path(user) %>
+        </td>
+        <td><%=h user.email %><br/><%= [user.mobile, user.phone].reject{|phone| phone.blank? || phone.strip.blank?}.join(", ") %></td>
+        <td><%= user.try(:role).try(:name) %></td>
+        <td><%= user.try(:team).try(:name) %></td>
+        <td><%= user.try(:office).try(:name) %></td>
+        <td><%= user.try(:office).try(:address).try(:city).try(:name) %></td>
+        <td><%= user.assistant ?  t("Assistant", :scope =>[:admin, :users]) : "" %></td>
+        <td><%=
+          (can?(:activate, user) ? link_to(image_tag("recycle.jpeg"), activate_admin_user_url(:id => user, :search => params[:search] )) : "")  +
+            " " +
+            t( user.active? ? "Активен" : "Деактивиран", :scope =>[:admin, :users])
+        %></td>
+        <td width="31"><%= link_to_if can?(:show, user), "Show", [:admin, user] %></td>
+        <!--
+        <td width="37"><%# link_to_if can?(:destroy, user), "Delete", [:admin, user], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+        -->
+      </tr>
+    <% end %>
+  </table>
+
+  <br />
+  <%= will_paginate @posts %>
+
+  <p><%= link_to_if can?(:create, User.new), "Add User", new_admin_user_path,
+      :class => "action new" %> <%= link_to image_tag("help.jpeg"), help_admin_users_path, :popup => true %></p>
+
+</div>

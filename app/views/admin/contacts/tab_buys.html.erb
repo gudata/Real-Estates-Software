@@ -1,0 +1,37 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(function() {
+      $(".apple_pagination a").click(function() {
+       $(this).parents('.ui-tabs-panel').load(this.href, function() {
+          // fire tabload event
+          $('#contact_tabs').trigger('tabsload')
+        });
+        return false;
+      });
+    });
+  })
+</script>
+
+<%= render :partial => 'button_add_buy', :locals => {:contact => @contact, :curent_tab => params[:curent_tab]} %>
+
+<div class="clear">
+  <br/>
+</div>
+
+<div id="contact_buys" style="margin-top: 5px;">
+  <% if @buys.size > 0 %>
+    <%=
+    render :partial => 'admin/shared/buy',
+      :collection => @buys,
+      :locals => {
+      :contact => @contact,
+      :actions => "/admin/buys/buy_actions"
+    }
+  %>
+    <%= will_paginate @buys  %>
+  <% else %>
+    <p>
+      <%= t("Няма оферти Търси", :scope => [:admin, :buys]) %>
+    </p>
+  <% end %>
+</div>

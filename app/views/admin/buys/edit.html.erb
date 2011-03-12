@@ -1,0 +1,34 @@
+<%= breadcrumbs_for_contact(@contact, :contact_buys_index, @buy) %>
+
+<% title(t("Оферта търси", :scope => [:admin, :buys])) %>
+
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+
+    // The tabs http://jqueryui.com/demos/tabs/#method-widget
+    var $tabs = $('#buy_tabs').tabs(
+    { cookie: { expires: 7, name: "buys_tabs_<%= dom_id(@contact) %> " },
+      ajaxOptions: { async: false },
+      // load: function(event, ui) {  }
+    });
+
+  });
+</script>
+
+<div id="buy_edit">
+
+  <%= tabs_for(:id => :buy_tabs) do |tab| %>
+    <%
+    tab.create(tab_basic_data_admin_contact_buys_url(:contact_id => @contact.id, :id => @buy.id.to_param, :key => @contact.key, :current_tab => 0),
+      t('tab:Оферта търси', :scope => [:admin, :buys], :offer_type => @buy.offer_type.name)){}
+  %><%
+    tab.create(tab_search_results_admin_contact_buys_url(:contact_id => @contact.id, :id => @buy.id.to_param, :key => @contact.key, :current_tab => 0),
+      t("tab:Съвпадащи резултати", :scope => [:admin, :buys])){}
+  %>
+  <% end %>
+
+  <%= render :partial => "/admin/shared/timestamps", :locals => {:object => @buy} %>
+</div>
+
+

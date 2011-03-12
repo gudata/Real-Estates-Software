@@ -1,0 +1,224 @@
+## YAML Template.
+---
+ru:
+  support: 
+    array: 
+      last_word_connector: " и "
+      sentence_connector: и
+      skip_last_comma: true
+      two_words_connector: " и "
+      words_connector: ", "
+  time: 
+    am: "преди обяд"
+    formats: 
+      default: "%a, %d %b %Y, %H:%M:%S %z"
+      long: "%d %B %Y, %H:%M"
+      short: "%d %b, %H:%M"
+      human: "%d %B %Y, %H:%M"
+      human_date: "%d %B %Y"
+      month: "%B %Y"
+      year: "%Y"
+    pm: следобед
+  date:
+    abbr_day_names:
+      - Нд
+      - Пн
+      - Вт
+      - Ср
+      - Чт
+      - Пт
+      - Сб
+    abbr_month_names:
+      - яну.
+      - фев.
+      - март
+      - апр.
+      - май
+      - юни
+      - юли
+      - авг.
+      - сеп.
+      - окт.
+      - ноем.
+      - дек.
+    day_names:
+      - неделя
+      - понеделник
+      - вторник
+      - сряда
+      - четвъртък
+      - петък
+      - събота
+    formats:
+      default: "%d.%m.%Y"
+      long: "%d %B %Y"
+      short: "%d %b"
+      human: "%d %B %Y"
+      human_date: "%d %B %Y"
+      month: "%B %Y"
+      year: "%Y"
+    month_names:
+      - 
+      - Януари
+      - Февруари
+      - Март
+      - Април
+      - Май
+      - Юни
+      - Юли
+      - Август
+      - Септември
+      - Октомври
+      - Ноември
+      - Декември
+    order:
+      - !ruby/symbol day
+      - !ruby/symbol month
+      - !ruby/symbol year
+    standalone_day_names:
+      - Неделя
+      - Понеделник
+      - Вторник
+      - Сряда
+      - Четвъртък
+      - Петък
+      - Събота
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        few: "около %{count} часа"
+        many: "около %{count} часа"
+        one: "около %{count} час"
+        other: "около %{count} часа"
+      about_x_months:
+        few: "около %{count} месеца"
+        many: "около %{count} месеца"
+        one: "около %{count} месеца"
+        other: "около %{count} месеца"
+      about_x_years:
+        few: "около %{count} години"
+        many: "около %{count} години"
+        one: "около %{count} година"
+        other: "около %{count} години"
+      half_a_minute: "по-малко от минута"
+      less_than_x_minutes:
+        few: "по-малко от %{count} минути"
+        many: "по-малко от %{count} минути"
+        one: "по-малко от %{count} минута"
+        other: "по-малко от %{count} минути"
+      less_than_x_seconds:
+        few: "по-малко от %{count} секунди"
+        many: "по-малко от %{count} секунди"
+        one: "по-малко от %{count} секунди"
+        other: "по-малко от %{count} секунди"
+      over_x_years:
+        few: "над %{count} години"
+        many: "над %{count} години"
+        one: "над %{count} година"
+        other: "над %{count} години"
+      x_days:
+        few: "%{count} дни"
+        many: "%{count} дни"
+        one: "%{count} ден"
+        other: "%{count} дена"
+      x_minutes:
+        few: "%{count} минути"
+        many: "%{count} минути"
+        one: "%{count} минута"
+        other: "%{count} минути"
+      x_months:
+        few: "%{count} месеца"
+        many: "%{count} месеци"
+        one: "%{count} месец"
+        other: "%{count} месеца"
+      x_seconds:
+        few: "%{count} секунди"
+        many: "%{count} секунди"
+        one: "%{count} секунда"
+        other: "%{count} секунди"
+    prompts:
+      day: Ден
+      hour: Часа
+      minute: Минути
+      month: Месец
+      second: Секунди
+      year: Година
+  number: 
+    currency: 
+      format: 
+        delimiter: " "
+        format: "%n %u"
+        precision: 2
+        separator: "."
+        unit: лв.
+    format: 
+      delimiter: " "
+      precision: 3
+      separator: "."
+    human: 
+      format: 
+        delimiter: ""
+        precision: 1
+      storage_units: 
+        format: "%n %u"
+        units: 
+          byte: 
+            few: байта
+            many: байт
+            one: байт
+            other: байта
+          gb: ГБ
+          kb: КБ
+          mb: МБ
+          tb: ТБ
+    percentage: 
+      format: 
+        delimiter: ""
+    precision: 
+      format: 
+        delimiter: ""
+  activerecord:
+    errors: 
+      messages: 
+        accepted: "должна быть подтверждена"
+        blank: "не может быть Worthless"
+        chose_room_type: "Выберите тип помещения"
+        confirmation: "не соответствует подтверждение"
+        empty: "не может быть пустым"
+        equal_to: "Ее можно только на сумму, равную %{count}"
+        even: "Это может быть только нечетные"
+        exclusion: "содержит заданное значение"
+        greater_than: "может иметь значение больше %{count}"
+        greater_than_or_equal_to: "может иметь значение большее или равное %{count}"
+        inclusion: "содержит неожиданное значение"
+        internet_comunicator_type: "Выберите тип интернет-коммуникатора"
+        internet_comunicator_value: "Установите стоимость интернет-коммуникатора"
+        invalid: "содержит некорректное значение"
+        less_one_phone_required: "Вы должны ввести хотя бы один номер телефона"
+        less_than: "может иметь значение менее чем %{count}"
+        less_than_or_equal_to: "может иметь значение большее или равное %{count}"
+        not_a_number: "Не в том числе"
+        odd: "Это может быть даже"
+        taken: уже
+        too_long: 
+          few: "слишком долго (не более %{count} символов)"
+          many: "слишком долго (не более %{count} символов)"
+          one: "слишком долго (не более %{count} символов)"
+          other: "слишком долго (не более %{count} символов)"
+        too_short: 
+          few: "является недостаточной длины (не может быть менее %{count} символов)"
+          many: "является недостаточной длины (не может быть менее %{count} символов)"
+          one: "является недостаточной длины (не может быть менее %{count} символов)"
+          other: "является недостаточной длины (не может быть менее %{count} символов)"
+        wrong_length: 
+          few: "является неправильной длины (должен иметь длину, равную %{count} символов)"
+          many: "является неправильной длины (должен иметь длину, равную %{count} символов)"
+          one: "является неправильной длины (должен иметь длину, равную %{count} символов)"
+          other: "является неправильной длины (должен иметь длину, равную %{count} символов)"
+      template: 
+        body: "Проблемы возникают в следующих областях:"
+        header: 
+          few: "%{model}: записи не удалась из-((count)) ошибками"
+          many: "%{model}: записи не удалась из-((count)) ошибками"
+          one: "%{model}: записи не удалась из-((count)) ошибками"
+          other: "%{model}: записа неуспешен заради %{count} грешки"

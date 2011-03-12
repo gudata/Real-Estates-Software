@@ -1,0 +1,35 @@
+<div id="dashboard">
+  <% title(t("Dashboard",:scope => [:admin, :dashboard])) %>
+  <% @messages.each do |message|  %>
+    <div class="flash_error ">
+      <%= message %>
+    </div>
+  <% end %>
+
+  <div class="box">
+    <%= link_to image_tag("buddy.png", :alt => t(:"my_account", :scope =>  [:admin, :dashboard])) +
+      t(:"my_account", :scope =>  [:admin, :dashboard]), account_path
+  %>
+
+  </div>
+
+  <div class="box">
+    <%= link_to_if can?(:nomenclatures, Navigation),
+      image_tag("edit_nomenclature.png") +
+      t("Номенклатура", :scope => [:admin, :dashboard]), nomenclatures_admin_navigations_url %>
+  </div>
+
+  <div class="box">
+    <%= link_to_if can?(:index, User.new),
+      image_tag("edit_users.png") +
+      t("Потребители", :scope => [:admin, :dashboard]), admin_users_url %>
+  </div>
+
+  <div class="box">
+    <%= link_to_if can?(:index, User.new),
+      image_tag("statistics.png") +
+      t("Статистика", :scope => [:admin, :dashboard]), admin_statistics_url %>
+  </div>
+
+
+</div>

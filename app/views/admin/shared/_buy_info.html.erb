@@ -1,0 +1,81 @@
+<div class="box" style="float: right; padding: 0 5px 0 0;">
+  <%= buy.updated_at.strftime("%Y-%m-%d") %>
+</div>
+<div class="box">
+  <%= check_box_tag "buys[checked][]", buy.id, false, :id => "#{buy.id}_checked"  %>
+</div>
+<div class="box">
+  <%= t("Код", :scope => [:admin, :buys, :search_results]) %>
+  <b><%= (buy.number.blank? ? "---" : buy.number) %></b>
+</div>
+<div class="box">
+<%# t("Тип", :scope => [:admin, :buys, :search_results]) %>
+  <b><%= buy.offer_type.name %></b>
+</div>
+<div class="box">
+<%# t("Тип имот", :scope => [:admin, :buys, :search_results]) %>:
+
+<%=
+  search_criterias_count = buy.search_criterias.size
+  if search_criterias_count > 0
+    content_tag(:strong, buy.search_criterias.collect{|c| c.property_type.name}.uniq.join(", ")) + " x " + search_criterias_count.to_s
+  else
+    t("Без критерии", :scope => [:admin, :buys, :search_results])
+  end
+%>
+
+</div>
+<div class="box">
+<%# t("Статус", :scope => [:admin, :buys, :search_results]) %>
+  <%= h buy.status.name %>
+</div>
+
+<div class="buy_description box">
+  <%
+  chunk_size = 92
+  if buy.description and buy.description.length > chunk_size
+  %>
+    <%= image_tag("info.png", :rel=> "tipsy_right",  :title => buy.description) + content_tag(:span, truncate(buy.description, :length => chunk_size, :separator => ' ')) %>
+  <% else %>
+    <%= content_tag :span, buy.description %>
+  <% end %>
+</div>
+
+<div class="buy_contact box">
+  
+  <div>
+    <%=
+    if buy.co_owner.blank?
+      owner = buy.user
+      content_tag :strong, owner.display_name(:short), :title => t("Собствена",:scope => [:admin, :sells, :search_results])
+    else
+      owner = buy.co_owner
+      content_tag :span, owner.display_name(:short) + " (#{buy.user.display_name(:short)})", :title => t("Възложена на",:scope => [:admin, :sells, :search_results])
+    end
+  %>
+  </div>
+  
+  <% if can? :peek_offer_from_contact, buy %>
+    <%= t("Клиент",:scope => [:admin, :sells, :search_results]) %> :
+    <strong>
+      <%= buy.contact.display_name(:short) %>
+    </strong>
+    <%= show_phones(buy.contact.phones, "") %>
+    <%= show_comunicators buy.contact.internet_comunicators, "" %>
+  <% else %>
+    <%= t("Брокер",:scope => [:admin, :sells, :search_results]) %> :
+    <%= User.human_attribute_name(:phone) %>:
+    <strong>
+      <%= buy.user.phone %>
+    </strong>,
+    <%= User.human_attribute_name(:mobile) %>:
+    <strong>
+      <%= buy.user.mobile %>,
+    </strong>
+    <%= User.human_attribute_name(:email) %>:
+    <strong>
+      <%= buy.user.email %>
+    </strong>
+  <% end %>
+</div>
+

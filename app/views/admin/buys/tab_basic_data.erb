@@ -1,0 +1,6 @@
+<%= semantic_form_for [:admin, @contact, @buy] do |buy_form| %>
+  <%= buy_form.error_messages %>
+
+  <%= render :partial => 'basic_data_form', :locals => {:buy_form => buy_form} %>
+
+<% end %>

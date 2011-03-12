@@ -1,0 +1,23 @@
+<div>
+  <div>
+    <%= t("person_first_name", :scope => [:admin, :contacts]) %> :
+    <b><%= [contact.person_first_name, contact.person_middle_name,contact.person_last_name].join(" ") %></b>
+  </div>
+
+  <% unless contact.nationality.blank? %>
+  <div>
+    <%= t("nationality", :scope => [:admin, :contacts]) %>
+    <b><%= contact.nationality.name %></b>
+  </div>
+  <% end %>
+
+  <div>
+    <%= Contact.human_attribute_name(:person_employment) %>
+    <b><%=  contact.person_employment %></b>
+  </div>
+
+  <div>
+    <%= Contact.human_attribute_name(:person_position) %>
+    <b><%= contact.person_position %></b>
+  </div>
+</div>

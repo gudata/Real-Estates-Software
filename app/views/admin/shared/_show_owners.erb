@@ -1,0 +1,24 @@
+<div class="broker_info" class="ui-widget ui-widget-content ui-corner-all">
+  <div class="photo">
+    <%= image_tag(object.user.picture.url(:thumb)) if object.user.picture.exists? %>
+  </div>
+
+  <%= t("Брокер",:scope => [:admin, :sells, :search_results]) %> :
+  <b><%= object.user.display_name(:short) %></b><br/>
+  <%= User.human_attribute_name(:phone) %>: <b><%= object.user.phone %></b><br/>
+  <%= User.human_attribute_name(:mobile) %>: <b><%= object.user.mobile %></b><br/>
+  <%= User.human_attribute_name(:email) %>: <b><%= object.user.email %></b>
+</div>
+
+<% if object.respond_to? :co_owner and object.co_owner  %>
+  <div class="broker_info" class="ui-widget ui-widget-content ui-corner-all">
+    <div class="photo">
+      <%= image_tag(object.co_owner.picture.url(:thumb)) if object.co_owner.picture.exists? %>
+    </div>
+    <%= t("Възложена на",:scope => [:admin, :sells, :search_results]) %> :
+    <b><%= object.co_owner.display_name(:short) %></b><br/>
+    <%= User.human_attribute_name(:phone) %>: <b><%= object.co_owner.phone %></b><br/>
+    <%= User.human_attribute_name(:mobile) %>: <b><%= object.co_owner.mobile %></b><br/>
+    <%= User.human_attribute_name(:email) %>: <b><%= object.co_owner.email %></b>
+  </div>
+<% end %>

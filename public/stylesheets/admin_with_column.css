@@ -1,0 +1,16 @@
+div#content {
+  padding: 0 0 0 251px;
+}
+
+#layout_left_column {
+  float: left;
+  width: 230px;
+  border-right: solid 1px #4B7399;
+  padding: 0 5px;
+  margin: 0 10px 0 0;
+}
+
+#layout_left_column ul {
+  list-style: none;
+  padding: 0px;
+}

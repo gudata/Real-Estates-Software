@@ -1,0 +1,23 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+<table>
+  <tr>
+    <th><%= PropertyLocation.model_name.human(:name => "name")%> </th>
+    <th><%= t("status", :scope => [:admin, :property_locations])%> </th>
+  </tr>
+  <% for property_location in @property_locations %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(property_location.name), edit_admin_property_location_path(property_location) %></td>
+      <td><%= property_location.active == true ? t("active", :scope => [:admin, :property_locations]) : t("unactive", :scope => [:admin, :property_locations]) %></td>
+      <td><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, property_location], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t(".add"), new_admin_property_location_path,
+          :class => "action new" %>
+  
+</p>
+<%= will_paginate @property_locations %>

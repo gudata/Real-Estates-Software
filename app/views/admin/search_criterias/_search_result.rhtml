@@ -1,0 +1,45 @@
+<div class="criteria_result_list">
+  <% if matching_sell[search_criteria].count > 0 %>
+    <h2>
+      <%= content_tag :div,
+        link_to(image_tag("expand.png", :class => :icon), '#',
+        :onclick => "$('##{dom_id(search_criteria)}').toggle()") +
+        humanize_buy_or_criteria(search_criteria).join(", ").html_safe + t("критерии", :scope => [:admin, :buys, :search_criteria, :search_result]).html_safe %>
+    </h2>
+    <div id="<%= dom_id(search_criteria) %>" style="display:block">
+      <%= short_search_criteria_list(search_criteria).join(", ").html_safe %>
+    </div>
+    <%= content_tag :div, render(:partial => "/admin/shared/sell",
+      :locals => {:actions => '/admin/search_criterias/sell_actions'},
+      :collection => matching_sell[search_criteria]),
+      :class => 'result_data' %>
+  <% else %>
+    <p>
+      <%= link_to(image_tag("expand.png", :class => :icon), '#',
+        :onclick => "$('##{dom_id(search_criteria)}').toggle()")
+    %>
+      <%= t("Няма отговарящи оферти", :scope =>[:admin, :buys, :search_criteria],
+        :this => humanize_buy_or_criteria(search_criteria).join(", ")
+      ).html_safe << t("критерии", :scope => [:admin, :buys, :search_criteria, :search_result]).html_safe %>
+      <%=
+      link_to(
+        image_tag("edit.png", :class => :icon) + t(:edit), edit_admin_contact_buy_search_criteria_path(
+          :contact_id => @contact.id, :buy_id => @buy, :id => search_criteria
+        ),
+        :class => :action
+      )
+    %>
+    </p>
+  <% end %>
+
+    <div class="noprint" id="<%= dom_id(search_criteria) %>" style="<%= RAILS_ENV == "development" ? "" : "display:none" %> ">
+    <% if RAILS_ENV=="development" %>
+      <br/>
+      <br/>
+      <%= matching_sell[search_criteria].selector.inspect  %><br/>
+      <br/>
+      JSON:<br/>
+      <%= matching_sell[search_criteria].selector.inspect.to_s.gsub(/:/, "").gsub(/=>/,":").gsub(/\},/,"},<br/>\n").html_safe %>
+    <% end %>
+  </div>
+</div>

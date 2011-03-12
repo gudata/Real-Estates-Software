@@ -1,0 +1,29 @@
+<div id="add_sell_content">
+  <fieldset>
+    <legend><%= t('Добави оферта предлага', :scope => [:admin, :contacts, :form]) %></legend>
+    <ul class="sf-menu">
+      <% OfferType.sell_type.all.each do |offer_type| %>
+        <li>
+          <a href="#"  class=" ui-widget ui-state-default ui-corner-all">
+            <%= offer_type.name %> <%= image_tag("#{offer_type.tag}.png", :size => "16x16") %>
+          </a>
+
+          <ul>
+            <% $cache['PropertyType'].each do |property_type| %>
+              <li>
+                <%=
+                link_to property_type.name,
+                  new_admin_contact_sell_path(
+                  :contact_id => contact.id,
+                  :property_type_id => property_type.id,
+                  :offer_type_id => offer_type.id),
+                  :class => " ui-widget ui-state-default ui-corner-all"
+              %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  </fieldset>
+</div>

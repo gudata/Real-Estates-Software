@@ -1,0 +1,19 @@
+<div id="index_projects">
+
+  
+  <% title t("Списък проекти", :scope => [:admin, :project]) %>
+
+  <%= render :partial => "search_form" %>
+
+  <% if @projects.size > 0 %>
+    <%= t("намерени резултата", :scope => [:admin, :project], :count => @projects.total_entries) %>
+
+    <%= render :partial => "/admin/shared/project", :collection => @projects, :locals => {:actions => "/admin/indexes/projects/project_actions"} %>
+
+    <%= will_paginate @projects  %>
+  <% else %>
+    <% if params[:commit] %>
+      <p><%= t("Няма проекти отговарящи на търсенето", :scope => [:admin, :project]) %></p>
+    <% end %>
+  <% end %>
+</div>

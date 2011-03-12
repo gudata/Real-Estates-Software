@@ -1,0 +1,46 @@
+<% title(t(:".my_account"), false) %>
+<div id="show_user">
+  <div id="my_data">
+    <h2><%= t(:".my_account") %></h2>
+    <div style="float: left; margin: 5px;">
+      <%= image_tag (@user.picture.file? ? @user.picture.url(:thumb) : "/images/missing.jpeg")  %>
+    </div>
+
+    <p>
+      <b><%= User.human_attribute_name("login") %></b>
+      <%=h @user.login %>
+    </p>
+
+    <p>
+      <b><%= User.human_attribute_name("login_count") %></b>
+      <%=h @user.login_count %>
+    </p>
+
+    <p>
+      <b><%= User.human_attribute_name("last_request_at") %></b>
+      <%=h @user.last_request_at %>
+    </p>
+
+    <p>
+      <b><%= User.human_attribute_name("last_login_at") %></b>
+      <%=h @user.last_login_at %>
+    </p>
+
+    <p>
+      <b><%= User.human_attribute_name("current_login_at") %></b>
+      <%=h @user.current_login_at %>
+    </p>
+
+    <p>
+      <b><%= User.human_attribute_name("last_login_ip") %></b>
+      <%=h @user.last_login_ip %>
+    </p>
+
+    <p>
+      <b><%= User.human_attribute_name("current_login_ip") %></b>
+      <%=h @user.current_login_ip %>
+    </p>
+
+    <%= link_to t(:".edit"), edit_account_path, :class => "action edit" %>
+  </div>
+</div>

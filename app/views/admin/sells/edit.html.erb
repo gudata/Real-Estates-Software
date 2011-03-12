@@ -1,0 +1,10 @@
+<% if @sell.project_id.blank? %>
+  <%= breadcrumbs_for_contact(@contact, :contact_sells_index, @sell) %>
+<% else %>
+  <%= breadcrumbs_for_contact(@contact, :contact_sells_index, @sell.project, @sell) %>
+<% end %>
+
+
+<% title(t("Редакция оферта", :scope => [:admin, :sells], :kind_of => @sell.property_type.name)) %>
+
+<%= render :partial => 'form' %>

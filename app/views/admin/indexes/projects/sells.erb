@@ -1,0 +1,5 @@
+<%#= index_bread_crumb %>
+<%#= render :partial => "search_form" %>
+<%=
+  render :partial => "/admin/shared/sell", :collection => @sells, :locals => {:actions => "/admin/index_sells/sell_actions"}
+%>

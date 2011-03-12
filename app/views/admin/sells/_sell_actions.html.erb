@@ -1,0 +1,38 @@
+<%=
+  link_to t(:edit),
+    edit_admin_contact_sell_path(
+      :contact_id => contact,
+      :id => sell.active_record_id,
+      :key => contact.key
+    ),
+    {
+      :class => "action edit",
+      :id => "#{sell.active_record_id}_edit"
+    } if can?(:edit, sell)
+%>
+
+<%=
+  link_to t(:show),
+    admin_contact_sell_path(
+      :contact_id => contact,
+      :id => sell.active_record_id,
+      :key => sell.contact.key
+    ),
+    {
+      :target => "_blank",
+      :class => "action show",
+      :id => "#{sell.active_record_id}_show"
+    } if can? :show, sell
+
+%><%=
+  link_to t("Към проекта", :scope => [:admin, :sells]),
+    edit_admin_contact_project_path(
+      :contact_id => contact,
+      :id => sell.project_id,
+      :key => contact.key
+    ),
+    {      
+      :class => "action edit_project",
+      :id => "#{sell.project_id}_edit_project"
+    } if can?(:edit, sell) and sell.project
+%>

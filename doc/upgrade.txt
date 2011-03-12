@@ -1,0 +1,154 @@
+Всички номеклатури трябва да са преведени на руски. Под всички, имам предвид всички, а не само някой.
+
+=== 1.7.4 => 1.7.5 ==
+
+{
+  OfferType => [:name],
+  Status => [:name],
+  Source => [:name],
+}.each_pair do |klass, fields|
+  fields.each do |field|
+    I18n.locale = :bg
+    klass.all.each{|k| bg_name = k.send(field); I18n.with_locale(:ru){next unless k.send(field).blank? ; k.send("#{field}=", bg_name); k.save }}.reject{true}
+  end
+end.reject{true}
+
+{
+  AddressDocument => [:description],
+  Attachment => [:name, :description],
+  Buy => [:name, :description],
+  BuyStatus => [:name],
+  CanceledType => [:name],
+  FloorType => [:name],
+  SellDocument => [:description],
+  StreetType => [:name],
+  Term => [:name],
+}.each_pair do |klass, fields|
+  fields.each do |field|
+    I18n.locale = :bg
+    klass.all.each{|k| bg_name = k.send(field); I18n.with_locale(:ru){next unless k.send(field).blank? ; k.send("#{field}=", bg_name); k.save }}.reject{true}
+  end
+end.reject{true}
+
+
+=== 1.6.x => 1.7 ==
+Buy.all.each{|b| puts "working on #{b.id}"; b.save}
+SellDocument.all.each{|b| puts "working on #{b.id}"; b.save}
+
+=== 1.5.x -> 1.6 ==
+
+https://github.com/thoughtbot/paperclip/pull/358
+
+
+
+Run this in console
+# make a mnogo filed from static to translated
+# The forgotten buystatuses
+
+require 'mongo'
+
+DB = "re_production"
+#DB = "re_development"
+
+@con = Mongo::Connection.new
+@db = @con[DB]
+
+
+original_collection = @db["buy_statuses"]
+
+original_collection.find({}, :timeout => false, :sort => "_id") do |documents|
+  documents.each do |buy_status|
+    if buy_status["name"].class == String
+      old = buy_status["name"]
+      buy_status["name"] = {}
+      buy_status["name"]["bg"] = old
+    end
+
+    original_collection.save(buy_status)
+  end
+end
+
+
+rake db:migrate
+
+======================================================================================
+
+
+# http://www.mongodb.org/display/DOCS/Clone+Database
+инсталираме новите гемове
+
+cap production deploy:web:disable
+
+с: Спираме монгрела
+cd /root/backup
+echo "backup na mysql-a"
+mysqldump -uroot -pmysqlodi re_production -r re_production.sql
+echo "backup na mongodb"
+mongodump
+
+
+
+
+обновяваме кода.
+migrate_mongo.rb
+resetcounters.rb
+
+
+
+cap production deploy:web:enable
+
+
+=== Make staging on production ==
+mysqldump -uroot -pmysqlodi re_production -r re_production.sql
+mysql re_staging < re_production.sql
+mongo
+use re_staging
+db.dropDatabase()
+use re_staging
+db.copyDatabase("re_production", "re_staging", "127.0.0.1");
+
+=== Make staging on localhost ==
+ssh sarah.gudasoft.com "cd /tmp ; mysqldump -uroot -pmysqlodi re_production -r re_production.sql"
+scp sarah.gudasoft.com:/tmp/re_production.sql .
+mysql re_staging < re_production.sql
+mongo
+use re_staging
+db.dropDatabase()
+use re_staging
+db.copyDatabase("re_production", "re_staging", "127.0.0.1");
+
+== Backup Sarah ==
+cd /tmp
+/usr/local/mongo/bin/mongodump --db re_production
+/usr/bin/mysqldump -uroot -pmysqlodi re_production -r re_production.sql
+
+
+== Geting mongo production on localhost/development ==
+cd /tmp
+ssh sarah.gudasoft.com "cd /tmp ; /usr/local/mongo/bin/mongodump --db re_production"
+ssh sarah.gudasoft.com "cd /tmp ; /usr/bin/mysqldump -uroot -pmysqlodi re_production -r re_production.sql"
+
+scp -r  sarah.gudasoft.com:/tmp/dump .
+scp sarah.gudasoft.com:/tmp/re_production.sql .
+
+mongo
+use re_production
+db.dropDatabase()
+use re_development
+db.dropDatabase()
+exit
+
+mongorestore dump/
+mongo
+db.copyDatabase("re_production", "re_development");
+exit
+
+mysql -e "drop database re_development;"
+mysql -e "create database re_development;"
+mysql re_development < re_production.sql
+
+=== Some commands ===
+ssh  -N  -l root  -L 0.0.0.0:27017:127.0.0.1:27017  sarah.gudasoft.com
+db.copyDatabase("re_production", "re_development", "home.gudasoft.com");
+show collections
+

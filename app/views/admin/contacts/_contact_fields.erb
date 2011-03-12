@@ -1,0 +1,68 @@
+<!-- Данни за физическо лице и юридическо лице които се зареждат от JS скрипта -->
+<% countries = $cache['Country'].collect{|country| [country.name, country.id]} %>
+
+<div style="display: none">
+  <%= semantic_form_for [:admin, contact], :id => 'dummy' do |f| %>
+    <div id="company_data">
+      <!-- Юридическо лице -->
+      <div  class="current_data">
+        <%= f.inputs t("company", :scope => [:admin, :contacts, :form]) do %>
+          <%= f.input :company_name, :required => true%>
+          <%=
+          f.input :nationality_id,
+            :as => :select,
+            :collection => countries,
+            :include_blank => t(:chose), :required => true
+        %>
+
+          <%= f.inputs t("mol", :scope => [:admin, :contacts, :form]) do%>
+            <%= f.input :mol_first_name %>
+            <%= f.input :mol_last_name %>
+            <%= f.input :mol_phone %>
+          <% end %>
+
+          <% if !f.object.new_record? %>
+            <div id="exisiting_address">
+              <%= t("Адрес", :scope => [:admin, :contacts]) %> :
+              <%=
+              link_to show_address(@contact.address),
+                "#",
+                {:class => "action edit"} unless @contact.new_record?
+            %>
+            </div>
+          <% end %>
+
+        <% end %>
+      </div>
+    </div>
+
+    <div id="person_data">
+      <!-- Физическо лице -->
+      <div class="current_data">
+        <%= f.inputs t("person", :scope => [:admin, :contacts, :form]) do %>
+          <%= f.input :person_first_name, :required => true %>
+          <%= f.input :person_middle_name %>
+          <%= f.input :person_last_name %>
+          <%=
+          f.input :nationality_id,
+            :as => :select,
+            :collection => countries,
+            :include_blank => t(:chose)
+        %>
+          <%= f.input :person_employment %>
+          <%= f.input :person_position %>
+          <% if !f.object.new_record? %>
+            <div id="exisiting_address">
+              <%= t("Адрес", :scope => [:admin, :contacts]) %> :
+              <%=
+              link_to show_address(@contact.address),
+                "#",
+                {:class => "action edit"} unless @contact.new_record?
+            %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

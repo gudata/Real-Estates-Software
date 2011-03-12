@@ -1,0 +1,8 @@
+<% if can?(:peek_offer_from_contact, object) %>
+  <div class="broker_info" class="ui-widget ui-widget-content ui-corner-all">
+    <h2><%= t("Клиент",:scope => [:admin, :sells, :search_results]) %></h2>
+    <b><%= object.contact.display_name(:full) %></b><br/>
+    <%= show_phones object.contact.phones, "" %>
+    <%= show_comunicators object.contact.internet_comunicators, "" %>
+  </div>
+<% end %>

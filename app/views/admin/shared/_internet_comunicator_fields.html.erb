@@ -1,0 +1,39 @@
+<fieldset class="internet_comunicator">
+
+  <legend>
+    <%=  h f.object.try(:internet_comunicator_type).try(:name) %>
+  </legend>
+
+  <div id="dialog_<%= f.object_id.abs %>" title="<%= t("Изтриване", :scope => [:partials, :internet_comunicators])  %> <%= f.object.value %>" style="display: none">
+    <p>
+      <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 30px 0;"></span>
+      <%= t("Изтриване", :scope => [:partials, :internet_comunicators])  %> <%= f.object.value %><br />
+      <%= t("Are you sure?") %>
+    </p>
+  </div>
+
+  <ul class="item_preview" >
+    <li>
+      <%= remove_link(f) %>
+
+      <% if has_expanded_preview  %>
+        <%= link_to image_tag("edit.png", :class => "icon"), "#", :id => "#{f.object_id.abs}", :class => "toggle_item_form" %>
+
+        <!-- Put the preview fields here -->
+        <%= h f.object.value %>
+        <%#= h f.object.try(:internet_comunicator_type).try(:name) %>
+      <% else %>
+        <%= t("Изтриване", :scope => [:partials, :internet_comunicators]) %>
+      <% end %>
+    </li>
+  </ul>
+
+  <ul class="item_form" <%= f.object.new_record? ? "" : 'style="display:none"' %> >
+    <%= f.input :value %>
+
+    <%= f.input :internet_comunicator_type_id,
+      :as => :select, :collection => InternetComunicatorType.all.collect{|internet_comunicator_type| [internet_comunicator_type.name, internet_comunicator_type.id]}
+    %>
+  </ul>
+
+</fieldset>

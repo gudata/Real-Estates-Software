@@ -1,0 +1,22 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+<table>
+  <tr>
+    <th><%= FenceType.model_name.human(:name => "name")%> </th>
+    <th><%= t("status", :scope => [:admin, :fence_types])%> </th>
+  </tr>
+  <% for fence_type in @fence_types %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(fence_type.name), edit_admin_fence_type_path(fence_type) %></td>
+      <td><%= fence_type.active == true ? t("active", :scope => [:admin, :fence_types]) : t("unactive", :scope => [:admin, :fence_types]) %></td>
+      <td><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, fence_type], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t(".add"), new_admin_fence_type_path,
+          :class => "action new" %>
+  
+</p>

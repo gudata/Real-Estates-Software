@@ -1,0 +1,61 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t(".title")%>
+
+<%= form_tag admin_city_quarters_url(@city), :method => 'get' do %>
+  <%= label_tag "name", Quarter.model_name.human(:name => "name")%>
+  <%= text_field_tag "name",  params[:name] %>
+  <%= hidden_field_tag "order", params[:order] if params[:order] %>
+  <%= submit_tag t(:search)%>
+  <%= link_to t(:clear),'#', :onclick => "$('name').value = ''"%>
+<% end %>
+
+<table>
+  <tr>
+    <th><%= Country.model_name.human({:name => "name"})%></th>
+    <th><%= District.model_name.human({:name => "name"}) %> </th>
+    <th><%= Municipality.model_name.human({:name => "name"}) %> </th>
+    <th><%= City.model_name.human({:name => "name"}) %> </th>
+    <th>
+      <%=
+      link_to Quarter.model_name.human({:name => "name"}),
+        admin_city_quarters_path(:city_id => @city.id, :order => @set_order, :name => params[:name], :page => params[:page]),
+        :class => params[:order].to_s.downcase
+    %>
+
+    </th>
+  </tr>
+  <% for quarter in @quarters %>
+    <tr>
+      <td><%=h quarter.city.municipality.district.country.name %></td>
+      <td><%=h quarter.city.municipality.district.name %></td>
+      <td><%=h quarter.city.municipality.name %></td>
+      <td><%=h quarter.city.name %></td>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(quarter.name || t("blank")), edit_admin_city_quarter_path(@city, quarter) %></td>
+      <td><%= link_to h(t :delete), [:admin, @city, quarter], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <%= link_to [
+    [t("add",  :scope => [:admin, :quarters, :index])],
+    [@city.name_with_type]
+  ].join(" "),
+    new_admin_city_quarter_path(:city_id => @city.id),
+    :class => "action new"
+%><br/>
+  <%= link_to [
+    [t("add_multiple",  :scope => [:admin, :quarters, :index])],
+    [@city.name_with_type]
+  ].join(" "),
+    add_multiple_admin_city_quarters_path(:city_id => @city.id),
+    :class => "action new"
+%><br/>
+<%= link_to t("index", :scope => [:admin, :quarters, :index]), admin_cities_path %>
+
+</p>
+
+<%= will_paginate @quarters  %>
+
+
+<%= render :partial => 'admin/nomenclature/admin/countries/help' %>

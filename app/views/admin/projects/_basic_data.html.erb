@@ -1,0 +1,62 @@
+<h1><%= t("Проект", :project => project.name, :scope => [:admin, :project]) %></h1>
+<p>
+  <strong><%= t("status", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.status.name %><br/>
+  <strong><%= t("source", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.source.name %>
+</p>
+
+  <%= render :partial => '/admin/shared/show_owners', :locals => {:object => project} %>
+
+<p>
+  <strong><%= t("furnish", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.furnish.name rescue "---"%><br/>
+  <strong><%= t("source_value", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.source_value %><br/>
+
+  <strong><%= t("contact_person", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.contact_person %><br/>
+  <strong><%= t("contact_person_phone", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+
+  <%=h project.contact_person_phone rescue '---' %><br/>
+  <strong><%= t("website", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%= if project.website =~ /^http:/
+    link_to(project.website, project.website, :target => "_blank")
+  elsif project.website =~ /^www/
+    link_to(project.website, "http://#{project.website}", :target => "_blank")
+  else
+    project.website
+  end
+%><br/>
+  <strong><%= t("start_date", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.start_date rescue '---' %><br/>
+  <strong><%= t("finish_date", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.finish_date %><br/>
+  <strong><%= t("reference_point", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.reference_point %><br/>
+</p>
+<p>
+  <strong><%= t("adres", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%= can?(:peek_offer_from_contact, project) ? show_address(project.address, :full_array).join("<br/>").html_safe : show_address(project.address, :short) %>
+</p>
+<p>
+  <strong><%= t("property_category_location", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.property_category_location.name  %><br/>
+  <strong><%= t("managment_fee", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.managment_fee %><br/>
+  <strong><%= t("discount", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.discount %><br/>
+  <strong><%= t("brokerage", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.brokerage  %><br/>
+  <strong><%= t("description", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+  <%=h project.description %>
+</p>
+
+
+
+<% unless project.additional_description.blank? %>
+  <p>
+    <strong><%= t("additional_description", :scope => [:activerecord, :attributes, :project]) %>:</strong>
+    <%=h project.additional_description %>
+  </p>
+<% end %>

@@ -1,0 +1,40 @@
+FormtasticNestedEdit
+====================
+
+A helper method + example template on how to handle accepts_nested_attributes_for
+
+You have to use jQuery
+
+Install
+=======
+
+After install as a plugin do
+
+./script/generate nested_edit
+
+This will copy the images, and the js file to your project and gives you an example usage.
+
+Example
+=======
+
+
+1. Include the javascript and stylesheet in your layout.html.erb
+
+<%= javascript_include_tag 'nested_edit' %>
+
+
+2. Put this where you want the inplace edit
+
+<% project_form.inputs "Document Edit", :id => "document_forms" do %>
+     <%= nested_edit project_form, :documents, "/admin/shared/document_fields", "Add document", Proc.new{|item| item.document.file? }  %>
+<% end %>
+
+3.   Add in your model
+  has_many :documents # , :as => :attachable
+  accepts_nested_attributes_for :documents, :allow_destroy => true
+
+4. Design your own form. Sample partial view for the associated model:
+
+Use the example template.
+
+Copyright (c) 2010 [name of plugin creator], released under the MIT license

@@ -1,0 +1,29 @@
+<%=
+  link_to t(:edit),
+    edit_admin_contact_sell_path(
+      :contact_id => contact,
+      :id => sell.active_record_id,
+      :key => contact.key
+    ),
+    {
+      :class => "action edit",
+      :id => "#{sell.active_record_id}_edit",
+      :target => "_top"
+    } if can?(:edit, sell)
+%>
+
+<%=
+  link_to t(:show),
+    admin_contact_sell_path(
+      :contact_id => contact,
+      :id => sell.active_record_id,
+      :key => sell.contact.key
+    ),
+    {
+      :target => "_blank",
+      :class => "action show",
+      :id => "#{sell.active_record_id}_show",
+      :target => "_top"
+    } if can? :show, sell
+
+%>

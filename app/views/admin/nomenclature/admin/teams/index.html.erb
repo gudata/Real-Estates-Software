@@ -1,0 +1,22 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t(".title") %>
+
+<table>
+  <tr>
+    <th><%=Team.model_name.human({:name => "name"})%></th>
+    <th><%= Team.human_attribute_name("active") %></th>
+  </tr>
+  <% for team in @teams %>
+    <tr>            
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(team.name), edit_admin_team_path(team) %></td>
+      <td><%= team.active ? t(".Активен"): t(".Деактивиран") %></td>
+      <td><%= link_to t(:delete), [:admin, team], :confirm => t(:confirm_delete), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p><%= link_to t(".add"), new_admin_team_path,
+          :class => "action new" %>
+   
+</p>
+

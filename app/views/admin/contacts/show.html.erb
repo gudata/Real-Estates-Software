@@ -1,0 +1,53 @@
+<% title "Contact" %>
+
+<div id="contact_show" class="ui-widget ui-widget-content ui-corner-all" style="padding: 8px; margin:4px">
+  <div>
+    <%= t("contact_type", :scope => [:admin, :contacts])%> :
+    <b><%=  contact_type(@contact) %></b>
+  </div>
+  <div class="ui-widget-content ui-corner-all" style="padding: 8px; margin:4px">
+    <% if @contact.is_company %>
+      <%= render :partial => 'show_company', :locals => {:contact => @contact} %>
+    <% else %>
+      <%= render :partial => 'show_person', :locals => {:contact => @contact} %>
+    <% end %>
+    <div>
+      <%= t("Адрес", :scope => [:admin, :contacts])%> :
+      <b><%= show_address(@contact.address, :long) %></b>
+    </div>
+  </div>
+
+  <div class="ui-widget ui-widget-content ui-corner-all" style="padding: 8px; margin:4px">
+
+    <% if @contact.phones.count > 0 %>
+      <div>
+        <%= t("phones", :scope => [:admin, :contacts])%> :
+        <hr/>
+        <b><%= show_phones(@contact.phones) %></b>
+        <hr/>
+      </div>
+      <br/>
+    <% end %>
+
+    <% if @contact.internet_comunicators.count > 0 %>
+      <div>
+        <%= t("internet_comunicators", :scope => [:admin, :contacts])%> :
+        <hr/>
+        <b><%= show_comunicators(@contact.internet_comunicators) %></b>
+        <hr/>
+      </div>
+      <br/>
+    <% end %>
+
+    <% unless @contact.description.blank? %>
+      <%= t("description", :scope => [:admin, :contacts])%>
+      <div class="ui-widget ui-widget-content ui-corner-all" style="padding: 8px; margin:4px">
+        <%= @contact.description %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<p>
+  <%= link_to "View All", admin_contacts_path %>
+</p>

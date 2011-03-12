@@ -1,0 +1,22 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t(".title") %>
+
+<table>
+  <tr>
+    <th><%= Country.model_name.human({:name => ".name"})%> </th>
+  </tr>
+  <% for country in @countries %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(country.name), edit_admin_country_path(country) %><%= %></td>
+      <td><%= link_to h(t :delete), [:admin, country], :confirm => t(:confirm_delete), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <%= link_to t(".add"), new_admin_country_path,
+    :class => "action new" %>
+</p>
+
+
+<%= render :partial => 'admin/nomenclature/admin/countries/help' %>

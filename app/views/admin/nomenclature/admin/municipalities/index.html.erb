@@ -1,0 +1,76 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t(".title") %>
+
+<script type="text/javascript">
+  jQuery(function($) {
+
+    $("#country_id").change(function(event) {
+      element = $(event.target);
+      var input_value = element.val();
+      var input_id = element.attr("id");
+      var data = {
+        country_id: input_value
+      };
+      $.ajax({
+        // type:"POST",
+        url: '<%= load_districts_admin_cities_path() %>',
+        data: data,
+        cache: false,
+        async: false,
+        success: function (html) {
+          // $('#property_type_keywords').html(html);
+        }
+      });
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return false;
+    });
+  });
+</script>
+
+<%= form_tag admin_municipalities_url, :method => 'get', :class => "nomenclature_search_form" do %>
+  <%= hidden_field_tag "page", params[:page] if params[:page] %>
+  <%= hidden_field_tag "order", params[:order] if params[:order] %>
+  <div>
+    <%= label_tag "country_id", Country.model_name.human(:name => "name")%>
+    <%= select('',"country_id", Country.all.collect{|country| [country.name, country.id]},
+      {:include_blank => t(:chose), :select => params[:country_id].to_i}, {:id => 'country_id', :style => "width:120px"}) %>
+  </div>
+  <div>
+    <%= label_tag "district_id", District.model_name.human(:name => "name")%>
+    <%= select('',"district_id", District.all.collect{|d| [d.name, d.id]}, {:include_blank => t(:chose), :select => params[:district_id]}, {:id => 'district_id', :style => "width:120px"}) %>
+  </div>
+  <div>
+    <%= label_tag "name", Municipality.model_name.human(:name => "name")%>
+    <%= text_field_tag "name",  params[:name], :style => "width:120px" %>
+  </div>
+  <div>
+    <%= submit_tag t(:search) %>
+    <%= link_to t(:clear), nil, :onclick => "$('name').value = ''; $F('district_id').value = '0', $F('municipality_id').value = '0' "%>
+  </div>
+<% end %>
+
+<table>
+  <tr>
+    <th><%= h(Country.model_name.human({:name => ".name"})) %></th>
+    <th><%= h(District.model_name.human({:name => ".name"}))%></th>
+    <th><%= h(Municipality.model_name.human({:name => ".name"})) %></th>
+  </tr>
+  <% for municipality in @municipalities %>
+    <tr>
+      <td><%=h municipality.district.country.name %></td>
+      <td><%=h municipality.district.name %></td>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(municipality.name), edit_admin_municipality_path(municipality) %></td>
+      <td><%= link_to h(t :delete), [:admin, municipality], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to h(t ".add"), new_admin_municipality_path,
+    :class => "action new" %>
+</p>
+
+<%= will_paginate @municipalities  %>
+
+<%= render :partial => 'admin/nomenclature/admin/countries/help' %>

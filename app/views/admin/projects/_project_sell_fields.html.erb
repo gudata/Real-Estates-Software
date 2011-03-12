@@ -1,0 +1,39 @@
+<fieldset class="project_sell">
+  <legend><%= t("ProjectSell", :scope =>[:partials, :projects]) %></legend>
+
+  <div id="dialog_<%= f.object_id.abs %>" title="<%= t("Изтриване", :scope => [:partials, :pictures])  %> <%= f.object.name %>" style="display: none">
+    <p>
+      <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 30px 0;"></span>
+      <%= t("Изтриване", :scope => [:partials, :projects])  %> <%= f.object.name %><br />
+      <%= t("Are you sure?") %>
+    </p>
+  </div>
+
+  <ul class="item_preview" >
+    <li>  
+
+      <%= remove_link(f) %>
+
+      <% if has_expanded_preview  %>
+        <%= link_to image_tag("edit.png", :class => "icon"), "#", :id => "#{f.object_id.abs}", :class => "toggle_item_form" %>
+
+        <!-- Put the preview fields here -->
+
+      <%= h f.object.offer_type.name %><br/>
+
+    <% else %>
+      <%= t("Изтриване", :scope => [:partials, :pictures]) %>
+    <% end %>
+    </li>
+  </ul>
+
+  <ul class="item_form" <%= f.object.new_record? ? "" : 'style="display:none"' %> >
+    <%=
+      f.input :project_unit,
+        :wrapper_html => {:style => "display: inline;", :class => "fieldset_#{dom_id(f.object)}"},
+        :input_html => {:style => "width: 120px; display: inline;margin-right: 10px;"}
+    %>
+  
+  </ul>
+
+</fieldset>

@@ -1,0 +1,8 @@
+<%= semantic_form_for [:admin, @buy_status] do |f| %>
+  <% f.inputs t("Данни за статуса", :scope => [:admin, :buy_statuses]) do  %>
+    <%= f.input :name  %>
+    <div style="clear:both"></div>
+  <% end %>
+
+  <p><%= f.submit "Submit" %> &nbsp;or&nbsp; <%= link_to 'Cancel', admin_buy_statuses_path %></p>
+<% end %>

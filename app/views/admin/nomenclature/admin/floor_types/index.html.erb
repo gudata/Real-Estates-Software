@@ -1,0 +1,23 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+<table>
+  <tr>
+    <th><%= FloorType.model_name.human(:name => "name")%> </th>
+    <th><%= t("status", :scope => [:admin, :floor_types])%> </th>
+  </tr>
+  <% for floor_type in @floor_types %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(floor_type.name), edit_admin_floor_type_path(floor_type) %></td>
+      <td><%= floor_type.active == true ? t("active", :scope => [:admin, :floor_types]) : t("unactive", :scope => [:admin, :floor_types]) %></td>
+      <td><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, floor_type], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t(".add"), new_admin_floor_type_path,
+          :class => "action new" %>
+  
+
+</p>

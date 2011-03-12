@@ -1,0 +1,41 @@
+<% title(t(:"Статистика по екипи", :scope => [:admin, :statistic])) %>
+<%= form_tag do_offers_by_team_admin_statistics_path, :method => :get do  %>
+  <div class="teams_fields"
+       <ul>
+           <% Team.all.each do |team| %>
+        <li>
+          <%= check_box_tag "team_ids[]", team.id, (params[:team_ids] || [] ).include?(team.id.to_s), :id => dom_id(team) %>
+          <%= label_tag dom_id(team), team.name %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div>
+    <%= text_field_tag :from_date, params[:from_date] %>
+    <%= text_field_tag :to_date, params[:to_date] %>
+    <%= submit_tag t(:submit, :scope => [:admin, :statistic]),
+      #:disable_with => t(:please_wait),
+      :class => :large %>
+  </div>
+  <script type="text/javascript">
+    $(function() {
+      options = {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'yy-mm-dd',
+        yearRange:		"-99:+0",
+        // altField: "##{alternate_field_id}",
+        // altFormat: "yy-m-d",
+        showOptions: {
+          direction: 'down'
+        }
+      }
+
+      $('#from_date').datepicker( options);
+      $('#to_date').datepicker( options);
+    }).datepicker( "option", $.datepicker.regional["bg"] );;
+
+
+  </script>
+<% end %>

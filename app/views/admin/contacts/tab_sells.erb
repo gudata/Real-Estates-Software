@@ -1,0 +1,45 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(function() {
+      $(".apple_pagination a").click(function(event) {
+        $(this).parents('.ui-tabs-panel').load(this.href, function() {
+          // fire tabload event
+          $('#contact_tabs').trigger('tabsload')
+        });
+        return false;
+      });
+    });
+  })
+</script>
+
+<%=
+render :partial => 'button_add_sell',
+  :locals => {
+  :contact => @contact,
+  :curent_tab => params[:curent_tab]
+}
+%>
+
+<div class="clear">
+  <br/>
+</div>
+
+<div id="contact_sells" style="margin-top: 5px;">
+  <% if @sells.size > 0 %>
+    <%=
+    render :partial => 'admin/shared/sell',
+      :collection => @sells,
+      :locals => {
+      :contact => @contact,
+      :actions => "/admin/sells/sell_actions"
+    }
+  %>
+    <%= will_paginate @sells %>
+  <% else %>
+    <p>
+      <%= t("Няма оферти Предлага", :scope => [:admin, :sells]) %>
+    </p>
+  <% end %>
+</div>
+
+

@@ -1,0 +1,23 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+<table>
+  <tr>
+    <th><%= ProjectStage.model_name.human(:name => "name")%> </th>
+    <th><%= t("status", :scope => [:admin, :project_stages])%> </th>
+  </tr>
+  <% for project_stage in @project_stages %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(project_stage.name), edit_admin_project_stage_path(project_stage) %></td>
+      <td><%= project_stage.active == true ? t("active", :scope => [:admin, :project_stages]) : t("unactive", :scope => [:admin, :project_stages]) %></td>
+      <td><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, project_stage], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t(".add"), new_admin_project_stage_path,
+          :class => "action new" %>
+  
+</p>
+<%= will_paginate @project_stages %>

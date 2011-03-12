@@ -1,0 +1,26 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(function() {
+      $(".pagination a").click(function() {
+        $("#ui-tabs-19").load(this.href, function() {
+          // fire tabload event
+          $('#contact_tabs').trigger('tabsload')
+        });
+        return false;
+      });
+    });
+  })
+</script>
+
+<div style="padding: 0 1px 0 0;">
+  <iframe src="<%= admin_contact_project_sells_url(
+      :contact_id => @contact.id, :project_id => @project) %>"
+          id="sells_iframe"
+          frameborder="0"
+          allowtransparency="true"
+          style="border:0;overflow:auto;"
+          scrolling="no"
+          name="sells_frame" width="100%" height="658px"
+          >
+  </iframe>
+</div>

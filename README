@@ -1,0 +1,36 @@
+= Real Estates Software =
+
+Software to manage a real estate office. It supports multiple offices with multiple teams separated in different locations.
+Strong permissions checks on each action in the system.
+Native language Bulgarian, translated in Russian.
+
+== Install ==
+Tested with ruby 1.8.7+. Works with Rails3. You need to have rubygems and bundler.
+Also mysql and mongodb.
+
+You have to setup your database in config/database.yml
+check config/mongoid.yml
+
+bundle
+
+rake db:migrate
+
+run mongodb server
+rake db:seed
+rails s
+
+=== Notes ===
+
+if you want to have universal password do this before launching the server
+export universal_password=something 
+
+== Is this system production ready ==
+Yes it is. And is used in two Bulgarian/Russian real estates companies.
+
+== What is good to be done ==
+It is slow on some places which could be optimized very easy.
+The mysql could be removed entirely from the system.
+Implement nice features and reports.
+
+== License == 
+Licensed under GNU Lesser General Public License http://www.gnu.org/licenses/lgpl.html

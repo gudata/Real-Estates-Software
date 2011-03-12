@@ -1,0 +1,16 @@
+<%
+selected = @contact.contacts_contact_categories.collect do |category|
+  category.contact_category_id if category.user_id == current_user.id
+end.compact
+%>
+
+<%= field_set_tag t("contact_categories", :scope => [:admin, :contacts, :form]), {:class => "inputs"} do %>
+  <ul>
+    <% $cache['ContactCategory'].each do |category|%>
+      <li>
+        <%= check_box_tag "contact_category_ids[]", category.id, selected.include?(category.id)  %>
+        <%= label_tag "contact_category_ids", category.name %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

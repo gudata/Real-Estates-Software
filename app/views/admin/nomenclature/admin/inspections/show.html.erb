@@ -1,0 +1,26 @@
+<% title "Inspection" %>
+
+<p>
+  <strong>Data:</strong>
+  <%=h @inspection.data %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%=h @inspection.user %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%=h @inspection.description %>
+</p>
+<p>
+  <strong>Inspectable Type:</strong>
+  <%=h @inspection.inspectable_type %>
+</p>
+<p>
+  <strong>Inspectable:</strong>
+  <%=h @inspection.inspectaable_id %>
+</p>
+
+<p>
+  <%= link_to "View All", admin_inspections_path %>
+</p>

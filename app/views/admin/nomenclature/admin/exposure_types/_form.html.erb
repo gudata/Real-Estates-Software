@@ -1,0 +1,15 @@
+<%= semantic_form_for [:admin, @exposure_type]  do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs do %>
+    <%= f.input :locale, :value => I18n.locale, :as => :hidden %>
+    <%= f.input :active, :as => :boolean %>
+    <%= f.input :name %>
+  <% end %>
+
+  <p>
+    <%= f.submit t(:create) %> |
+    <%= link_to t("index", :scope => [:admin, :exposure_types, :form]), admin_exposure_types_path %>
+  </p>
+
+<% end %>

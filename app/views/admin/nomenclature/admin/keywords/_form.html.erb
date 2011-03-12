@@ -1,0 +1,23 @@
+<%= semantic_form_for [:admin, @keyword]  do |keyword_form| %>
+
+  <%  keyword_form.inputs do %>
+    <%= keyword_form.input :active %>
+    <br/>
+    <%= keyword_form.input :name %>
+    <%= keyword_form.input :patern, :as => :select, :collection => Keyword::PATERNS
+ %>
+    <%= keyword_form.input :as, :as => :select, :collection => Keyword::DISPLAY_AS %>
+    <%= keyword_form.input :tag %>
+    <%= keyword_form.input :kind_of_search, :as => :select, :collection => Keyword::KIND_OF_SEARCH %>
+    <%= keyword_form.select  'validation_type_ids',
+      ValidationType.all.collect{|validation_type| [validation_type.name, validation_type.id]},
+      {:selected => keyword_form.object.validation_type_ids},
+      { :multiple => true, :size => 5 }
+    %>    
+  <% end %>
+  <p>
+    <%= keyword_form.submit t(:create) %> |
+    <%= link_to t('.index'), admin_keywords_path %>
+  </p>
+
+<% end %>

@@ -1,0 +1,25 @@
+<%= breadcrumbs_for_contact(@contact, :contact_buys_index, @buy, :search_criteria_index, @search_criteria) %>
+
+<div class="search_criteria edit">
+  <% title(t("Критерий", :scope => [:admin, :buys, :search_criteria])) %>
+
+
+  <%= semantic_form_for [:admin, @contact, @buy, @search_criteria], :html => {:multipart => true}  do |search_criteria_form| %>
+    <%= link_to(
+      t("резултата", :scope =>  [:admin, :buys, :search_criteria], :count =>  @matching_sell[@search_criteria].count),
+      criteria_search_result_admin_contact_buy_search_criteria_path(
+        :contact_id => @contact.id,
+        :buy_id => @buy.to_param,
+        :search_criteria => @search_criteria.to_param),
+      :class => "action search"
+    ) %>
+
+    <%= search_criteria_form.error_messages %>
+
+    <%= render :partial => 'form', :locals => { :search_criteria_form => search_criteria_form } %>
+
+
+  <% end %>
+</div>
+
+<%= render :partial => "/admin/shared/timestamps", :locals => {:object => @search_criteria} %>

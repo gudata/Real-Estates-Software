@@ -1,0 +1,127 @@
+<% title t("title", :scope => [:admin, :sells, :show]) %>
+
+<% if @sell.project %>
+  <%= breadcrumbs_for_contact(@contact, :contact_projects_index, @sell.project, @sell) %>
+<% else %>
+  <%= breadcrumbs_for_contact(@contact, :contact_sells_index, @sell) %>
+<% end %>
+
+<div id="offer_sell_preview" class="ui-widget ui-widget-content ui-corner-all">
+
+  <div class="ui-widget ui-widget-content ui-corner-all column">
+    <h2><%= t(:Имот, :scope => [:admin, :sells]) %></h2>
+    <div>
+      <strong>
+        <%= @sell.property_type.name %> <%= @sell.offer_type.name %>
+      </strong>
+    </div>
+    <div>
+      <%= t("Код",:scope => [:admin, :sells, :search_results]) %>:
+      <b><%= @sell.id %> <%= @sell.status.name %></b>
+    </div>
+
+    <%= render :partial => '/admin/shared/show_client', :locals => {:object => @sell} %>
+
+    <div>
+      <h2><%= t("Адрес", :scope => [:admin, :sells]) %></h2>
+      <br/>
+      <strong>
+        <%# can?(:peek_offer_from_contact, @sell) ? show_address(@sell.address, :full_array).join("<br/>").html_safe : show_address(@sell.address, :till_street) %>
+        <%= show_address(@sell.address, :full_array).join("<br/>").html_safe %>
+      </strong>
+    </div>
+    <br/>
+
+    <div id="sell_keyords">
+      <% @sell.keywords_sells.each do |keywords_sell| %>
+        <% unless keywords_sell.value.blank? %>
+          <div id="keyword">
+            <%= show_keyword(@sell, keywords_sell.keyword.tag) %>
+          </div>
+        <% end %>
+      <% end %>
+      <br/>
+      <% unless @sell.description.blank? %>
+        <div id="sell_description" class="ui-widget ui-widget-content ui-corner-all">
+          <b>
+            <%= t("Описание", :scope => [:admin, :sells]) %> :
+          </b>
+          <br/>
+          <%= @sell.description %>
+        </div>
+      <% end %>
+    </div>
+
+    <br/>
+
+
+  </div>
+
+
+  <div class="ui-widget ui-widget-content ui-corner-all column">
+
+    <%= render :partial => '/admin/shared/show_owners', :locals => {:object => @sell} %>
+
+    <div>
+      <%= render :partial => '/admin/shared/documents_list', :locals => {:object => @sell} %>
+    </div>
+
+    <br/>
+
+    <% if @sell.inspections.count > 0   %>
+      <div id="inspections" class="ui-widget ui-widget-content ui-corner-all">
+        <h2><%= t("Огледи", :scope => [:admin, :sells]) %></h2>
+        <ul>
+          <% @sell.inspections.each do |inspection| %>
+            <%= content_tag :li, l(inspection.created_at, :format => :human) %>
+            <%= content_tag :ul do %>
+              <%= content_tag(:li, inspection.description) %>
+              <%= content_tag :li, t("Извършен от", :scope => [:admin, :sells, :inspections])  %>
+              <%= content_tag :ul do %>
+                <%= content_tag(:li, inspection.visit_user.display_name) if inspection.visit_user %>
+                <%= content_tag(:li, inspection.first_visit_with_user.display_name) if inspection.first_visit_with_user%>
+                <%= content_tag(:li, inspection.second_visit_with_user.display_name) if inspection.second_visit_with_user  %>
+                <%= content_tag(:li, inspection.third_visit_with_user.display_name) if inspection.third_visit_with_user %>
+                <%= content_tag(:li, inspection.forth_visit_with_user.display_name) if inspection.forth_visit_with_user %>
+                <%= content_tag(:li, inspection.fifth_visit_with_user.display_name) if inspection.fifth_visit_with_user %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= render :partial => "/admin/shared/timestamps", :locals => {:object => @sell} %>
+
+  </div>
+
+
+
+  <div class="clear"></div>
+  <br/>
+
+  <div class="ui-widget ui-widget-content ui-corner-all ">
+    <% if @sell.project %>
+      <%= render :partial => '/admin/projects/basic_data', :locals => {:project => @sell.project } %>
+    <% end %>
+  </div>
+
+</div>
+
+<% if @sell.pictures.size > 0 %>
+  <div id="sell_galery" <%# style="page-break-before: always" %>>
+    <% @sell.pictures.each do |picture| %>
+      <div class="no_page_break">
+        <%= image_tag picture.url(:normal) %>
+        <br/>
+        <%= picture.description %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    //   window.print();
+  })
+</script>

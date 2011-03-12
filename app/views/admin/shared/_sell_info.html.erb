@@ -1,0 +1,119 @@
+<div class="box">
+  <%= check_box_tag "offers[checked][]", sell.id, false, :id => "#{sell.id}_checked"  %>
+</div>
+<div class="box">
+  <%= t("Код",:scope => [:admin, :sells, :search_results]) %>:
+  <strong>
+    <%= sell.active_record_id %>
+  </strong>
+</div>
+<div class="box">
+  <%= show_term(sell, "price")  %>
+</div>
+<div class="box">
+  <%= show_term(sell, "area")  %>
+</div>
+
+<div class="box">
+<%# t("Тип имот",:scope => [:admin, :sells, :search_results]) %>
+  <strong>
+    <%= sell.property_type.name %>
+  </strong>
+</div>
+
+<div class="box">
+<%# t("Тип",:scope => [:admin, :sells, :search_results]) %>
+  <strong>
+    <%= sell.offer_type.name %>
+  </strong>
+</div>
+
+<div class="box">
+<%# t("Статус",:scope => [:admin, :sells, :search_results]) %>
+  <%= sell.status.name %>
+</div>
+
+<div class="box" style="float: right; padding: 0 5px 0 0;">
+<%# t("Статус",:scope => [:admin, :sells, :search_results]) %>
+  <%= sell.updated_at.strftime("%Y-%m-%d") %>
+</div>
+
+<div class="clear"></div>
+<hr />
+<% if sell.project_id %>
+  <%= link_to sell.project.name, admin_indexes_project_sells_path(sell.project) %><hr/>
+<% end %>
+<div class="property_details">
+  <div class="box">
+<%# Address.model_name.human %>
+    <% if false %>
+      <% if can?(:peek_offer_from_contact, sell) %>
+        <strong class="long">
+          <%= show_address(sell.address, :sell_info) rescue "invalid sell/address" %>
+        </strong>
+      <% else %>
+        <strong class="short">
+          <%= show_address(sell.address, :short) rescue "invalid sell/address" %>
+        </strong>
+      <% end %>
+    <% end %>
+    <%= show_address(sell.address, :sell_info).html_safe %>
+  </div>
+  <div class="box">
+    <%= show_term(sell, "used_for") rescue "---" %>
+  </div>
+  <div class="box">
+    <%= show_term(sell, "category") rescue "---" %>
+  </div>
+
+</div>
+
+<div class="clear"></div>
+
+<div class="sell_description box">
+  <%
+  chunk_size = 92
+  if sell.description and sell.description.length > chunk_size
+  %>
+    <%= image_tag("info.png", :rel=> "tipsy_right",  :title => sell.description) + content_tag(:span, truncate(sell.description, :length => chunk_size, :separator => ' ')) %>
+  <% else %>
+    <%= content_tag :span, sell.description %>
+  <% end %>
+</div>
+
+<div class="sell_contact box">
+  <div>
+    <%=
+    if sell.co_owner.blank?
+      owner = sell.user
+      content_tag :strong, owner.display_name(:short), :title => t("Собствена",:scope => [:admin, :sells, :search_results])
+    else
+      owner = sell.co_owner
+      content_tag :span, owner.display_name(:short) + " (#{sell.user.display_name(:short)})", :title => t("Възложена на",:scope => [:admin, :sells, :search_results])
+    end
+  %>
+  </div>
+  <% if can? :peek_offer_from_contact, sell %>
+    <%= t("Клиент",:scope => [:admin, :sells, :search_results]) %>:
+    <strong>
+      <%= sell.contact.display_name(:short) %>
+    </strong>
+    <%= show_phones(sell.contact.phones, "") %>
+    <%= show_comunicators sell.contact.internet_comunicators, "" %>
+  <% else %>
+    <%= t("Брокер",:scope => [:admin, :sells, :search_results]) %>:
+    <%= User.human_attribute_name(:phone) %>:
+    <strong>
+      <%= owner.phone %>
+    </strong>,
+    <%= User.human_attribute_name(:mobile) %>:
+    <strong>
+      <%= owner.mobile %>,
+    </strong>
+    <%= User.human_attribute_name(:email) %>:
+    <strong>
+      <%= owner.email %>
+    </strong>
+
+  <% end %>
+</div>

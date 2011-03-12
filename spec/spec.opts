@@ -1,0 +1,9 @@
+--colour
+--format progress
+--loadby mtime
+--reverse
+--drb
+--format
+  profile:tmp/profile.txt
+--format
+  html:doc/spec_report.html

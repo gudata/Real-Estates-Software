@@ -1,0 +1,10 @@
+<%% form_for [:admin, @<%= singular_name %>] do |f| %>
+<%- for attribute in attributes -%>
+  <p>
+    <%%= f.label :<%= attribute.name %> %><br />
+    <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
+  </p>
+<%- end -%>
+	<br />
+  <p><%%= f.submit "Submit" %> &nbsp;or&nbsp; <%%= link_to 'Cancel', admin_<%= plural_name %>_path %></p>
+<%% end %>

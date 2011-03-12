@@ -1,0 +1,93 @@
+
+<h2><%= @from.blank? ? "---" : l(@from, :format => :human_date)   %> -
+<%= @to.blank? ? "---" : l(@to, :format => :human_date)   %>
+
+</h2>
+
+<% @teams_data.each_pair do |team, users| %>
+  <%= content_tag :h1, team.name %>
+
+  <table>
+    <%= content_tag :tr do %>
+      <%= content_tag :th, "Консултант" %>
+      <%= content_tag :th, "Проекти", :colspan => @statuses.count %>
+      <%= content_tag :th, "Купува", :colspan => @statuses.count %>
+      <%= content_tag :th, "Продава", :colspan => @statuses.count %>
+      <%= content_tag :th, "Наематели", :colspan => @statuses.count %>
+      <%= content_tag :th, "Наемодатели", :colspan => @statuses.count %>
+      <%= content_tag :th, "Резултати" %>
+      <%= content_tag :th, "План за седмицата" %>
+    <% end %>
+
+    <%= content_tag :tr do %>
+      <%= content_tag :td, "" %>
+      <% @example_user_row = users.values.first %>
+      <% UserStatistic.kinds.each do |kind|  %>
+        <% @example_user_row[kind].each_pair do |status, values| %>
+          <%= content_tag :td, ab(status.name) %>
+        <% end %>
+      <% end %>
+      <%= content_tag :td, "" %>
+    <% end %>
+
+    <%
+    sumator = Sumator.new
+    users.each_pair do |user, data| %>
+      <% row = data %>
+      <%= show_line row, :count_period, sumator, content_tag(:strong, user.display_name(:short)) %>
+      <%= show_line row, :count_without_project_offers_period, sumator, t("Без от проекти", :scope => [:admin, :statistic]) %>
+      <%= show_line row, :count, sumator, t("Натрупване", :scope => [:admin, :statistic]) %>
+      <%= show_line row, :count_without_project_offers, sumator, t("Натрупване без от проекти", :scope => [:admin, :statistic]) %>
+    <% end %>
+
+    <tr><td colspan="55"><h2>Сумарно</h2></td></tr>
+    
+    <%= content_tag :tr do %>
+      <%= content_tag :td, "Сумарно" %>
+      <% UserStatistic.kinds.each do |kind|  %>
+        <% sumator[kind].each_pair do |status, values| %>
+          <%= content_tag :td, values[:count_period] %>
+        <% end %>
+      <% end %>
+      <%= content_tag :td, "" %>
+    <% end %>
+
+    <%= content_tag :tr do %>
+      <%= content_tag :td, t("Без от проекти", :scope => [:admin, :statistic]) %>
+      <% UserStatistic.kinds.each do |kind|  %>
+        <% sumator[kind].each_pair do |status, values| %>
+          <%= content_tag :td, values[:count_without_project_offers_period] %>
+        <% end %>
+      <% end %>
+      <%= content_tag :td, "" %>
+    <% end %>
+
+
+
+    <%= content_tag :tr do %>
+      <%= content_tag :td, t("Натрупване", :scope => [:admin, :statistic]) %>
+      <% UserStatistic.kinds.each do |kind|  %>
+        <% sumator[kind].each_pair do |status, values| %>
+          <%= content_tag :td, values[:count] %>
+        <% end %>
+      <% end %>
+      <%= content_tag :td, "" %>
+    <% end %>
+
+    <%= content_tag :tr do %>
+      <%= content_tag :td, t("Натрупване без от проекти", :scope => [:admin, :statistic]) %>
+      <% UserStatistic.kinds.each do |kind|  %>
+        <% sumator[kind].each_pair do |status, values| %>
+          <%= content_tag :td, values[:count_without_project_offers] %>
+        <% end %>
+      <% end %>
+      <%= content_tag :td, "" %>
+    <% end %>
+
+  </table>
+
+
+
+
+
+<% end %>

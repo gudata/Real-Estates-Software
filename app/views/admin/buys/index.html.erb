@@ -1,0 +1,18 @@
+<%= breadcrumbs_for_contact(@contact, :contact_buys_index) %>
+
+<% title(t("Оферти търси",
+    :client => @contact.name, :scope => [:admin, :buys]))
+%>
+
+<div style="clear:both;margin: 0 0 2px 0;">
+  <%= render :partial => '/admin/contacts/button_add_buy', :locals => {:contact => @contact} %>
+</div>
+
+<% if @buys.size > 0 %>
+  <%= render :partial => '/admin/shared/buy', :collection => @buys, :locals => {:contact => @contact, :actions => "/admin/buys/buy_actions"} %>
+<% else %>
+  <p><%= t("Няма оферти Търси", :scope => [:admin, :buys]) %></p>
+<% end %>
+
+<%= will_paginate @buys %>
+

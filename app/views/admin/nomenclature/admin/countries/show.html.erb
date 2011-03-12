@@ -1,0 +1,12 @@
+<% title h(t ".title") %>
+
+<p>
+  <strong><%= h Country.model_name.human({:name => ".name"}) %></strong>
+  <%=h @country.name %>
+</p>
+
+<p>
+  <%= link_to h(t :edit), edit_admin_country_path(@country) %> |
+  <%= link_to h(t :delete), [:admin, @country], :confirm => t(:confirm_delete), :method => :delete %> |
+  <%= link_to h(t :index), admin_countries_path %>
+</p>

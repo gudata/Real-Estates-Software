@@ -1,0 +1,20 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title "Furnishes" %>
+
+<table>
+  <tr>
+    <th><%= t("Name", :scope => [:admin]) %></th>
+  </tr>
+  <% for furnish in @furnishes %>
+    <tr>
+      <td><%=link_to image_tag("edit.png", :class => :icon) + h(furnish.name), edit_admin_furnish_path(furnish)  %></td>
+      <td width="31"><%= link_to t("Show",:scope => [:admin]), [:admin, furnish] %></td>
+      <td width="37"><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, furnish], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p><%= link_to t("Add Furnish", :scope => [:admin]), new_admin_furnish_path,
+          :class => "action new" %>
+  
+</p>

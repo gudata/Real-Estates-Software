@@ -1,0 +1,54 @@
+<% title t("check_contact", :scope => [:admin, :contacts])%>
+<div id="check_contact">
+
+  <div class="header">
+
+    <%= t("check_contact_why", :scope => [:admin, :contacts]) %>
+    <div class="search_form">
+      <%= form_for @search, :as => :search, :url => check_admin_contacts_url, :html => {:class => :search_form, :method => :get}  do |f| %>
+        <%= field_set_tag nil, {:id => "check_contact", :class => "ui-widget ui-content ui-corner-all"} do %>
+          <%= hidden_field_tag "action" %>
+          <%= f.label :phones_number_clean_contains, t("phone", :scope =>[:admin, :contacts]), :style => "display: inline-block;width: 90px" %>
+          <%= f.text_field :phones_number_clean_contains, :style => "display: inline-block; width: 200px;paddin-right: 20px;"%>
+          <br />
+          <%= f.label :internet_comunicators_value_eq, t("Email", :scope =>[:admin, :contacts]), :style => "display: inline-block; width: 90px;"  %>
+          <%= f.text_field :internet_comunicators_value_eq, :style => "display: inline-block; width: 200px;paddin-right: 20px;" %>
+          <br />
+
+          <div style="float:right;padding: 12px">
+            <%= submit_tag t(:search)%>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if params[:search] and @contacts and @contacts.size == 0 and @valid_search %>
+      <div class="add_contact_box">
+        <%= link_to image_tag("add_contact.png") + '<br/>'.html_safe+ t("add", :scope => [:admin, :contacts]),
+          new_admin_contact_path(
+          :phone => params[:search][:phones_number_clean_contains],
+          :internet_comunicator => params[:search][:internet_comunicators_value_eq]
+        )
+      %>
+      </div>
+    <% end %>
+
+  </div>
+
+
+  <% if params[:search] and @valid_search %>
+    <div id ="search_results">
+      <%= render :partial => "search_results", :locals => {:contacts => @contacts, :show_offers => true } %>
+    </div>
+    <br />
+    <% if false %>
+      <div>
+        <%= link_to t("add", :scope => [:admin, :contacts]),
+          new_admin_contact_path(:phone => params[:search][:phones_number_like]),
+          :class => "action new"
+      %>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>

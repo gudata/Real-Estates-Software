@@ -1,0 +1,21 @@
+<%= semantic_form_for [:admin, @country], :html => {:multipart => true}  do |f| %>
+  <%# semantic_form_for [:admin, @country]  do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :locale, :value => I18n.locale, :as => :hidden %>
+
+    <%= image_tag(@country.icon.url(:thumb)) if @country.icon and !@country.icon.blank? %>
+    <%= f.input :icon, :as => :file,
+      :wrapper_html => {:style => "display: block;", :class => "fieldset_#{dom_id(f.object)}"},
+      :input_html => {:style => "display: inline;margin-right: 10px;"} %>
+
+  <% end %>
+
+  <p>
+    <%= f.submit t(:create) %> |
+    <%= link_to t(".index"), admin_countries_path %>
+  </p>
+
+<% end %>

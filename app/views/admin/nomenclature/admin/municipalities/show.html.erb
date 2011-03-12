@@ -1,0 +1,20 @@
+<% title t(".title") %>
+
+<p>
+  <strong><%= h Country.model_name.human({:name => ".name"}) %></strong>
+  <%=h @municipality.district.country.name %>
+</p>
+
+<p>
+  <strong><%= h District.model_name.human({:name => ".name"}) %></strong>
+  <%=h @municipality.district.name %>
+</p>
+
+<p>
+  <strong><%= h Municipality.model_name.human({:name => ".name"}) %></strong>
+  <%=h @municipality.name %>
+</p>
+
+<p>
+  <%= link_to h(t :index), admin_municipalities_path %>
+</p>

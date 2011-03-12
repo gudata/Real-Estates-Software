@@ -1,0 +1,15 @@
+<% title h(t ".title") %>
+
+<p>
+  <strong><%= h Sphere.human_attribite_name("name") %></strong>
+  <%=h @sphere.name %>
+  <strong><%= h Sphere.human_attribute_name("active") %></strong>
+  <%=h @sphere.active %>
+</p>
+
+
+<p>
+  <%= link_to h(t :edit), edit_admin_sphere_path(@sphere) %> |
+  <%= link_to h(t :delete), [:admin, @sphere], :confirm => t(:confirm_delete), :method => :delete %> |
+  <%= link_to h(t ".index"), admin_spheres_path %>
+</p>

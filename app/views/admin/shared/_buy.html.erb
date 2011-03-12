@@ -1,0 +1,56 @@
+<div id ="buys" class="offer_content ui-widget ui-widget-content ui-corner-all"
+     style="background-image: url(/images/offer_background.gif);">
+  <div class="picture">
+    <%=
+    criterias = humanize_buy_or_criteria(buy)
+    if criterias.empty?
+      criterias.push(t("Няма въведени критерии", :scope => [:admin, :buys, :search_criteria, :search_result]))
+    else
+      criterias.push(t("критерии", :scope => [:admin, :buys, :search_criteria, :search_result]))
+    end
+    criterias.join("<br/>").html_safe %>
+
+    <div class="attachments">
+      <% if buy.attachments.count > 0 %>
+        <%=
+        link_to(buy.attachments.count, admin_contact_buy_attachments_path(buy.contact_id, buy),
+          :class => 'nyroModal action documents_inline', :target => '_blank')
+      %>
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $.nyroModalSettings({
+              type: 'iframe',
+              height: 355,
+              width: 625,
+              resizable: true,
+              autoSizable: true,
+              titleFromIframe: true,
+              // modal: true,
+              // selIndicator: '#loading',
+              contentLoading: "" // use our own
+            });
+
+            $('a.nyroModal').nyroModal();
+          }); // document ready
+        </script>
+      <% end %>
+    </div>
+
+  </div>
+  <div class="info">
+    <%= render :partial => "/admin/shared/buy_info", :locals => {:buy => buy} %>
+    <div class="clear"></div>
+    <hr />
+    <%=
+    buy.search_criterias.collect do |search_criteria|
+      short_search_criteria_list(search_criteria).join("; ")
+    end.join("<hr />").html_safe
+  %>
+    <div class="offer_actions">
+      <%= render :partial => actions, :locals => {:contact => contact, :buy => buy} %>
+    </div>
+
+    <%= actions if Rails.env == "development" %>
+  </div>
+</div>
+

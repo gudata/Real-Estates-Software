@@ -1,0 +1,15 @@
+<%= semantic_form_for [:admin, @district]  do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs do %>
+    <%= f.input :locale, :value => I18n.locale, :as => :hidden %>
+    <%= f.input :country_id, :as => :select, :collection => Country.all.collect{|c| [c.name, c.id]}, :include_blank => t(:chose)%>
+    <%= f.input :name,  :input_html => { :style => "width: 160px;" } %>
+  <% end %>
+
+  <p>
+    <%= f.submit t(:create) %> |
+    <%= link_to t(".index"), admin_districts_path %>
+  </p>
+  
+<% end %>

@@ -1,0 +1,12 @@
+<% @matching_sell.search_criteria_hash.each do |search_criteria, sell_documents| %>
+  <div id="criteria_search_results">
+    <%= render :partial => "/admin/search_criterias/search_result",
+      :locals => {:matching_sell => @matching_sell, :search_criteria => search_criteria} %>
+  </div>
+<% end %>
+<hr />
+
+<%= link_to t("Нов критерий", :scope =>[:admin, :buys, :search_criteria]),
+  new_admin_contact_buy_search_criteria_path(:contact_id => @contact.id, :buy_id => @buy),
+  :class => "action new"
+%>

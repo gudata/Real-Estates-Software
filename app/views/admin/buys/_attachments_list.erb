@@ -1,0 +1,12 @@
+<ul class="list" id="attachments">
+  <% @buy.attachments.each do |attachment| %>
+    <%= content_tag :li, link_to_if(!attachment.attachment.url.blank?, image_tag("download.png"), attachment.attachment.url, :target => "_blank") +
+      " " + 
+      (attachment.name.blank? ?  t("Без име", :scope => [:admin, :attachments], :i => i) : attachment.name) +
+      " " + 
+      l(attachment.created_at, :format => :human)  +
+      " " +
+      (attachment.user_id.blank? ? "--" : attachment.user.login).html_safe
+  %>
+  <% end %>
+</ul>

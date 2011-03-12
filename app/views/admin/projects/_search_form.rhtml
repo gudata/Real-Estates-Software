@@ -1,0 +1,35 @@
+
+<%= form_for search, :html => {:class => "search_form"}  do |f| %>
+  <%= hidden_field_tag "action" %>
+  <fieldset>
+    <div style="float:left; width: 90%">
+      <div style="float:left;">
+        <%= f.label :id_like, order(search, :by => :id, :as => t("number", :scope => [:admin, :project])) %>
+        <%= f.text_field :id_like %>
+      </div>
+      <div style="float:left;">
+        <%= f.label :status_id_equals, order(search, :by => :status_id, :as => t("status", :scope => [:admin, :project])) %>
+        <%= f.select :status_id_equals, $cache['Status'].collect{|c| [c.name, c.id]}, {:include_blank => true} %>
+      </div>
+      <div style="float:left;">
+        <%= f.label :team_id_equals, order(search, :by => :team_id, :as => t("team", :scope => [:admin, :project])) %>
+        <%= f.select :team_id_equals, Team.all.collect{|c| [c.name, c.id]}, {:include_blank => true} %>
+      </div>
+      <div style="float:left;">
+        <%= f.label :full_name, order(search, :by => :full_name, :as => t("full_name", :scope => [:admin, :project])) %>
+        <%= f.text_field :full_name %>
+      </div>
+    </div>
+
+    <div style="float:left;">
+      <%= submit_tag t(:search) %>
+      <%= link_to t(:clear), nil, :class => "clear_form" %>
+    </div>
+
+    <%#= render :partial => "admin/addresses/search_form", :locals => {
+      :f => f,
+      :default_address => get_address_from_search(search)
+    } %>
+
+  </fieldset>
+<% end %>

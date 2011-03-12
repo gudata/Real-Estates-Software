@@ -1,0 +1,20 @@
+<%= semantic_form_for [:admin, @offer_type]  do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs do %>
+    <%= f.input :locale, :value => I18n.locale, :as => :hidden %><br/>
+    <%= f.input :active, :as => :boolean %>
+    <%= f.input :name %>
+    <%= f.input :category, :as => :select, :collection => [["Оферти купува", 1], ["Оферти продава", 2]] %>
+    <%= f.input :oposite_offer_type_id, :as => :select, :collection => OfferType.all %>
+  <% end %>
+
+  <% f.inputs t("Internal fields") do %>
+    <%= f.input :tag %>
+  <% end %>
+  <p>
+    <%= f.submit t(:create) %> |
+    <%= link_to t("index", :scope => [:admin, :offer_types, :form]), admin_offer_types_path %>
+  </p>
+
+<% end %>

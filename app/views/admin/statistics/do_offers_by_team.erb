@@ -1,0 +1,18 @@
+<% @teams.each do |team| %>
+  <%= content_tag :h1, team.name %>
+  <% team.users.each do |user| %>
+    <%= content_tag :h2, user.display_name(:short) + " - " + user.login  %>
+    <table>
+      <%= content_tag :tr do %>
+        <%= content_tag :th,   "Оферти Търси" %>
+        <%= content_tag :th,   "Оферти Предлага" %>
+        <%= content_tag :th,   "Проекти" %>
+      <% end %>
+      <%= content_tag :tr do %>
+        <%= content_tag :td,   add_time_frame(Buy.where({:user_id => user.id}), @from, @to).count %>
+        <%= content_tag :td,   add_time_frame(SellDocument.where({:user_id => user.id}), @from, @to).count %>
+        <%= content_tag :td,   add_time_frame_ar(Project.where({:user_id => user.id}), @from, @to).count() %>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>

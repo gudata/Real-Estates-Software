@@ -1,0 +1,18 @@
+<div class="goto_search_criterias">
+  <%=
+  link_to( t("Налични критерии", :scope => [:admin, :buys], :count => @buy.search_criterias.size),
+    admin_contact_buy_search_criterias_path(@contact, @buy),
+    :class =>"action search_criteria"
+  ) if can?(:edit, @buy)
+%><%=
+  li = @buy.search_criterias.collect do |search_criteria|
+    content_tag(:li, link_to(
+        short_search_criteria_list(search_criteria).join("; ").html_safe,
+        edit_admin_contact_buy_search_criteria_path(@contact, @buy, search_criteria)
+      ),
+      {}, false
+    )
+  end
+  content_tag :ul, li, {:id => :criteria}, false
+%>
+</div>

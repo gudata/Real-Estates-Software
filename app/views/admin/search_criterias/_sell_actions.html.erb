@@ -1,0 +1,72 @@
+<%=
+link_to t(:edit),
+  edit_admin_contact_sell_path(
+  :contact_id => sell.contact.id,
+  :id => sell.active_record_id,
+  :key => sell.contact.key
+),
+  {
+  :class => "action edit",
+  :id => "#{sell.active_record_id}_edit"
+} if can?(:edit, sell)
+%>
+<%=
+link_to t(:show),
+  admin_contact_sell_path(
+  :contact_id => sell.contact_id,
+  :id => sell.active_record_id,
+  :key => sell.contact.key
+),
+  {
+  :target => "_blank",
+  :class => "action show",
+  :id => "#{sell.active_record_id}_show"
+} if can? :show, sell
+
+%>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    
+    $('#buy_status_<%= dom_id(sell) %>').change(function (element) {
+      // console.log("Clicked value:" + jQuery.dump(element));
+      // console.log("Clicked value:" + element.val());
+      var data = {
+        "sell_id": "<%= sell.id %>",
+        "buy_status_id": $('option:selected', this).val()
+      };
+      // console.log("Clicked value:" + '#buy_status_<%= dom_id(sell) %>' + jQuery.dump(data));
+
+      $.ajax({
+        // type:"POST",
+        url: "<%= change_buy_status_admin_contact_buy_url(
+  :contact_id => sell.contact.id,
+  :id => @buy.id)
+%>",
+        data: data,
+        async: false,
+        cache: false,
+        success: function (html) {
+          var conteiner =  $('#buy_status_message_<%= dom_id(sell) %>')
+          conteiner.html(html);
+          conteiner.fadeOut(3000, function() {
+            conteiner.html("")
+            conteiner.toggle();
+          });
+        }
+      });
+      return false;
+    });
+  });
+</script>
+<select id="buy_status_<%= dom_id(sell) %>">
+  <option value="no_value">-----</option>
+  <%=  options_for_select(BuyStatus.all.collect{|s|[s.name, s.id.to_s]},
+    @buy.marked_sell_documents[sell.id.to_s])
+%>
+</select>
+<%= "sell_id: #{sell.id}" if ::Rails.env == "development" %>
+
+<span id="buy_status_message_<%= dom_id(sell) %>">
+</span>

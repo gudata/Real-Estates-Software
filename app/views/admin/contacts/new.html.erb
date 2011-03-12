@@ -1,0 +1,104 @@
+<% title t("title", :scope => [:admin, :contacts, :new]) %>
+
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+    function set_company_fields()
+    {
+      if ($("#is_company option:selected").val() == "true") {
+        $("#is_company").attr("value","true");
+        $("#active_data .current_data").replaceWith($("#company_data").html());
+      } else {
+        $("#is_company").attr("value","false");
+        $("#active_data .current_data").replaceWith($("#person_data").html());
+      }
+    }
+
+    // Person / Company contact
+    $("#is_company").change(set_company_fields);
+
+    set_company_fields();
+  });
+</script>
+
+<div id="contact" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+  <%= semantic_form_for [:admin, @contact]  do |f| %>
+    <%= f.error_messages %>
+    <%= f.input :added_by, :as => :hidden, :value => current_user.id  %>
+
+    <% f.inputs t("contact_type", :scope => [:admin, :contacts]) do %>
+      <%= f.label :is_company, t("chose_contact_type", :scope => [:admin, :contacts]) %>
+      <%=
+      f.select :is_company,
+        t("contact_types", :scope => [:admin, :contacts]).collect{|key, value| [value, key.to_s.strip]},
+        {:include_blank => false, :selected => f.object.is_company.to_s},
+        {:id => "is_company"}
+    %>
+    <% end %>
+
+    <div style="padding:0;margin:0">
+      <div id="active_data">
+        <!-- Физическо/Юридическо типа зависи от set_company_fields - JS-->
+        <div class="current_data">
+        </div>
+        <div id="phone">
+          <%= f.inputs t(:"phones", :scope => [:admin, :contacts, :form]),
+            #:style =>  "width: 435px",
+          :id => "phones_form" do %>
+            <%=
+            nested_edit f,
+              :phones, "/admin/shared/phone_fields",
+              t(:"add_phone", :scope => [:admin, :contacts, :form]),
+              Proc.new{|item| !item.try(:number).try(:"empty?")  }
+          %>
+          <% end %>
+        </div>
+        <div id="internet_comunicator">
+          <%= f.inputs t(:"internet_comunicators", :scope => [:admin, :contacts, :form]),
+            :id => "internet_comunicators_form" do %>
+            <%=
+            nested_edit f,
+              :internet_comunicators, "/admin/shared/internet_comunicator_fields",
+              t(:"add_internet_comunicator", :scope => [:admin, :contacts, :form]),
+              Proc.new{|item| !item.value.blank?  }
+          %>
+          <% end %>
+        </div>
+      </div>
+
+      <div id="contact_categorize">
+        <div id="address_form" title="Адрес">
+          <%= f.semantic_fields_for :address, :id => "address_form" do |address|%>
+            <%= render :partial => "admin/addresses/address_form", :locals => {:f => address} %>
+          <% end %>
+        </div>
+
+        <!-- категории за контакта-->
+        <div id="contact_categories">
+          <%= f.semantic_fields_for :contact_categories, :id => "categories" do |contact_category_fields| %>
+            <%= render :partial => "form_contact_categories", :locals => {:f => contact_category_fields} %>
+          <% end %>
+        </div>
+
+        <!-- сфери на влияние за контакта-->
+        <div id="spheres">
+          <%= f.semantic_fields_for :spheres do |spheres_fields| %>
+            <%= render :partial => "form_spheres", :locals => {:f => spheres_fields} %>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+    <div class="clear"></div>
+    <%= f.inputs do %>
+      <%= f.submit t(:create) %>
+    <% end %>
+  <% end %>
+</div>
+
+<!-- Данни за физическо лице и юридическо лице които се зареждат от JS скрипта -->
+<div style="display: none">
+  <%= semantic_form_for [:admin, @contact], :id => 'dummy' do |f| %>
+    <%= render :partial => "contact_fields", :locals => {:contact => @contact} %>
+  <% end %>
+</div>

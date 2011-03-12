@@ -1,0 +1,51 @@
+<% title(t("Документи",
+    :client => @contact.name, :scope => [:admin, :attachments]))
+%>
+
+<!-- class="ui-helper-reset ui-helper-clearfix ui-corner-all ui-widget-content" -->
+<div>
+  <%= link_to_if can?(:edit, @attachment), t("Нов документ", :scope => [:admin, :attachments]),
+    new_admin_contact_buy_attachment_path(@contact, @buy),
+    :class => "action new", :id => :attachment_link %>
+
+  <% if @attachments.size > 0 %>
+    <table>
+      <% @attachments.each_with_index do |attachment, i| %>
+        <%= content_tag :tr do %>
+          <%=
+          edit_link = edit_admin_contact_buy_attachment_path(:contact_id => @contact.id,
+            :buy_id => @buy.id.to_param,
+            :id => attachment.id.to_param)
+
+          content_tag :td, link_to(
+            can?(:edit, attachment) ? image_tag("edit.png", :class => :icon) : "",
+            edit_link
+          )  +
+            link_to_if((!attachment.attachment.url.blank? and can?(:edit, attachment)),
+            (attachment.name.blank? ?  t("Без име", :scope => [:admin, :attachments], :i => i) : attachment.name),
+            edit_link
+          ) +
+
+            content_tag(:td, link_to_if(!attachment.attachment.url.blank?,
+              attachment.attachment.url.blank? ? "" : image_tag("download.png"),
+              attachment.attachment.url,
+              :target => "_blank")) +
+            content_tag(:td, attachment.created_at)  +
+            content_tag(:td, attachment.user_id.blank? ? "--" : attachment.user.login)
+        %>
+
+          <%= content_tag(:td, link_to(image_tag("delete.png"),
+            admin_contact_buy_attachment_path(
+              :contact_id => @contact.id, :buy_id => @buy, :id => attachment
+            ),
+            :confirm => t(:confirm_delete),
+            :method => :delete
+          )) if can?(:edit, attachment) %>
+        <% end %>
+        <%= content_tag :tr, content_tag(:td, image_tag("info.png") + " " +attachment.description, :colspan => 5)  %>
+      <% end %>
+    </table>
+  <% else %>
+    <p><%= t("В момента няма документи", :scope => [:admin, :attachments]) %></p>
+  <% end %>
+</div>

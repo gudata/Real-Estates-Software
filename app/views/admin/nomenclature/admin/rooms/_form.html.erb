@@ -1,0 +1,12 @@
+<%= form_for [:admin, @room] do |f| %>
+  <p>
+    <%= f.label :room_type_id %><br />
+    <%= f.text_field :room_type_id %>
+  </p>
+  <p>
+    <%= f.label :area %><br />
+    <%= f.text_field :area %>
+  </p>
+	<br />
+  <p><%= f.submit "Submit" %> &nbsp;or&nbsp; <%= link_to 'Cancel', admin_rooms_path %></p>
+<% end %>

@@ -1,0 +1,46 @@
+= Real estates software =
+
+Software to manage a real estate office.
+
+== Documentation ==
+
+Check google docs for the manual and specification
+
+== Task to be done ==
+http://prism.mozillalabs.com/why/
+
+Bugs
+
+5. И още нещо когато двама брокера имат общ контакт,
+трябва да може да се вижда офертата на др, за да не стават прикачвания на една и съща оферта
+6. цена и площ да не може текст - когато се въвежда и когато се търси по цена или по квадрати да се ограничи
+ само числа да се въвеждат без букви hintowe za poletata i formata na dannite im
+
+
+и проектите текста им при записването се реже това също сме о говорили
+
+
+
+
+Подобрения:
+Да сложа във визитката новите counteri и да ги отделя в дясно със секси иконки
+Guda: когато се маркира оферта предлага като огледана и я има още веднеж да се маркират всичките копия на тази оферта
+FF:искам да си търся червени имоти http://www.godome.se/
+
+Contact manager http://web.appstorm.net/roundups/50-great-web-alternatives-to-desktop-software/
+
+в оферти купува да съпортвам calendar
+greshkata pri prikacheneto na mnogo snimki
+~ ограничаване на монго полетата по тип даря 99999999999999
+филмче
+ controla za cwetowe http://electrobeat.org/files/picker/example.html
+
+ГОЛЯМ ВЪПРОС !!!!
+value -  в термите не трябва ли да е float? ползваме го за цена и за area примерно.
+
+
+
+
+
+
+

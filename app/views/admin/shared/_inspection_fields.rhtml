@@ -1,0 +1,92 @@
+<fieldset class="inspection">
+  <legend><%= t("Inspection", :scope =>[:partials, :inspections]) %></legend>
+
+  <div id="dialog_<%= f.object_id.abs %>" title="<%= 
+  t("Изтриване", :scope => [:partials, :inspections])  %>
+       <%= f.object.description %>" style="display: none">
+    <p>
+      <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 30px 0;"></span>
+      <%= t("Изтриване", :scope => [:partials, :inspections])  %> <%= f.object.description %><br />
+      <%= t("Are you sure?") %>
+    </p>
+  </div>
+
+  <ul class="item_preview" >
+    <li>
+
+      <%= remove_link(f) %>
+
+
+      <% if has_expanded_preview  %>
+        <%=
+        link_to image_tag("edit.png", :class => "icon"),
+          "#",
+          :id => "#{f.object_id.abs}",
+          :class => "toggle_item_form" if can? :quick_manage, f.object
+      %>
+        <!-- Put the preview fields here -->
+        <%= t("Направен от", :scope => [:partials, :inspections]) %>
+        <% if f.object.visit_user  %>
+          <%= f.object.visit_user.display_name %>
+        <% else %>
+          <%= t("Не е отбелязан", :scope => [:partials, :inspections]) %>
+        <% end %>
+
+        <p><%= f.object.description %></p>
+      <% else %>
+        <%= t("Изтриване", :scope => [:partials, :inspections]) %>
+      <% end %>
+    </li>
+  </ul>
+
+  <ul class="item_form" style="<%=  f.object.new_record? ? 'display:block' : 'display:none' %>">
+    <%= content_tag :li,  t("Параметри на огледа", :scope => [:partials, :inspections]), :class => :title %>
+    <%= f.input :visit_user_id,
+      :required => true, :as => :select,
+      :collection => User.order("first_name asc").all.collect{|chield| ["#{chield.display_name(:short)}", chield.id]},
+      :include_blank => false,
+      :label => t("Направен от", :scope => [:partials, :inspections])
+  %>
+
+    <%=
+    f.input(:first_visit_with_user_id, :required => false, :as => :select,
+      :collection => User.order("first_name asc").all.collect{|chield| ["#{chield.display_name(:short)}", chield.id]},
+      :include_blank => true, :label => t("Със придружител", :scope => [:partials, :inspections], :count => 1)) +
+      f.input(:second_visit_with_user_id, :required => false, :as => :select,
+      :collection => User.order("first_name asc").all.collect{|chield| ["#{chield.display_name(:short)}", chield.id]},
+      :include_blank => true, :label => t("Със придружител", :scope => [:partials, :inspections], :count => 2)) +
+      f.input(:third_visit_with_user_id, :required => false, :as => :select,
+      :collection => User.order("first_name asc").all.collect{|chield| ["#{chield.display_name(:short)}", chield.id]},
+      :include_blank => true, :label => t("Със придружител", :scope => [:partials, :inspections], :count => 3)) +
+      f.input(:forth_visit_with_user_id, :required => false, :as => :select,
+      :collection => User.order("first_name asc").all.collect{|chield| ["#{chield.display_name(:short)}", chield.id]},
+      :include_blank => true, :label => t("Със придружител", :scope => [:partials, :inspections], :count => 4)) +
+      f.input(:fifth_visit_with_user_id, :required => false, :as => :select,
+      :collection => User.order("first_name asc").all.collect{|chield| ["#{chield.display_name(:short)}", chield.id]},
+      :include_blank => true, :label => t("Със придружител", :scope => [:partials, :inspections], :count => 5))
+  %>
+
+
+    <%= f.input :description,
+      :label => t("description", :scope => [:activemodel, :attributes, :inspection]),
+      :wrapper_html => {:style => "display: block;", :class => "fieldset_#{dom_id(f.object)}"},
+      :input_html => {:style => "width: 700px; display: block;margin-right: 10px;"} %>
+
+    <li class="numeric optional" style="display: block">
+      <% if f.object.user_id.blank? %>
+  <%# t("Не е отбелязан", :scope => [:partials, :inspections]) %>
+        <%=
+        f.object.user_id = current_user.id
+        f.hidden_field :user_id
+      %>
+      <% else %>
+        <%= t("Въведен от", :scope => [:partials, :inspections]) %>
+        <%= f.object.user.display_name(:short) %>
+        <%= f.input :user_id, :as => :hidden %>
+      <% end %>
+    </li>
+  </ul>
+
+  <%= render :partial => "/admin/shared/timestamps", :locals => {:object => f.object} %>
+
+</fieldset>

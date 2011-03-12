@@ -1,0 +1,3 @@
+page.replace_html  'property_type_keywords', 
+  :partial => "keywords",
+  :object => @keywords

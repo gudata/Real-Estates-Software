@@ -1,0 +1,1094 @@
+body {
+  background-color: #4B7399;
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 12px;
+}
+.center, .centered {
+  margin: 0 auto;
+}
+#login_box {
+  width: 50%;
+}
+pre { font-size: 12px }
+.simple #buy_address #loading_simple {
+  display:block;
+  left:214px;
+  top:140px;
+  position:fixed;
+  width:50px;
+  z-index:11111111;
+}
+
+#loading {
+  display:block;
+  margin:0 auto;
+  padding:221px 0 0 469px;
+  position:fixed;
+  z-index:11111111;
+}
+
+body.simple {
+  background-color: white;
+}
+
+a img {
+  border: none;
+}
+
+a {
+  color: #324D66;
+}
+
+h2 {
+  font-size: 14px !important;
+  font-weight:bold !important;
+  padding: 4px !important;
+  margin: 4px !important;
+  display:block !important;
+  color: #14395B;
+}
+
+h2.ui-widget-header img {
+  vertical-align:middle;
+  width: 25px;
+  height: 25px;
+}
+
+.hidden {
+  display: none;
+}
+
+form input[type="submit"].large { width: 187px; height: 26px;}
+
+input.blur, textarea.blur {
+  color: #999;
+}
+input.calendar {
+  background: white url(/images/calendar2.png) right no-repeat;
+  padding-right: 17px;
+}
+fieldset input.calendar:focus, fieldset input.calendar:hover {
+  background: #F1F1F1 url(/images/calendar2.png) right no-repeat;
+  padding-right: 17px;
+}
+
+
+.clear {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+#container {
+  background-color:#FFFFFF;
+  border:1px solid black;
+  display:block;
+  margin:5px auto 0;
+  padding:10px 14px 20px 34px;
+  /*width:996px;*/
+  width: 951px;
+  overflow: auto;
+  /*  background: white url(/images/spirala.png) repeat-y scroll left 5px;*/
+  background: #FFFFEB;
+  min-height: 511px;
+}
+#footer .version {
+  color: silver;
+  display: inline;
+  float: left;
+}
+
+#footer {
+  display:block;
+  margin:10px auto 0;
+  overflow:auto;
+  padding:0 4px 0 0 ;
+  text-align:right;
+  /*width:1070px;*/
+  width:915px;
+}
+#footer a {color: silver;}
+
+#lang_bar {
+  float: right;clear:right;
+}
+#lang_bar img.current {
+  border:1px solid #324D66;
+}
+#lang_bar img {
+  padding:1px;
+}
+
+a.buttons, a.buttons:visited {
+  display: inline-block;
+  padding: 2px 4px 2px 4px;
+  margin: 2px;
+  color:#E17009;
+  text-decoration: none;
+  outline-color:-moz-use-text-color;
+  outline-style:none;
+  outline-width:medium;
+  border-bottom: dashed 1px #E17009;
+}
+
+a.buttons:hover {
+  color: #a9550a;
+  border-bottom: dashed 1px #a9550a;
+}
+
+.action {
+  display: inline-block;
+  padding: 4px 2px 4px 26px;
+  margin:2px auto;
+  color:#E17009;
+  text-decoration: none;
+  font-size: 0.9em;
+  outline-color:-moz-use-text-color;
+  outline-style:none;
+  outline-width:medium;
+  min-width: 60px;
+}
+
+.action:hover {
+  color: #a9550a;
+}
+
+.action.search_criteria {
+  background: url(/images/search_criteria.png);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+.action.search {
+  background: url(/images/search.png);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+.action.delete {
+  background: url(/images/delete.png);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+.action.edit {
+  background: url(/images/edit1.png);
+  background-repeat: no-repeat;
+}
+
+.action.documents {
+  background:url("/images/documents.png") no-repeat scroll 0 0 transparent;
+  height:31px;
+  padding:6px 0 0 34px;
+}
+
+.action.documents_inline {
+  background:url("/images/documents.png") no-repeat scroll 0 0 transparent;
+  height:31px;
+  padding:10px 0 0 16px;
+}
+
+.action.edit_client {
+  background: url(/images/client.png);
+  background-repeat: no-repeat;
+}
+
+.action.edit_project {
+  background: url(/images/edit_project.png);
+  background-repeat: no-repeat;
+}
+
+.action.show_project_sells {
+  background: url(/images/project_sells.png);
+  background-repeat: no-repeat;
+}
+
+.action.list, .action.index {
+  background: url(/images/action_list.png);
+  background-repeat: no-repeat;
+  background-position: 1px 5px;
+}
+
+.action.add, .action.new {
+  background: url(/images/action_add.png);
+  background-repeat: no-repeat;
+  background-position: 1px 5px;
+}
+
+.action.show{
+  background: url(/images/show.png);
+  background-repeat: no-repeat;
+  background-position: 0 1px;
+
+}
+.action.print{
+  background: url(/images/print1.png);
+  background-repeat: no-repeat;
+  background-position: 0 1px;
+
+}
+
+
+div.help, p.help {
+  padding: 1ex;
+  margin: 10px 0;
+  background-color: white;
+  border: solid 1px #6C6;
+  background-image: url(/images/help.jpeg);
+  background-repeat: no-repeat;
+  padding-left: 25px;
+  background-position: 5px 5px;
+  border-right-color: #619bc5;
+  border-left-color: #619bc5;
+  border-bottom-color: #619bc5;
+  border-top-color: #619bc5;
+}
+
+#flash_notice, #flash_error, #flash_warning, #flash_success, #flash_message, #flash_simple_message {
+  padding: 1ex;
+  margin: 10px 0;
+}
+
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+#flash_warning {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+/*#flash_simple_message is for the simple layout*/
+#flash_success, #flash_message, #flash_simple_message {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+#flash_error span.url {
+  background-color: #FCC;
+  color: #FCC;
+}
+
+#flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+
+.fieldWithErrors {
+  display: inline;
+}
+
+#errorExplanation {
+  border: 2px solid #CF0000;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 8px;
+}
+
+#errorExplanation ul {
+  margin: 2px 24px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: disc;
+}
+
+
+
+
+
+/*
+	Cusco Sky table styles
+	written by Braulio Soncco http://www.buayacorp.com
+*/
+
+table, th, td {
+  border: 1px solid #D4E0EE;
+  border-collapse: collapse;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: #555;
+}
+
+caption {
+  font-size: 150%;
+  font-weight: bold;
+  margin: 5px;
+}
+
+td, th {
+  padding: 4px;
+}
+
+thead th {
+  text-align: center;
+  background: #E6EDF5;
+  color: #4F76A3;
+  font-size: 100% !important;
+}
+
+tbody th {
+  font-weight: bold;
+}
+
+tbody tr { background: #FCFDFE; }
+
+tbody tr.odd { background: #F7F9FC; }
+
+table a:link {
+  color: #718ABE;
+  text-decoration: none;
+}
+
+table a:visited {
+  color: #718ABE;
+  text-decoration: none;
+}
+
+table a:hover {
+  color: #718ABE;
+  text-decoration: underline !important;
+}
+
+tfoot th, tfoot td {
+  font-size: 85%;
+}
+
+
+
+
+
+
+
+
+
+.digg_pagination {
+  background: white;
+  /* self-clearing method: */ }
+.digg_pagination a, .digg_pagination span {
+  padding: .2em .5em;
+  display: block;
+  float: left;
+  margin-right: 1px; }
+.digg_pagination span.disabled {
+  color: #999;
+  border: 1px solid #DDD; }
+.digg_pagination span.current {
+  font-weight: bold;
+  background: #2E6AB1;
+  color: white;
+  border: 1px solid #2E6AB1; }
+.digg_pagination a {
+  text-decoration: none;
+  color: #105CB6;
+  border: 1px solid #9AAFE5; }
+.digg_pagination a:hover, .digg_pagination a:focus {
+  color: #003;
+  border-color: #003; }
+.digg_pagination .page_info {
+  background: #2E6AB1;
+  color: white;
+  padding: .4em .6em;
+  width: 22em;
+  margin-bottom: .3em;
+  text-align: center; }
+.digg_pagination .page_info b {
+  color: #003;
+  background: #6aa6ed;
+  padding: .1em .25em; }
+.digg_pagination:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+* html .digg_pagination {
+  height: 1%; }
+*:first-child+html .digg_pagination {
+  overflow: hidden; }
+
+.apple_pagination {
+  background: #F1F1F1;
+  border: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 1em; 
+  overflow: auto;
+}
+.apple_pagination a, .apple_pagination span {
+  padding: .2em .3em; }
+.apple_pagination span.disabled {
+  color: #AAA; }
+.apple_pagination span.current {
+  font-weight: bold;
+  background: transparent url(apple-circle.gif) no-repeat 50% 50%; }
+.apple_pagination a {
+  text-decoration: none;
+  color: black; }
+.apple_pagination a:hover, .apple_pagination a:focus {
+  text-decoration: underline; }
+
+.flickr_pagination {
+  text-align: center;
+  padding: .3em; }
+.flickr_pagination a, .flickr_pagination span {
+  padding: .2em .5em; }
+.flickr_pagination span.disabled {
+  color: #AAA; }
+.flickr_pagination span.current {
+  font-weight: bold;
+  color: #FF0084; }
+.flickr_pagination a {
+  border: 1px solid #DDDDDD;
+  color: #0063DC;
+  text-decoration: none; }
+.flickr_pagination a:hover, .flickr_pagination a:focus {
+  border-color: #003366;
+  background: #0063DC;
+  color: white; }
+.flickr_pagination .page_info {
+  color: #aaa;
+  padding-top: .8em; }
+.flickr_pagination .prev_page, .flickr_pagination .next_page {
+  border-width: 2px; }
+.flickr_pagination .prev_page {
+  margin-right: 1em; }
+.flickr_pagination .next_page {
+  margin-left: 1em; }
+
+
+
+.search_form {
+
+}
+
+table a.asc, table a.asc:visited, table a.asc:hover  {
+  background-color: red !important;
+}
+
+table a.desc, table a.desc:visited, table a.desc:hover {
+  background-color: blue !important;
+}
+
+/* Формата на контактите - начало*/
+
+form#new_contact #address .left {float:none;}
+#contact #active_data{
+  float:left;
+  width: 466px;
+  min-height: 280px;
+  display: block;
+  padding: 0;
+  margin: 0 0px 0 0;
+}
+
+form#new_contact div#internet_comunicator{ float: left;}
+
+#contact #phones_form {
+  display:inline-block;
+  width: 360px;
+  float:left;
+  margin-right: 20px;
+}
+
+#contact #phones_form label {
+  display: inline-block;
+  width: 120px;
+}
+
+
+#contact #internet_comunicators_form {
+  /*  display:inline-block; check the new form also!
+    width: 380px;
+    float:left;*/
+}
+
+#contact #internet_comunicators_form labels {
+  display: inline-block;
+  width: 90px;
+}
+
+#contact .fields {
+  clear:both;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+
+#contact #aditional_data {
+  display: inline-block;
+  float: left;
+  width: 480px;
+  margin-right: 20px;
+}
+
+#contact #contact_categorize {
+  display: inline-block;
+  margin:0;
+  padding: 0;
+  float: left;
+  width: 476px;
+}
+
+#contact_categories{
+  float: left;
+  display:inline-block;
+  margin-right: 5px;
+  width: 235px;
+  overflow: auto;
+
+}
+
+#contact #contact_tabs {
+  margin: 1px;
+  width: 100%;
+}
+
+#contact_categories ol {
+  height: 200px;
+  border: 1px dashed gray;
+  margin: 0;
+}
+
+#spheres{
+  float: left;
+  width: 235px;
+  overflow: auto;
+}
+
+#spheres ol {
+  height: 200px;
+  border: 1px dashed gray;
+  margin: 0;
+}
+/* Формата на контактите - край*/
+
+fieldset#address  {
+  float:left;
+  display: block;
+}
+
+#address .left {
+  display: block;
+  float: left;
+  width: 240px;
+}
+#address .right {
+  display: block;
+  float: right;
+  width: 316px;
+}
+
+#address .right div {
+  clear: left;
+}
+#address .right div label {
+  width: 30px;
+}
+
+#address label{
+  float: left;
+  width: 90px;
+  display: block;
+  padding-right: 5px
+}
+
+#address select{
+  width: 120px;
+  margin-right: 10px;
+}
+#address .right div input {
+  width: 50px;
+}
+#address select#floor_type_id {
+  width: 132px;
+}
+#address select.street {
+  width: 75px;
+}
+
+#address_street {
+  clear:both;
+  display:inline-block;
+  margin-top: 4px;
+}
+
+#address_street label {
+  display: block;
+  float: left;
+  width: auto;
+}
+
+#address_street input {
+  display: block;
+  float: left;
+  margin-right: 8px;
+}
+
+#check_contact {
+  display: inline-block;
+  padding: 8px 7px ;
+}
+
+
+#user #user_birth {
+  width: 100px;
+}
+
+
+#dashboard .box {
+  float: left;
+  width: 130px;
+  padding:15px 20px 0 0;
+  text-align: center;
+}
+
+#dashboard .box  img {
+  height: 64px;
+}
+#dashboard .box  a img {
+  display: block;
+  margin: 0 auto;
+}
+#dashboard .box  a  {
+  text-decoration: none;
+
+}
+
+#dashboard .box ul {padding: 0px; margin: 0px;}
+
+table td ul {
+  display: block;
+  margin: 1px;
+  padding: 2px;
+}
+
+table td ul li {
+  list-style-type: none;
+  list-style-position: inside;
+}
+
+.ui-tabs .ui-tabs-panel {
+  display: block;
+  clear: both;
+  padding: 5px 3px;
+  margin: 0;
+  overflow: auto;
+  height: auto !important; /*all browsers except ie6 will respect the !important flag*/
+  min-height: 450px;
+  height: 450px; /*Should have the same value as the min height above*/
+}
+
+img.icon {
+  width: 16px;
+  height: 16px;
+}
+img.icon_big {
+  width: 23px;
+  height: 23px;
+}
+
+.user_navigation .add_contact_button img {
+  width: 32px;
+}
+
+.user_navigation {
+  display: block;
+  width: 100%;
+  padding: 2px;
+  margin: 2px;
+  overflow: auto;
+}
+
+.clear_form {
+  display: block;
+  height: 20px;
+  width: 60px;
+  margin: 2px;
+  padding: 2px 2px 2px 20px;
+  background: url(/images/clear.png);
+  background-repeat: no-repeat;
+  text-decoration: none;
+}
+
+#project img.gallery { padding: 16px 0 0 10px; }
+
+.contacts {
+  display: inline-block;
+  float: left;
+  width: 285px;
+  min-height: 167px;
+  padding: 4px;
+  margin: 1px 9px 10px 8px;
+}
+
+.contacts_expanded {
+  width: 906px;
+}
+.contacts_expanded .contact_info {
+  width: 834px;
+}
+
+.contact_picture {
+  display: block;
+  float: left;
+  border: none;
+  padding: 2px;
+  margin: 2px;
+  width: 43px;
+}
+.contact_info .expand {
+  background: url(/images/expand_panel.png);
+  float: right;
+  width: 16px;
+  height: 16px;
+}
+
+.contact_info .contact_offers {
+  clear: both;
+}
+
+.contact_info a {
+  text-decoration: none;
+}
+
+.contact_info {
+  display: block;
+  float: right;
+  padding: 2px;
+  margin: 2px;
+  width: 78%;
+  min-height: 144px;
+  text-align: left;
+}
+.contact_actions {
+  border-top: solid 1px #CCC;
+  clear: both;
+  display: block;
+  padding: 2px 1px 2px 1px;
+  margin: auto;
+}
+
+#contact_list {
+  display: inline-block;
+  clear: both;
+  margin: 4px;
+  padding: 4px;
+  width: 98.6%;
+  height: 100%;
+}
+
+.all_details {
+  background-image: url(/stylesheets/themes/redmond/images/ui-bg_glass_75_d0e5f5_1x400.png);
+}
+
+.all_details ul {
+  margin: 0;
+  padding: 4px;
+  list-style-type: none
+}
+
+/* js menu */
+.hidden { position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden; }
+.fg-button { margin:0px 20px 0px 0px; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; }
+.fg-button .ui-icon { position: absolute; top: 50%; margin-top: -8px; left: 50%; margin-left: -8px; }
+a.fg-button { float:left;  }
+button.fg-button { width:auto; overflow:visible; } /* removes extra button width in IE */
+.fg-button-icon-left { padding-left: 2.1em; }
+.fg-button-icon-right { padding-right: 2.1em; }
+.fg-button-icon-left .ui-icon { right: auto; left: .2em; margin-left: 0; }
+.fg-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }
+.fg-button-icon-solo { display:block; width:8px; text-indent: -9999px; }	 /* solo icon buttons must have block properties for the text-indent to work */
+.fg-button.ui-state-loading .ui-icon { background: url(/images/spinner_bar.gif) no-repeat 0 0; }
+
+
+#property_type_keywords label {width: 130px;}
+#property_type_keywords label.keyword {width: 150px;}
+#property_type_keywords fieldset fieldset {width: 200px;float:left;}
+
+#property_type_keywords_list {
+}
+
+.property_type_keyword {
+  display: block;
+  width: 90%;
+  height: 30px;
+  margin: 4px;
+  padding: 2px;
+  background-color: #e7e7e7;
+}
+
+.property_type_keyword:hover {
+  background-color: #f3f3f3;
+}
+
+.property_type_keyword img{
+  float:left;
+  padding: 2px 20px 2px 2px;
+}
+
+.property_type_keyword img:hover{
+  cursor: move;
+}
+
+.breadcrumb {margin: 0 5px 5px 10px; padding: 0 3px 3px 3px;}
+.breadcrumb a {text-decoration: none;}
+.breadcrumb a:hover {}
+
+.offer_content {
+  padding: 4px; margin-bottom: 4px; overflow: auto;
+}
+.offer_content .info {border-right: solid 1px gray;overflow: auto;}
+.info span.keyword {font-weight: bold; }
+.offer_content .info .box {float: left; padding: 2px 3px 2px 1px}
+.offer_content .picture {float:right;padding: 4px; display: block;width: 145px; height: 90px; overflow:hidden;}
+.offer_content .picture img {display:block; margin:auto; height: 90px;}
+.offer_content .info .buy_contact {clear: left;}
+.offer_content .info .sell_contact {clear: left;}
+/*.offer_content .info .buy_contact div {float: left;}*/
+
+
+#buy_status_hide_on_this_buy_status_input label {width: 250px;}
+
+#buy_edit ul#criteria {font-family:helvetica,arial,sans-serif;margin:0;padding:0;}
+#buy_edit ul#criteria li {margin:0;padding:0;list-style:none;margin:0 0 0.3em 0;}
+#buy_edit ul#criteria li a {text-decoration:none;display:block;padding:0.3em 0.5em;border:1px solid silver;color:#003;background:#fff;}
+#buy_edit ul#criteria li a:hover {border:1px solid gray;color:#000;background:#efefef}
+
+#buy_form fieldset.inputs ol li, fieldset.buttons ol li {display: block; }
+
+
+form.sell_search fieldset.sorting, form.buy_search fieldset.sorting { margin: 10px 0 0 0;}
+form.sell_search fieldset.sorting select, form.buy_search fieldset.sorting select { width: 100px;}
+form.sell_search fieldset.sorting label, form.buy_search fieldset.sorting label { width: 80px;}
+
+form.sell_search #sell_search_apartment_type_ids_input, form.buy_search #buy_search_apartment_type_ids_input  {
+  width: 714px;
+}
+form.sell_search #sell_search_apartment_type_ids_input legend, form.buy_search #buy_search_apartment_type_ids_input legend {
+  width: 153px;
+}
+
+form.sell_search #sell_search_quarter_ids_input label, form.buy_search #buy_search_quarter_ids_input label  {
+  width: 206px;
+}
+form.sell_search li#sell_search_quarter_ids_input, form.buy_search li#buy_search_quarter_ids_input {
+  margin: 10px 0 0 0;
+}
+
+form.buy_search #buy_search_exact_price_interval {float: none;}
+
+form.sell_search #sell_search_status_ids_input, form.buy_search #buy_search_status_ids_input  {
+  float: left;
+  margin: 0 18px 0 0;
+  width: 171px;
+  height: 340px;
+}
+
+.search_criteria .keyword_separator {
+  clear:right;
+  overflow:auto;
+  width:100%;
+}
+.search_criteria select.standart_choices {
+  width: 50px;
+}
+
+#check_contact .add_contact_box {
+  float:left;
+  width:150px;
+  padding:10px 0 0;
+  text-align: center;
+}
+
+#check_contact .header {
+  overflow: auto;
+  width: 951px;
+}
+
+#check_contact .search_form {
+  float:left;
+  width:450px;
+}
+
+#check_contact .add_contact_box a {
+  text-decoration: none;
+}
+
+
+div.timestamps {margin: 10px 0 0 0; padding: 5px 0 0 0;border-top: solid 1px #A6C9E2;}
+
+
+#add_sell_content ul.sf-menu li ul li {width: 150px;}
+#add_sell_content ul.sf-menu li ul li ul li {width: 250px;}
+#add_sell_content ul.sf-menu li ul li ul {width: 250px;}
+
+#buy_criterias_index table div.delete {float: right;margin:7px 9px 0 0;}
+
+#index_projects .search_form .status_fields {float: left; width: 150px;}
+
+fieldset ul.reset {
+  margin: auto;
+  padding: 0 0 0 10px;
+  clear: none;
+}
+fieldset ul.reset li {
+  margin: auto;
+  padding: auto auto;
+  list-style:circle outside none;
+}
+
+form.layout_search_form input[type="submit"], form.layout_search_form input[type="image"] {
+  width: 32px;
+  height: 32px;
+  margin: 0 0 0 0px;
+}
+form.layout_search_form input {
+  display:inline-block;
+  vertical-align:top;
+  margin: 0 0 0 10px;
+  width: 107px;
+}
+
+form.layout_search_form {
+  display: inline;
+}
+
+
+fieldset.inputs.block ol li, fieldset.buttons.block ol li {
+  display: block;
+}
+
+a[rel="tipsy"] {
+  text-decoration: none;
+}
+
+/* sell offers */
+#offer_sell_preview .column .broker_info, #offer_buy_preview .column .broker_info {
+  margin: 10px 0 0 0;
+  overflow: auto;
+}
+
+.broker_info .photo {
+  margin: 0 10px 0 0;
+  float: left;
+}
+
+#offer_sell_preview .column, #offer_buy_preview .column {
+  float: left;
+  width: 48%;
+  padding: 4px;
+  margin: 4px;
+}
+
+#offer_sell_preview, #offer_buy_preview {
+  margin: 6px;padding: 4px;display: inline-block; width: 98%;
+}
+
+#offer_buy_preview .criteria_list a {
+  text-decoration: none;
+}
+
+.offer_content .sell_description.box img { vertical-align: top; padding: 0 2px 0  0;}
+.offer_content .buy_description.box { clear: left;}
+
+
+
+form.nomenclature_search_form {
+  clear:right;
+  display:block;
+  overflow:auto;
+  padding: 0 0 1ex 0;
+}
+form.nomenclature_search_form div {
+  float: left;
+  width: 220px;
+  padding: 0 0 1ex 0;
+}
+
+#buy_tabs ul#attachments.list a img{
+  vertical-align: top;
+}
+#buy_tabs ul#attachments.list {
+  margin-top:10px;
+}
+#buy_tabs ul#attachments.list li {
+  margin-top:10px;
+}
+
+div#print_footer, div#print_header {
+  display: none;
+}
+
+
+/*div.ui-datepicker-calendar {
+  display: none;
+}*/
+
+.show_address .c_name_print {display: none;}
+.show_address .c_flag {padding: 0 5px 0 0}
+
+
+.no-localstorage #sell_search_city_id {
+  display:none;
+}
+.no-localstorage #sell_search_city_id_hint, .no-localstorage #buy_search_city_id_hint {
+  display: block;
+  border:1px solid red;
+  display:inline-block;
+  float:left;
+  margin:20px 0 0;
+  padding:10px;
+  width:308px;
+
+}
+.localstorage #sell_search_city_id {
+  display: block;
+}
+.localstorage #sell_search_city_id_hint, .localstorage #buy_search_city_id_hint {
+  display:none;
+}
+
+
+.inspection .item_form {
+  border-top: solid 1px gray;
+  display: block;
+  margin: 21px 0 0 0;
+  padding: 21px 0 0 0;
+}
+.inspection .item_form .title {
+  clear:both;
+  display:block;
+  width:100%;
+  font-size: 16px;
+  margin:0 0 10px;
+  font-weight:bold;
+}
+.inspection .item_form #sell_inspections_attributes_0_visit_user_id_input {
+  clear: both;
+}
+.inspection .item_form  label {
+  width: 150px;
+}
+
+/*project_sell*/
+form#new_sell #short_info label {width: 104px;}
+form#new_sell #short_info textarea {height: 50px;}

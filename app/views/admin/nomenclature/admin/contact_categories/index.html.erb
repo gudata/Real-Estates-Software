@@ -1,0 +1,23 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title h t(".title") %>
+
+<table>
+  <tr>
+    <th><%= h ContactCategory.model_name.human({:name => ".name"})%> </th>
+    <th><%= t("status", :scope => [:admin, :contact_categories, :index])%> </th>
+  </tr>
+  <% for contact_category in @contact_categories %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(contact_category.name), edit_admin_contact_category_path(contact_category) %><%= %></td>
+      <td><%= contact_category.active ? t("active", :scope => [:admin, :contact_categories, :index]): t("unactive", :scope => [:admin, :contact_categories, :index]) %></td>
+      <td><%= link_to h(t :delete), [:admin, contact_category], :confirm => t(:confirm_delete), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to t(".add"), new_admin_contact_category_path,
+          :class => "action new" %>
+  
+</p>
+
+

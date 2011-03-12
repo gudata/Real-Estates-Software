@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title><%= h(yield(:title) || "Untitled") %></title>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <%= csrf_meta_tag %>
+
+    <%= stylesheet_link_tag 'themes/redmond/ui.all.css',
+      'picbox/picbox.css' %>
+
+    <%= stylesheet_link_tag 'admin',
+      'calendar',
+      'themes/redmond/formtastic.css',
+      'themes/redmond/ui.autocomplete.css',
+      #'fg.menu.css',
+    "superfish/superfish.css",
+      "superfish/superfish-navbar.css",
+      "tipsy.css",
+      'jquery.autocomplete.css',
+      'calendar',
+      'nyroModal/nyroModal.full.css',
+      :cache => "cached_css" %>
+
+
+    <%= javascript_include_tag :defaults,
+      "superfish/hoverIntent.js",
+      "superfish/superfish.js",
+      :cache => "simple_cached_javascript" %>
+
+    <%= yield(:head) %>
+    <script type='text/javascript'>
+      $(document).ready(function(){
+        $('a[rel=tipsy],span[rel=tipsy]').tipsy({fade: true, gravity: 'n', html: true, delayOut: 1500 });
+<%#*$('').tipsy({fade: true, gravity: 'n', html: true, delayOut: 1500 });%>
+
+    $("#loading_simple").bind("ajaxSend", function(){
+      $(this).show();
+    }).bind("ajaxComplete", function(){
+      $(this).hide();
+    });
+  });
+    </script>
+
+
+  </head>
+  <body class="simple">
+    <div id="<%= yield :page_id %>">
+      <div id="loading_simple" style="display:none"><%= image_tag("ajax-loader.gif") %></div>
+      <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <%- end -%>
+
+      <%- if show_title? -%>
+        <h2 class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"><%=h yield(:title) %></h2>
+      <%- end -%>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>

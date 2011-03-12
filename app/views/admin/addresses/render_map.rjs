@@ -1,0 +1,3 @@
+page.insert_html :map1, @map1
+page.inser_html :map1, content_tag(:div, @map.div)
+

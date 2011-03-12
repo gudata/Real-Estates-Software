@@ -1,0 +1,59 @@
+<%= form.label :login, t(:login, :scope =>[:activerecord, :attributes, :user]) %><br />
+<%= form.text_field :login %><br />
+<br />
+<%= form.label :email, t(:email, :scope =>[:activerecord, :attributes, :user]) %><br />
+<%= form.text_field :email%><br />
+<br />
+
+<div>
+  <%= form.label :webpage, t(:webpage, :scope =>[:activerecord, :attributes, :user]) %><br />
+  <%= form.text_field :webpage %>
+</div>
+
+<div>
+  <%= form.label :first_name, t(:first_name, :scope =>[:activerecord, :attributes, :user]) %><br />
+  <%= form.text_field :first_name %>
+</div>
+
+<div>
+  <%= form.label :last_name, t(:last_name, :scope =>[:activerecord, :attributes, :user]) %><br />
+  <%= form.text_field :last_name %>
+</div>
+
+<div>
+  <%= form.label :second_name, t(:second_name, :scope =>[:activerecord, :attributes, :user]) %><br />
+  <%= form.text_field :second_name %>
+</div>
+
+<div>
+  <%= form.label :company_webpage, t(:company_webpage, :scope =>[:activerecord, :attributes, :user]) %><br />
+  <%= form.text_field :company_webpage%>
+</div>
+
+<%# form.input :parent_id,
+  :collection => User.find(:all, :conditions => {:role_id => Role.get_ident(:team_manager)}),
+  :include_blank => false,
+  :label => t("Ръководител", :scope => [:admin, :users])
+%>
+
+<div>
+  <%= form.label :locale, t(:locale, :scope =>[:activerecord, :attributes, :user]) %><br />
+  <%= form.select :locale, AVAILABLE_LOCALES.collect{|l|l.to_s}, :include_blank => true %>
+</div>
+
+<% if @user.picture.exists? %>
+  <div class="picture_preview"><%= image_tag @user.picture.url(:thumb) %></div>
+<% end %>
+
+
+<div class="optional">
+  <%= form.label :picture, t(:picture, :scope =>[:activerecord, :attributes, :user]) %><br />
+  <%= form.file_field :picture, :class => 'file_field', :size => "17"%>
+</div>
+
+
+<%= form.label :password, t(:".password") %><br />
+<%= form.password_field :password %><br />
+<br />
+<%= form.label t(:".password_confirmation") %><br />
+<%= form.password_field :password_confirmation %><br />

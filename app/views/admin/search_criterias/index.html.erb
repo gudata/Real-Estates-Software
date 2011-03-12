@@ -1,0 +1,88 @@
+<div id="buy_criterias_index">
+  <%= breadcrumbs_for_contact(@contact, :contact_buys_index, @buy, :search_criteria_index) %>
+
+  <% title t("Списък с критерии", :scope => [:admin, :buys, :search_criteria]) %>
+
+  <%= link_to t("Нов критерий", :scope =>[:admin, :buys, :search_criteria]),
+    new_admin_contact_buy_search_criteria_path(:contact_id => @contact.id, :buy_id => @buy),
+    :class => "action new"%>
+
+  <div style="float: right; width: 450px;padding: 0 1px 0 0;">
+    <iframe src="<%= admin_contact_buy_buy_addresses_url  :contact_id => @contact.id, :buy_id => @buy %>"
+            id="address_iframe"
+            frameborder="0"
+            allowtransparency="true"
+            style="border:0;overflow:auto;"
+            scrolling="no"
+            name="address_frame" width="450" height="700px"
+            >
+    </iframe>
+  </div>
+  <% if @search_criterias.size > 0 %>
+    <table style="width: 490px">
+      <% @search_criterias.each_with_index do |search_criteria, i|
+        matching_sell = MatchingSell.new
+        matching_sell << search_criteria
+      %>
+        <%= content_tag :tr do %>
+          <%= content_tag :td, link_to(
+            image_tag("search.png"),
+            criteria_search_result_admin_contact_buy_search_criteria_path(
+              :contact_id => @contact.id,
+              :buy_id => @buy.id.to_param,
+              :id => search_criteria.id.to_param
+            )
+          ) +" " + 
+            t("резултата", :scope =>  [:admin, :buys, :search_criteria], :count => matching_sell[search_criteria].count )
+
+
+        %>
+
+          <%=
+          content_tag :td,
+            content_tag(:div, link_to(
+              image_tag("delete.png"),
+              admin_contact_buy_search_criteria_path(
+                :contact_id => @contact.id, :buy_id => @buy.id.to_param, :id => search_criteria.id.to_param
+              ),
+              :confirm => t(:confirm_delete),
+              :method => :delete
+            ), :class => "delete") +
+            content_tag(:div,
+            link_to(
+              search_criteria.property_type.name,
+              edit_admin_contact_buy_search_criteria_path(
+                :contact_id => @contact.id, :buy_id => @buy.id.to_param, :id => search_criteria.id.to_param
+              ),
+              :class=> "action edit"
+            )
+          )  +
+            content_tag(:hr) +
+            short_search_criteria_list(search_criteria).join("; ").html_safe
+        %>
+
+        <% end %>
+      <% end %>
+
+      <%= content_tag :tr do %>
+        <%= content_tag :td do %>
+
+          <%= link_to(
+            image_tag("search.png"),
+            buy_search_result_admin_contact_buy_path(
+              :contact_id => @contact.id, :id => @buy
+            )
+          )
+        %>
+        <% end %>
+
+        <%= content_tag :td, :colspan => 4 do %>
+          <%= t("Съвпадащи оферти за всички критерии", :scope => [:admin, :buys]) %>
+        <% end %>
+      <% end %>
+    </table>
+  <% else %>
+    <p><%= raw t("Няма критерии", :scope =>[:admin, :buys, :search_criteria]) %></p>
+  <% end %>
+
+</div>

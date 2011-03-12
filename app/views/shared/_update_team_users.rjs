@@ -1,0 +1,2 @@
+#page << "$('owner_id').value='" + @users.first.id.to_s + "';"
+page.replace_html :owner_id, :inline => "<%= options_for_select @users.collect{|u| [u.login, u.id]} %>"

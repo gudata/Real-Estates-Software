@@ -1,0 +1,108 @@
+<% title t("Редакция контакт", :scope => [:admin, :contacts, :edit], :name => @contact.name) %>
+
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+
+    function set_company_fields()
+    {
+      if ($("#is_company option:selected").val() == "true") {
+        $("#is_company").attr("value","true");
+        $("#active_data .current_data").replaceWith($("#company_data").html());
+      } else {
+        $("#is_company").attr("value","false");
+        $("#active_data .current_data").replaceWith($("#person_data").html());
+      }
+    }
+
+    set_company_fields();
+    // Person / Company contact
+    $("#is_company").live('change', function() {set_company_fields();});
+
+    $("#exisiting_address").live('click', function() {
+      {
+        $("#address_form").dialog(
+        {
+          resizable: false,
+          height: 345,
+          width: 670,
+          buttons:
+            {
+            "<%= t(:close) %>": function()
+            {
+              jQuery(this).dialog('destroy');
+            },
+            "<%= t(:update) %>": function()
+            {
+              $.ajax(
+              {
+                type: "PUT",
+                url: "<%= '/admin/addresses/' + @contact.address.id.to_s %>",
+                data: $("#address select").serialize(),
+                // ПРОВЕРКА: async: false,
+                success: function(updated_adddress)
+                {
+                  $(".show_address").html(updated_adddress);
+                }
+              });
+              jQuery(this).dialog('destroy');
+            }
+          }
+        });
+        return false;
+      }
+    });
+
+    // The tabs http://jqueryui.com/demos/tabs/#method-widget
+    var $tabs = $('#contact_tabs').tabs(
+    { cookie: { expires: 7, name: "contact_tabs_<%= dom_id(@contact) %> " },
+      ajaxOptions: { async: false },
+      load: function(event, ui) {
+        if ($("#contact_details").exists()) {
+          set_company_fields();
+        }
+      }
+    });
+
+    // BUTTONS
+    $('.fg-button').hover(
+    function(){ $(this).removeClass('ui-state-default').addClass('ui-state-focus'); },
+    function(){ $(this).removeClass('ui-state-focus').addClass('ui-state-default'); }
+  );
+  });
+</script>
+
+<div id="contact">
+  <%= tabs_for(:id => :contact_tabs) do |tab| %>
+    <%
+    tab.create(tab_contact_admin_contact_url(:id => @contact.id, :key => @contact.key, :current_tab => 0),
+      t('tab:Данни за клиента', :scope => [:admin, :contacts])){}
+  %><%
+    tab.create(tab_sells_admin_contact_url(:id => @contact.id, :key => @contact.key, :current_tab => 0),
+      t("Оферти предлага", :scope => [:admin, :contacts],
+        :count => SellDocument.where(:user_id.in => current_user.self_and_sub_user_ids, :contact_id => @contact.id).count
+        #:count => SellDocument.where(:user_id => current_user.id.to_s, :contact_id => @contact.id.to_s).count
+        # f.object.sells_count
+      )){}
+  %><%
+    tab.create(tab_buys_admin_contact_url(:id => @contact.id, :key => @contact.key, :current_tab => 0),
+      t("Оферти търси", :scope => [:admin, :contacts],
+        :count => Buy.where(:user_id.in => current_user.self_and_sub_user_ids, :contact_id => @contact.id).count
+        #:count => Buy.where(:user_id => current_user.id.to_s, :contact_id => @contact.id.to_s).count
+        #f.object.buys.count
+      )){}
+  %><%
+    tab.create(tab_projects_admin_contact_url(:id => @contact.id, :key => @contact.key, :current_tab => 1),
+      t("Проекти", :scope => [:admin, :contacts],
+        :count => Project.all(:conditions => {:user_id => current_user.self_and_sub_user_ids, :contact_id => @contact.id}).count
+        #:count => Project.all(:conditions => {:user_id => current_user.id.to_s, :contact_id => @contact.id.to_s}).count
+        #f.object.projects_count
+      )){}
+  %>
+  <% end %>
+
+  <div class="clear"></div>
+  <%= render :partial => "/admin/shared/timestamps", :locals => {:object => @contact} %>
+</div>
+
+

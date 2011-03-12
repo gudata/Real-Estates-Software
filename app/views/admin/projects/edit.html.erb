@@ -1,0 +1,6 @@
+<% title t("Edit Project", :scope => [:admin, :project], :name => @project.name) %>
+
+<%= breadcrumbs_for_contact(@contact, :contact_projects_index, @project) %>
+
+<%= render :partial => 'form' %>
+

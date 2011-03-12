@@ -1,0 +1,21 @@
+<%= t("Налични критерии", :scope => [:admin, :buys], :count => search_criteria.terms.count) + " #{search_criteria.property_type.name if search_criteria.property_type_id}" %>
+
+<% ordered_terms = search_criteria.terms.sort %>
+<%= semantic_fields_for search_criteria, :html => {:class => "keywords_form"}  do |f| %>
+  <%= f.inputs t('Ключови полета', :scope => [:admin, :buys, :search_criteria]) do %>
+    <% ordered_terms.each_with_index do |term, index|  %>
+      <%= f.semantic_fields_for :terms, term do |terms_array_form| %>
+        <%= render_term(terms_array_form, term, index) %>
+        <li style="clear:both;"></li>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+
+<pre><%=
+  if params[:debug] || ::Rails.env == "development"
+    "Ред на ключовите думи\n\n" + ordered_terms.collect{|term| "#{term.name}#{term.end_of_line ? '!' : ''} #{term.tag}"}.join(",\n")
+  end
+%></pre>

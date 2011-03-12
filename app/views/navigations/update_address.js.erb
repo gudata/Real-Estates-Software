@@ -1,0 +1,10 @@
+<%
+@update_options.each do |update_option|
+  selector = update_option[0]
+  collection = update_option[1]
+  name_method = update_option[2]
+  options = options_from_collection_for_select(collection, :id, name_method)
+%>
+  
+  $("#<%= selector %>").html("<option>----</option><%= escape_javascript(options) %>");
+<% end %>

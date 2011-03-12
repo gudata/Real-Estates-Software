@@ -1,0 +1,121 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    /*
+    $("#slider").slider({
+      animate: true,
+      max: 9000000000,
+      min: 100,
+      range: true,
+      step: 100
+    });
+
+    <div id="slider"
+         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+         >
+      <a style="left: 0%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a>
+    </div>
+     */
+  });
+</script>
+
+<%= semantic_form_for buy_search, :as => :buy_search, :url => admin_indexes_buys_url,
+  :html => {:method => :get} do |buy_search_form|%>
+  <%= buy_search_form.inputs t(:"Критерии", :scope => [:admin, :buy_search]) do %>
+    <%= buy_search_form.input :status_ids, :as => :check_boxes, :collection =>  $cache[Status], :label => t("Статус", :scope => [:admin, :buy_search]) %>
+    <%= buy_search_form.input :number, :label => t("Номер", :scope => [:admin, :buy_search]) %>
+    <br/>
+    <%= buy_search_form.input :offer_type_id, :as => :hidden %>
+
+
+    <%= buy_search_form.input :price_from, :label => t("Цена от", :scope => [:admin, :buy_search]) %>
+    <%= buy_search_form.input :price_to, :label => t("Цена до", :scope => [:admin, :buy_search]) %>
+    <%= buy_search_form.check_box :exact_price_interval, {:title =>  t("Твърди граници", :scope => [:admin, :buy_search])}, "1", "0" %>
+    <%# buy_search_form.label :exact_price_interval, t("Твърди граници", :scope => [:admin, :buy_search])  %>
+
+    <%= buy_search_form.input :area_from, :label => t("Площ от", :scope => [:admin, :buy_search]) %>
+    <%= buy_search_form.input :area_to, :label => t("Площ до", :scope => [:admin, :buy_search]) %>
+
+    <%= buy_search_form.input :rooms_from, :label => t("Стаи от", :scope => [:admin, :buy_search]) %>
+    <%= buy_search_form.input :rooms_to, :label => t("Стаи до", :scope => [:admin, :buy_search]) %>
+
+    <%=
+    @users = User.all.sort{ |a,b| a.first_name.downcase <=> b.first_name.downcase}
+    buy_search_form.input :user_id, :collection => @users, :label => t("Потребител", :scope => [:admin, :buy_search])
+  %>
+    <%= buy_search_form.input :co_owner_id, :collection => @users, :label => t("Отговарящ", :scope => [:admin, :buy_search]) %>
+
+    <%= buy_search_form.input :team_id, :collection => Team.all, :label => t("Екип", :scope => [:admin, :buy_search]) %>
+    <%= buy_search_form.input :property_type_id, :collection => $cache[PropertyType], :label => t("Вид имот", :scope => [:admin, :buy_search]) %>
+
+    <% buy_search.address_documents.each do |address_document| %>
+      <%= buy_search_form.semantic_fields_for :address_documents, address_document do |single_address_document_form| %>
+        <%= single_address_document_form.input :municipality_id,
+          :collection => $cache[Municipality].sort{ |a,b|
+          return -1 unless a.name or b.name
+          a.name.downcase <=> b.name.downcase
+        },
+          :label => t("Община", :scope => [:admin, :buy_search]),
+          :input_html => {:index => nil} %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :li, "Use the newest firefox/chrome/safari", :id => "buy_search_city_id_hint" %>
+    <%= buy_search_form.input :city_id,
+      :label => t("Град", :scope => [:admin, :buy_search]),
+      :as => :select,
+      :input_html => {:class => "city_select", :search_object_name => "buy_search"},
+      :collection => []
+  %>
+    <% content_for :head do %>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          fill_from_storage("#buy_search_city_id", "cities_storage", "<%= cities_navigations_path %>", '<%= buy_search_form.object.city_id %>');
+        });
+      </script>
+    <% end%>
+
+    <%=
+    if buy_search_form.object.city_id.blank?
+      content_tag :li, "", :id => "buy_search_quarter_ids_input"
+    else
+      render(:partial => "navigations/quarters", :locals => {
+          :search_object_name => @buy_search,
+          :quarters => City.find(buy_search_form.object.city_id).quarters
+        }) unless buy_search_form.object.city_id.blank?
+    end
+  %>
+
+
+    <%= buy_search_form.input :apartment_type_ids, :as => :check_boxes, :collection => $cache[ApartmentType], :label => t("Вид Апартамент", :scope => [:admin, :buy_search]) %>
+
+    <%= buy_search_form.inputs(t("сортиране", :scope => [:admin, :buy_search]), :class => "inputs sorting") do
+      sort_order_options = BuySearch::SORT_KEYS.collect{|k, v| [t(k), v.to_s]}
+
+      BuySearch::sort_fields_html_names.each do |order_field|
+      %>
+
+        <%= buy_search_form.semantic_fields_for :order_fields, buy_search.order_fields do |single_order_field_form| %>
+          <%= single_order_field_form.input(order_field,
+            :collection => sort_order_options,
+            :label => t(order_field, :scope => [:admin, :buy_search])
+            #:selected => buy_search.order_fields.send(order_field)
+          )
+        %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <select name="per_page">
+      <%= options_for_select([
+          ["5", "5"],
+          ["10", "10"],
+          ["20", "20"],
+          ["50", "50"],
+          ["100", "100"],
+        ],
+        params[:per_page]
+      ) %>
+    </select>
+    <%= submit_tag t("Търси", :scope => [:admin, :buy_search])%>
+  <% end %>
+
+<% end %>

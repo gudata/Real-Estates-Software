@@ -1,0 +1,23 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title h t(".title") %>
+
+<table>
+  <tr>    
+    <th><%= h Sphere.model_name.human({:name => ".name"})%> </th>
+    <th><%= t("status", :scope => [:admin, :spheres, :index])%> </th>
+  </tr>
+  <% for sphere in @spheres %>
+    <tr>      
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(sphere.name), edit_admin_sphere_path(sphere) %><%= %></td>
+      <td><%= sphere.active ? t("active", :scope => [:admin, :spheres, :index]): t("unactive", :scope => [:admin, :spheres, :index]) %></td>
+      <td><%= link_to h(t :delete), [:admin, sphere], :confirm => t(:confirm_delete), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to t(".add"), new_admin_sphere_path,
+          :class => "action new" %>
+  
+</p>
+
+

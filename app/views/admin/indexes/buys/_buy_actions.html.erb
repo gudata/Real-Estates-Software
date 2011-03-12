@@ -1,0 +1,46 @@
+<%=
+if can?(:edit, buy)
+  link_to(t(:edit),
+    edit_admin_contact_buy_path(buy.contact, buy),
+    :class => "action edit"
+  ) +
+  link_to(t(:delete),
+    admin_contact_buy_path(
+      :contact_id => buy.contact.id,
+      :id => buy.id
+    ),
+    :confirm => t("Изтриване?", :scope => [:admin, :buys]),
+    :method => :delete,
+    :class => "action delete"
+  ) +
+  link_to(
+    t("Критерии", :scope => [:admin, :buys]) +
+      " (#{buy.search_criterias.size.to_s})",
+    admin_contact_buy_search_criterias_path(buy.contact, buy),
+    :class =>"action search_criteria"
+  ) +
+  link_to(
+    t("Съвпадащи оферти", :scope => [:admin, :buys]),
+    buy_search_result_admin_contact_buy_path(
+      :contact_id => buy.contact.id, :id => buy
+    ),
+    :class =>"action search"
+  )
+end
+%><%=
+link_to t(:show),
+  admin_contact_buy_path(:contact_id => buy.contact_id, :id => buy.id.to_param),
+  {
+  :class => "action show",
+  :id => "#{buy.id}_show"
+} if can? :show, buy
+%><%=
+link_to t("Към клиента", :scope => [:admin, :sells]),
+  edit_admin_contact_path(:id => buy.contact,
+  :key => buy.contact.key
+),
+  {
+  :class => "action edit_client",
+  :id => "#{buy.id.to_param}_show",
+} if can? :edit, buy.contact
+%>

@@ -1,0 +1,34 @@
+<% title "Quarter" %>
+
+<p>
+  <strong><%= Country.model_name.human({:name => "name"}) %></strong>
+  <%= @quarter.city.municipality.district.country.name %>
+</p>
+
+<p>
+  <strong><%= District.model_name.human({:name => "name"}) %></strong>
+  <%= @quarter.city.municipality.district.name %>
+</p>
+
+<p>
+  <strong><%= Municipality.model_name.human({:name => "name"}) %></strong>
+  <%= @quarter.city.municipality.name %>
+</p>
+
+
+<p>
+  <strong><%= City.model_name.human({:name => "name"}) %></strong>
+  <%= @quarter.city.name %>
+</p>
+
+<p>
+  <strong><%= Quarter.model_name.human({:name => "name"}) %></strong>
+  <%= @quarter.name %>
+</p>
+
+
+<p>
+  <%= link_to h(t :edit), edit_admin_city_quarter_path(@city, @quarter) %> |
+  <%= link_to h(t :delete), [:admin, @city, @quarter], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %> |
+  <%= link_to h(t :index), admin_city_quarters_path %>
+</p>

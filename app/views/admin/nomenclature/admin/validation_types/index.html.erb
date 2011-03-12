@@ -1,0 +1,25 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+<p><%= image_tag("help.jpeg") + " " + t("validations_types_help", :scope => [:admin, :dashboard]) %></p>
+
+<table>
+  <tr>
+    <th><%= ValidationType.model_name.human(:name => "name")%> </th>
+    <th><%= t("status", :scope => [:admin, :validation_types])%> </th>
+  </tr>
+  <% for validation_type in @validation_types %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(validation_type.name), edit_admin_validation_type_path(validation_type) %></td>
+      <td><%= validation_type.active == true ? t("active", :scope => [:admin, :validation_types]) : t("unactive", :scope => [:admin, :validation_types]) %></td>
+      <td><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, validation_type], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t(".add"), new_admin_validation_type_path,
+          :class => "action new" %>
+  
+</p>
+<%= will_paginate @validation_types  %>

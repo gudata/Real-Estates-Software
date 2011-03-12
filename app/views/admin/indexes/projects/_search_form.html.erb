@@ -1,0 +1,107 @@
+<div class="search_form">
+  <%= semantic_form_for :search, @search, :url => admin_indexes_projects_url,
+    :html => {:method => :get, :class => "search_form"}  do |f| %>
+    <%= hidden_field_tag "action" %>
+    <fieldset>
+      <div style="float:left; width: 90%">
+
+        <div class="status_fields"
+             <h4><%=  sort_link(@search, :status_id, t("status", :scope => [:admin, :project])) %></h4>
+          <ul>
+            <% f.check_boxes :status_id_in,
+              $cache[Status].collect{|c| [c.name, c.id.to_i]}, :class => 'checkboxy' do |check| %>
+              <li>
+                <%= check.box %>
+                <%= check.label %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div style="float:left;">
+          <%= f.label :id_equals, sort_link(@search, :id,  t("Номер на проект", :scope => [:admin, :project])) %>
+          <%= f.text_field :id_equals %>
+        </div>
+        <div style="float:left;">
+          <%= f.label :name_contains, sort_link(@search, :id,  t("Име", :scope => [:admin, :project])) %>
+          <%= f.text_field :name_contains %>
+        </div>
+        <div style="float:left;">
+          <%= f.label :description_contains, sort_link(@search, :id,  t("Описание", :scope => [:admin, :project])) %>
+          <%= f.text_field :description_contains %>
+        </div>
+  <%#*<div style="float:left;">%>
+  <%#= raise f.object.inspect %>
+  <%#= f.label :status_id_equals, sort_link(@search, :status_id, t("status", :scope => [:admin, :project])) %>
+  <%#= f.select :status_id_equals, $cache[Status].collect{|c| [c.name, c.id.to_i]}, {:include_blank => true} %>
+  <%#*</div>%>
+        <div style="float:left;">
+          <%= f.label :team_id_equals, sort_link(@search, :team_id, t("team", :scope => [:admin, :project])) %>
+          <%= f.select :team_id_equals, Team.all.collect{|c| [c.name, c.id]}, {:include_blank => true} %>
+        </div>
+
+
+
+        <div style="float: left">
+          <%=
+          label_tag :users_id_equals,
+            sort_link(@search, :user_real_name, t("available_users", :scope => [:admin, :contacts, :index_clients])
+          )
+        %>
+          <%=
+          f.select :user_id_equals,
+            #current_user.my_users.collect{|user| [user.display_name(:short), user.id]},
+          User.order('first_name').all.collect{|user| [user.display_name(:short), user.id]},
+            {:include_blank => t(:chose)},
+            {:id => "users"} if current_user.role?(:manager) or
+            current_user.role?(:team_manager)
+        %>
+        </div>
+
+        <div style="float:left;">
+          <%=
+          f.label :property_category_location_id_equals,
+            sort_link(@search,
+            :property_category_location_id,
+            t("Локация", :scope => [:admin, :project])
+          )
+        %>
+
+          <%=
+          f.select :property_category_location_id_equals,
+            $cache[PropertyCategoryLocation].collect{|property_category_location|
+            [property_category_location.name, property_category_location.id]
+          },
+            {:include_blank => true}
+
+        %>
+        </div>
+      </div>
+
+      <div style="float:left;">
+        <select name="per_page">
+          <%= options_for_select([
+              ["5", "5"],
+              ["10", "10"],
+              ["20", "20"],
+              ["50", "50"],
+              ["100", "100"],
+            ],
+            params[:per_page]
+          ) %>
+        </select>
+      </div>
+
+      <div style="float:left;">
+        <%= submit_tag t(:search) %>
+        <%= link_to t(:clear), nil, :class => "clear_form" %>
+      </div>
+
+  <%#= render :partial => "admin/addresses/search_form", :locals => {
+  :f => f,
+  :default_address => get_address_from_search(search)
+  } %>
+
+    </fieldset>
+  <% end %>
+</div>

@@ -1,0 +1,66 @@
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+  <div style="float:left; width: 90%">
+    <div style="float:left;">
+      <%=
+      f.label :named_like,
+        sort_link(@search, :named_like, t("name", :scope => [:admin, :contacts]))
+
+    %>
+      <%= f.text_field :named_like %>
+    </div>
+
+    <div style="float:left;">
+      <%= f.label :phones_number_contains, t("phone", :scope =>[:admin, :contacts])%>
+      <%= f.text_field :phones_number_contains %>
+    </div>
+
+    <div style="float:left;">
+      <%=
+      f.label :internet_comunicators_value_contains,
+        t("internet_comunicator",
+        :scope =>[:admin, :contacts])
+    %>
+      <%=
+      f.text_field :internet_comunicators_value_contains,
+        :style => "display: inline-block; "
+    %>
+    </div>
+
+    <div style="float:left;">
+      <%=
+      f.label :nationality_id_equals,
+        sort_link(@search, :nationality_id_equals, t("nationality", :scope => [:admin, :contacts]))
+    %>
+
+      <%=
+      f.select :nationality_id_equals,
+        $cache['Country'].collect{|c| [c.name, c.id]},
+        {:include_blank => true}
+    %>
+    </div>
+
+    <div style="float:left;">
+      <%=
+      f.label :is_company_equals,
+        sort_link(@search, :is_company_equals, t("contact_type", :scope => [:admin, :contacts])
+      )
+    %>
+      <%=
+      f.object.is_company_equals = f.object.is_company_equals.to_s
+      f.select :is_company_equals,
+        t("contact_types", :scope => [:admin, :contacts]).collect{|key, value| [value, key.to_s.strip]},
+        {:include_blank => true,},
+        {:id => "is_company"}
+    %>
+    </div>
+
+    <%= yield :search_fields_for_clients %>
+
+  </div>
+
+  <div style="float:left;">
+    <%= submit_tag t(:search) %>
+    <%= link_to t(:clear), nil, :class => "clear_form" %>
+  </div>
+</fieldset>
+

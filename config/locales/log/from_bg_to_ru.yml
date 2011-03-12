@@ -1,0 +1,99 @@
+--- 
+? "Internal fields"
+: "Служебни полета"
+active: Активен
+activemodel: 
+  attributes: 
+    attachment: 
+      attachment: Документ
+      description: Описание
+      name: Име
+    canceled_type: 
+      active: Активена
+      name: "Причина за отказ"
+      position: Позиция
+    floor_type: 
+      active: Активен
+      name: "Описание етаж"
+      position: Позиция
+      value: Стойност
+    inspection: 
+      description: Описание
+    street_type: 
+      active: Активена
+      name: "Вид улица"
+      position: Позиция
+  errors: 
+    messages: 
+      taken: "е вече заето"
+  models: 
+    address_document: Адрес
+    attachment: Документ
+    buy: "Оферта купува"
+    canceled_type: "Причина за отказ"
+    floor_type: "Тип етаж"
+    inspection: Оглед
+    search_criteria: Критерий
+    street_type: "Тип улица"
+activerecord: 
+  attributes: 
+    address: 
+      building: Блок
+      description: Описание
+      street_hint: "Име на улица"
+    apartment_type: 
+      active: Активна
+      name: "Вид апартамент"
+      position: Позиция
+    contact: 
+      internet_comunicators: 
+        internet_comunicator_type: "Интернет комуникатор тип"
+        internet_comunicator_value: "Интернет комуникатор стойността"
+        value: "Интернет комуникатор"
+      phones: 
+        number: Номер
+        phone_type_id: "Вид телефон"
+    internet_comunicator_type: 
+      is_email: "Емайл ли е?"
+    user: 
+      assistant: Асистент
+      current_login_at: "Текущо влезнал на"
+      current_login_ip: "Влезнал от адрес"
+      last_login_at: "Последно логнал се на"
+      last_login_ip: "Последно влезнал от адрес"
+      last_request_at: "Последно действие на"
+      locale: Език
+      login_count: "Брой влизания"
+      picture: Снимка
+  models: 
+    apartment_type: "Апартамент типове"
+    internet_comunicator_type: "Тип на интернет комуникатор"
+    project: Проект
+    property_category_location_id: "Категория местоположение на имот"
+date: 
+  formats: 
+    default: "%d.%m.%Y"
+    long: "%d %B %Y"
+    short: "%d %b"
+datetime: 
+  distance_in_words: 
+    about_x_hours: 
+      few: "около %{count} часа"
+      many: "около %{count} часа"
+      one: "около %{count} час"
+      other: "около %{count} часа"
+    about_x_months: 
+      few: "около %{count} месеца"
+      many: "около %{count} месеца"
+      one: "около %{count} месеца"
+      other: "около %{count} месеца"
+    about_x_years: 
+      few: "около %{count} години"
+      many: "около %{count} години"
+layouts: 
+  application: 
+    dashboard: "Начална страница"
+    login: Вход
+    logout: Изход
+    my_account: "Моя акаунт"
+    register: Регистрация

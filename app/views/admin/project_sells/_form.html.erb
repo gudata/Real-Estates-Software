@@ -1,0 +1,50 @@
+<div id="sell">
+  <div class="clear"></div>
+
+  <%= semantic_form_for [:admin, @contact, @project, @sell], :html => {:multipart => true} do |sell_form| %>
+    <%= sell_form.error_messages %>
+    <h2><%= t("Отговорник за проекта", :scope => [:admin, :sells]) %> <%= @sell.project.user.display_name %></h2>
+    <%  sell_form.inputs t('Кратка информация', :scope => [:admin, :project]), :id => "short_info" do %>
+
+      <% if can? :set_owner, @sell %>
+        <%=
+        sell_form.input :user_id,
+          :required => true,
+          :collection => current_user.my_users.collect{|chield| [chield.email, chield.id]},
+          :include_blank => current_user.root?,
+          :label => t("Обслужва се от", :scope => [:admin, :sells])
+      %>
+      <% end %>
+      <%= sell_form.input :property_type, :as => :select,  :include_blank => false %>
+      <%= sell_form.input :offer_type, :as => :select, :collection => OfferType.sell_type, :include_blank => false %>
+
+      <%= sell_form.input :description, :as => :text, :input_html => {:style => 'width: 800px'} %>
+
+    <% end %>
+
+    <!-- Атрибути на типа имот-->
+    <%= sell_form.inputs t('Основни харктеристики', :scope => [:admin, :sells]) do %>
+      <%= sell_form.semantic_fields_for :keywords_sells do |keyword_fields| %>
+        <%= keyword_fields.input :keyword_id, :as => :hidden, :value => keyword_fields.object.keyword.id %>
+        <%= render_keyword(keyword_fields, keyword_fields.object.keyword) %>
+      <% end %>
+    <% end %>
+
+
+    <%= sell_form.inputs t(:"Адрес", :scope => [:admin, :project]), :id => "inspection_forms" do %>
+
+      <%= sell_form.semantic_fields_for :address do |address_fields| %>
+        <%= render :partial => "admin/addresses/address_form", :locals => {:f => address_fields, :readonly_fields => [:country_id, :district_id, :municipality_id, :city_id, :quarter_id]} %>
+        <div class="clear"></div>
+      <% end %>
+
+    <% end %>
+
+    <%= hidden_field_tag :do_action, :id => :do_action %>
+
+    <%= submit_tag :save, :value => t('Запиши', :scope => [:admin, :project]), :onclick => "$('#do_action').val('only_save')" %>
+    <%= submit_tag :save_and_continue, :value => t('Запиши и покажи нов', :scope => [:admin, :project]), :onclick => "$('#do_action').val('save_and_continue')", :class => "large action new" %>
+  <%#= submit_tag :save_and_duplicate, :value => t('Запиши и клонирай', :scope => [:admin, :project]), :onclick => "$('#do_action').val('save_and_duplicate')", :class => "large"%>
+  <% end %>
+
+</div>

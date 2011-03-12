@@ -1,0 +1,34 @@
+defaults: &defaults
+  host: localhost
+#  slaves:
+#    - host: slave1.local
+#      port: 27018
+#    - host: slave2.local
+#      port: 27019
+  port: 27017
+  autocreate_indexes: false
+  allow_dynamic_fields: false
+  include_root_in_json: false
+  parameterize_keys: true
+  persist_in_safe_mode: false
+  raise_not_found_error: true
+  reconnect_time: 3
+  use_utc: false
+  use_activesupport_time_zone: false
+
+development:
+  <<: *defaults
+  database: re_development
+
+test:
+  <<: *defaults
+  database: re_test
+
+production:
+  <<: *defaults
+  host: 127.0.0.1
+  database: re_production
+staging:
+  <<: *defaults
+  host: 127.0.0.1
+  database: re_staging

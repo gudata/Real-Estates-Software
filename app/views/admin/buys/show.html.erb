@@ -1,0 +1,70 @@
+<% title t("title", :scope => [:admin, :buys, :show]) %>
+
+<%= breadcrumbs_for_contact(@contact, :contact_buys_index, @buy) %>
+
+<div id="offer_buy_preview" class="ui-widget ui-widget-content ui-corner-all">
+
+  <div class="ui-widget ui-widget-content ui-corner-all column">
+    <div>
+      <h2><%= t(:Имот, :scope => [:admin, :sells]) %></h2>
+      <%= t("Код",:scope => [:admin, :sells, :search_results]) %>:
+      <b><%= @buy.number %></b> - <%= @buy.offer_type.name %>,  <%= @buy.status.name %>
+    </div>
+
+    <%= render :partial => '/admin/shared/show_client', :locals => {:object => @buy} %>
+
+    <div>
+      <h2><%= t("Адрес", :scope => [:admin, :sells]) %></h2>
+      <% if @buy.address_documents.count > 0 %>
+        <% @buy.address_documents.each do |address_document| %>
+          <div>
+            <%=  can?(:peek_offer_from_contact, @buy) ? show_address(address_document, :long) : show_address(address_document, :short) %>
+          </div>
+        <% end %>
+      <% else %>
+        <%=  t(:'Няма ограничения по адрес', :scope => [:admin, :buys, :show]) %>
+      <% end %>
+    </div>
+
+    <div>
+      <h2><%= t("Критерии", :scope => [:admin, :sells]) %></h2>
+      <ul class="criteria_list">
+        <%=
+        @buy.search_criterias.collect do |search_criteria|
+          criterias_li = content_tag(:li, link_to(short_search_criteria_list(search_criteria).join("; ").html_safe,
+              edit_admin_contact_buy_search_criteria_path(@contact, @buy, search_criteria)
+            ),
+            {}, false
+          )
+          content_tag(:li, search_criteria.property_type.name + content_tag(:ul, criterias_li), {}, false)
+        end.join("").html_safe
+      %>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="ui-widget ui-widget-content ui-corner-all column">
+    <div id="buy_keywords">
+      <% if !@buy.description.strip.blank? %>
+        <div id="buy_description" class="ui-widget ui-widget-content ui-corner-all">
+          <b>
+            <%= t("Описание", :scope => [:admin, :sells]) %> :
+          </b>
+          <br/>
+          <%= @buy.description %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= render :partial => '/admin/shared/show_owners', :locals => {:object => @buy} %>
+
+    <%= render :partial => "/admin/shared/timestamps", :locals => {:object => @buy} %>
+
+
+    <%= render :partial => "attachments_list" %>
+  </div>
+  <div class="clear"></div>
+  <br/>
+
+</div>

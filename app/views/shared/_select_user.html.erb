@@ -1,0 +1,44 @@
+<%
+  selected_team = nil
+  selected_user = nil
+%>
+
+<% if current_user.role?(:manager) || current_user.role?(:help_manager) %>
+  <% selected_team = current_user.team_id if current_user.role?(:manager) %>
+  <% selected_user = current_user.id if current_user.role?(:manager) %>
+  <li>
+    <%= label_tag "owner_id", t("user", :scope => [:shared, :select_user]) %>
+    <%= select(nil,"owner_id",
+        Team.get_team_users(current_user.id).collect{|u| [u.login, u.id]},
+        { :include_blank => t(:chose),
+          :selected => selected_user
+        },
+        {:id => 'owner_id'}
+      )
+    %>
+    
+    <%= label_tag "team_id", t("team", :scope => [:shared, :select_user]) %>
+    <%= select(nil,"team_id", Team.all.collect{|u| [u.name, u.id]},
+        { :include_blank => t(:chose),
+          :selected => selected_team
+        },
+        {:id => 'team_id'}
+      )
+    %>    
+    <%= observe_field :team_id,
+        :url => { :controller => "admin/teams", :action => :update_team_users },
+        :with => :team_id
+    %>
+  </li>
+<% elsif current_user.role?(:team_manager) || current_user.role?(:help_team_manager) %>
+  <% selected_user = current_user.id if current_user.role?(:team_manager) %>
+  <li>
+    <%= label_tag "team_id", t("user", :scope => [:shared, :select_user]) %>
+    <%= select("selected_team_user","id",
+      Team.get_team_users(current_user.id).collect{|u| [u.login, u.id]},
+      {:include_blank => :chose, :selected => selected_user},
+      {:onchange => "$('owner_id').value = $F(selected_team_user_id)"})
+    %>
+  </li>
+<% end %>
+

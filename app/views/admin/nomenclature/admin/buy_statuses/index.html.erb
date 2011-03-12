@@ -1,0 +1,25 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t("Списък", :scope => [:admin, :buy_statuses]) %>
+
+<table>
+  <tr>
+    <th><%= t("Име", :scope => [:admin, :buy_statuses]) %></th>
+  </tr>
+  <%  @buy_statuses.each do |buy_status| %>
+    <tr>
+      <td><%=
+        link_to(
+          image_tag("edit.png", :class => :icon) + buy_status.name,
+          edit_admin_buy_status_path(buy_status)
+        )
+      %></td>
+      <td width="31"><%= link_to t("Show",:scope => [:admin]), [:admin, buy_status] %></td>
+      <td width="37"><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, buy_status], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t("Добави нов статус", :scope => [:admin, :buy_statuses]), new_admin_buy_status_path,
+          :class => "action new" %>
+</p>

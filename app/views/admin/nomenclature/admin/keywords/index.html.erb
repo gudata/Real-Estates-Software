@@ -1,0 +1,30 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+
+<%
+pairs = @keywords/ (@keywords.size < 2 ? 1 : @keywords.size / 2)
+pairs.each do |pair|
+%>
+  <table style="float:left; width: 342px;margin: 0 <%= cycle(5, 0) %>px 0 0;">
+    <tr>
+        <th><%= Keyword.model_name.human(:name => "name")%></th>
+        <th><%= t("status", :scope => [:admin, :keywords]) %></th>
+      </tr>
+    <% pair.each do |keyword| %>
+      <tr>
+        <td><%= link_to image_tag("edit.png", :class => :icon) + keyword.name, edit_admin_keyword_path(keyword), :title => keyword.tag %></td>
+        <td><%= keyword.active == true ? t("active", :scope => [:admin, :keywords]) : t("unactive", :scope => [:admin, :keywords]) %></td>
+        <td><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, keyword], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+<br />
+<p>
+  <%= link_to t(".add"), new_admin_keyword_path,
+    :class => "action new" %>
+
+
+</p>
+<%= will_paginate @keywords  %>

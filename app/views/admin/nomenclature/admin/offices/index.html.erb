@@ -1,0 +1,23 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t(".title")%>
+
+<table>
+  <tr>
+    <th><%= Office.model_name.human({:name => "name"}) %></th>
+  </tr>
+  <% for office in @offices %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(office.name), edit_admin_office_path(office) %></td>
+      <td><%= office.active ? t(:active) : t(:inactive) %></td>
+      <td><%= link_to t(:delete), [:admin, office], :confirm => t(:confirm_delete), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p><%= link_to t(".add"), new_admin_office_path,
+          :class => "action new" %>
+   
+</p>
+
+<%= will_paginate @offices  %>
+

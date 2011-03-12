@@ -1,0 +1,52 @@
+<%  address = address_for(default_address) %>
+
+<%= field_set_tag t("address", :scope => [:admin, :contacts, :form]), :id => "address" do %>
+  <div style="display: inline-block; float: left">
+    <%= f.label "address_country_id_equals", Country.model_name.human(:name => "name")%>
+  <%= f.collection_select("address_country_id_equals", address[:countries][:options], :id, :name, {:include_blank => true, :selected => address[:countries][:selected]}, {:id => "country_id"}) %>
+    <%= observe_field :country_id,
+      :url => { :controller => "addresses", :action => :update_address },
+      :with => :country_id
+  %>
+  </div>
+
+  <div style="display: inline-block; float: right">
+    <%= f.label "address_district_id_equals", District.model_name.human(:name => "name") %>
+    <%= f.collection_select("address_district_id_equals", address[:districts][:options], :id, :name, {:include_blank => true, :selected => address[:districts][:selected]}, {:id => "district_id"}) %>
+    <%= observe_field :district_id,
+      :url => { :controller => "addresses", :action => :update_address },
+      :with => :district_id
+  %>
+    <br/>
+
+    <%= f.label "address_municipality_id_equals", Municipality.model_name.human(:name => "name") %>
+    <%= f.collection_select("address_municipality_id_equals", address[:municipalities][:options], :id, :name, {:include_blank => true, :selected => address[:municipalities][:selected]}, {:id => "municipality_id"}) %>
+    <%= observe_field :municipality_id,
+      :url => { :controller => "addresses", :action => :update_address },
+      :with => :municipality_id
+  %>
+    <br/>
+
+    <%= f.label "address_city_id_equals", City.model_name.human(:name => "name")%>
+    <%= f.collection_select("address_city_id_equals", address[:cities][:options], :id, :name, {:include_blank => true, :selected => address[:cities][:selected]}, {:id => "city_id"}) %>
+    <%= observe_field :city_id,
+      :url => { :controller => "addresses", :action => :update_address },
+      :with => :city_id
+  %>
+    <br/>
+
+    <%= f.label "address_quarter_id_equals", Quarter.model_name.human(:name => "name") %>
+    <%= f.collection_select("address_quarter_id_equals", address[:quarters][:options], :id, :name, {:include_blank => true, :selected => address[:quarters][:selected]}, {:id => "quarter_id"}) %>
+  </div>
+  <br/>
+
+  <div id="address_street">
+    <%= f.label :address_street_equals, Address.human_attribute_name("street") %>
+    <%= f.text_field :address_street_equals, :style => "width: 120px;" %>
+    <%= f.label :address_number_equals, Address.human_attribute_name("number") %>
+    <%= f.text_field :address_number_equals, :style => "width: 30px;" %>
+  </div>
+
+<% end %>
+
+<div class="clear"></div>

@@ -1,0 +1,117 @@
+<%# address = address_for(f.object.new_record? ? current_user.office.address : f.object) %>
+<%
+address = address_for(f.object)
+%>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(function($) {
+    address_elements = ["country_id", "district_id", "municipality_id", "city_id" ];
+
+    for (var i in address_elements) {
+      $("#" + address_elements[i]).change(function(event) {
+        element = $(event.target);
+        var input_value = element.val();
+        var input_id = element.attr("id");
+        var data = {
+          input_id: input_id,
+          input_value: input_value
+        };
+        $.ajax({
+          // type:"POST",
+          url: '<%= update_address_navigations_url() %>',
+          data: data,
+          cache: false,
+          async: false,
+          success: function (html) {
+            // $('#property_type_keywords').html(html);
+          }
+        });
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return false;
+      });
+    }
+    
+  })
+</script>
+
+
+<div class="address" id="<%= dom_id(address) %>">
+
+  <%= field_set_tag t("address", :scope => [:admin, :contacts, :form]), :id => "address" do %>
+    <div class="left">
+      <%= f.label "country_id", Country.model_name.human %>
+      <%= f.collection_select("country_id", address[:countries][:options], :id, :name, {
+          :include_blank => true,
+          :selected => address[:countries][:selected]
+        }, # .merge(readonly_option(readonly_fields, :country_id))
+        {:id => "country_id"})
+    %>
+      <br/>
+      <%= f.label "district_id", District.model_name.human %>
+      <%= f.collection_select("district_id", address[:districts][:options], :id, :name, {:include_blank => true, :selected => address[:districts][:selected]}, {:id => "district_id"}) %>
+      <br/>
+
+      <%= f.label "municipality_id", Municipality.model_name.human %>
+      <%= f.collection_select("municipality_id", address[:municipalities][:options], :id, :name, {:include_blank => true, :selected => address[:municipalities][:selected]}, {:id => "municipality_id"}) %>
+      <br/>
+
+      <%= f.label "city_id", City.model_name.human %>
+      <%= f.collection_select("city_id", address[:cities][:options], :id, :name_with_type, {:include_blank => true, :selected => address[:cities][:selected]}, {:id => "city_id"}) %>
+      <br/>
+      <%= f.label "quarter_id", Quarter.model_name.human %>
+      <%= f.collection_select("quarter_id", address[:quarters][:options], :id, :name,
+        {
+          :include_blank => true,
+          :selected => address[:quarters][:selected]
+        },
+        {
+          :id => "quarter_id"
+        }
+      ) %>
+    </div>
+
+    <div class="right">
+      <div>
+        <%= f.collection_select(:street_type_id, StreetType.all, :id, :name,
+          { :include_blank => true},
+          { :id => "street_type_id"})
+      %>
+        <%= f.text_field :street, :style => "width: 167px;", :class => 'inline', :title =>  Address.human_attribute_name("street_hint"), :id => 'street'%>
+      </div>
+      <div>
+        <%= f.label :building, Address.human_attribute_name("building") %>
+        <%= f.text_field :building, :id => 'building' %>
+
+        <%= f.label :number, Address.human_attribute_name("number"), :style => "width: 15px;" %>
+        <%= f.text_field :number, :id => 'street_number' %>
+
+        <%= f.label :entrance, Address.human_attribute_name("entrance"), :style => "width: 15px;" %>
+        <%= f.text_field :entrance %>
+      </div>
+
+      <div>
+        <%= f.label :floor, Address.human_attribute_name("floor"), :style => "width: 15px;" %>
+  <%# f.text_field :floor %>
+        <%= f.collection_select("floor_type_id", FloorType.all, :id, :name,
+          {:include_blank => true}, {:id => "floor_type_id"}
+        ) %>
+
+        <%= f.label :apartment, Address.human_attribute_name("apartment") %>
+        <%= f.text_field :apartment %>
+      </div>
+
+      <div class="bottom">
+  <%# f.label :description, Address.human_attribute_name("description") %>
+        <%= f.text_area :description, :class => "inline", :style => "width: 300px;height:54px", :title => Address.human_attribute_name("description") %>
+      </div>
+
+    </div>
+
+
+  <% end %>
+</div>
+
+<div>
+<%# show_map(f.object) %>
+</div>

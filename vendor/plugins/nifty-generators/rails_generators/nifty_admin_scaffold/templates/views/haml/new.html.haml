@@ -1,0 +1,7 @@
+- title "Add <%= singular_name.titleize %>"
+
+<%= render_form %>
+
+<%- if action? :index -%>
+%p= link_to "Back to List", admin_<%= plural_name %>_path
+<%- end -%>

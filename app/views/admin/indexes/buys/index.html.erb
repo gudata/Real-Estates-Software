@@ -1,0 +1,23 @@
+<% title t("Оферти търси", :scope => [:admin, :buy_search]), false %>
+<h2 class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+  <%= image_tag("buy_icon.png") + " " + t("Оферти търси", :scope => [:admin, :buy_search])%>
+</h2>
+
+<%= render :partial => "admin/indexes/buys/buy_document_search_form",
+  :locals => {:buy_search => @buy_search} %>
+
+
+<% if @buys.size > 0 %>
+  <%= t("намерени резултата", :scope => [:admin, :buy_search], :count => @buys.total_entries) %>
+  <%= render :partial => '/admin/shared/buy', :collection => @buys,
+    :locals => {
+    :contact => @contact,
+    :actions => "/admin/indexes/buys/buy_actions"
+  } %>
+  <%= will_paginate @buys %>
+<% else %>
+  <% if params[:commit] %>
+    <p><%= t("Няма оферти Търси отговарящи на критериите", :scope => [:admin, :buy_search]) %></p>
+  <% end %>
+<% end %>
+

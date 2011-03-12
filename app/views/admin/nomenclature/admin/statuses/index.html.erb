@@ -1,0 +1,28 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t("Списък с статусите за оферти, проекти и др.", :scope => [:admin, :statuses]) %>
+
+<table>
+  <tr>
+    <th><%= t("Име", :scope => [:admin, :statuses]) %></th>
+    <th><%= t("Скрии обекта с този флаг", :scope => [:admin, :statuses]) %></th>
+    <th><%= t("Флаг по подразбиране", :scope => [:admin, :statuses]) %></th>
+    <th><%= t("Покажи клиент при този статус", :scope => [:admin, :statuses]) %></th>
+  </tr>
+  <% for status in @statuses %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(status.name), edit_admin_status_path(status) %></td>
+      <td><%= status.hide_on_this_status %></td>
+      <td><%= status.default %></td>
+      <td><%= status.client_visible %></td>
+      <td width="31"><%= link_to t("Show",:scope => [:admin]), [:admin, status] %></td>
+      <td width="37"><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, status], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t("Добави нов статус", :scope => [:admin, :statuses]), new_admin_status_path,
+          :class => "action new" %>
+  | <%= link_to t("nomenclature_index"), nomenclatures_admin_navigations_path %>
+
+</p>

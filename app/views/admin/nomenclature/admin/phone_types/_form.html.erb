@@ -1,0 +1,7 @@
+<%= semantic_form_for [:admin, @phone_type] do |f| %>
+
+    <%= f.inputs :name %>
+	<br />
+  <%= f.submit t(:create) %> |
+  <%= link_to t(:'index', :scope => [:admin, :phone_types]), admin_phone_types_path %>
+<% end %>

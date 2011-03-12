@@ -1,0 +1,32 @@
+<% title t("Проекти на", :scope => [:admin, :project], :contact => @contact.name) %>
+
+<%= breadcrumbs_for_contact(@contact, :contact_projects_index) %>
+
+
+<%= link_to t("Add Project", :scope => [:admin, :project]),
+  new_admin_contact_project_path(:contact => @contact),
+  :class => "fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" %>
+<div style="clear: both;">
+</div>
+
+<h2><%= t("Всичко проекти", :scope => [:admin, :project], :number => @projects.total_entries) %></h2>
+
+<%#= render :partial => 'search_form', :locals => {:search => @search} %>
+
+<div id="project_search_results">
+  <% if @projects.size == 0 %>
+    <h2>
+      <%= t("Няма налични проекти",  :scope => [:admin, :contacts]) %>
+    </h2>
+  <% else %>
+    <%= 
+      render :partial => "/admin/shared/project",
+        :collection => @projects,
+        :locals => {
+          :contact => @contact, 
+          :actions => "/admin/projects/project_actions"
+        }
+    %>
+    <%= will_paginate @projects %>
+  <% end %>
+</div>

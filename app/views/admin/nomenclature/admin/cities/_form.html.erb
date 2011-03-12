@@ -1,0 +1,110 @@
+<script type="text/javascript">
+  jQuery(function($) {
+
+    $("#country_id").change(function(event) {
+      element = $(event.target);
+      var input_value = element.val();
+      var input_id = element.attr("id");
+      var data = {
+        country_id: input_value,
+        replace_selector: "district_id"
+      };
+      $.ajax({
+        // type:"POST",
+        url: '<%= load_districts_admin_cities_path() %>',
+        data: data,
+        cache: false,
+        async: false,
+        success: function (html) {
+          // $('#property_type_keywords').html(html);
+        }
+      });
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return false;
+    });
+
+    $("#district_id").change(function(event) {
+      element = $(event.target);
+      var input_value = element.val();
+      var input_id = element.attr("id");
+      var data = {
+        district_id: input_value,
+        replace_selector: "municipality_id"
+      };
+      $.ajax({
+        // type:"POST",
+        url: '<%= load_municipalities_admin_cities_url() %>',
+        data: data,
+        cache: false,
+        async: false,
+        success: function (html) {
+          // $('#property_type_keywords').html(html);
+        }
+      });
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return false;
+    });
+  })
+</script>
+
+<%  
+if @city.new_record?
+  countries = Country.all
+  selected_country = countries.detect{|country| country.id == current_user.office.address.country_id}.id
+
+  districts = countries.detect(districts = Country.new){|country| country.id == selected_country}.districts
+  selected_district =  districts.first.id
+
+  municipalities = districts.detect(district = District.new){|district| district.id == selected_district}.municipalities
+  selected_municipality = municipalities.first.id
+else
+  selected_country = @city.municipality.district.country.id
+  countries = Country.all
+
+  selected_district = @city.municipality.district.id
+  districts = countries.detect(districts = Country.new){|country| country.id == selected_country}.districts
+
+  selected_municipality = @city.municipality.id
+  municipalities = districts.detect(district = District.new){|district| district.id == selected_district}.municipalities
+end
+-%>
+
+<%= semantic_form_for [:admin, @city]  do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs do %>
+    <ul>
+      <!-- Държава-->
+      <li>
+        <%= f.label "country_id", Country.model_name.human(:name => "name") %>
+        <%= select('',"country_id", countries.collect{|c| [c.name, c.id]}, {:include_blank => false, :selected => selected_country}, {:id => "country_id", :style => "width:120px"}) %>
+      </li>
+
+      <!-- Област-->
+      <li>
+        <%= f.label "city_district_id", District.model_name.human(:name => "name") %>
+        <%= select("city","district_id", districts.collect{|d| [d.name, d.id]}, {:include_blank => false, :selected => selected_district}, {:id => "district_id", :style => "width:120px"}) %>
+      </li>
+
+      <!-- Община-->
+      <li>
+        <%= f.label "city_municipality_id", Municipality.model_name.human(:name => "name") %>
+        <%= select("city","municipality_id", municipalities.collect{|m| [m.name, m.id]}, {:include_blank => false, :selected => selected_municipality}, {:id => "municipality_id", :style => "width:120px"}) %>
+      </li>
+    </ul>
+  <% end %>
+
+  <%= f.inputs do %>
+    <%=
+
+    key_values = t(:place_types).collect{|key, value| [value.to_s, key.to_s.to_i, ]}
+    select("city","kind", key_values, {:include_blank => t(:chose)}) %>
+    <%= f.input :name, :input_html => {:style => "width:160px"} %>
+    <%= f.input :locale, :value => I18n.locale, :as => :hidden %>
+  <% end %>
+
+  <%= f.submit t(:create) %> |
+  <%= link_to t('.index'), admin_cities_path %>
+<% end %>

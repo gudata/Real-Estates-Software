@@ -1,0 +1,29 @@
+<%% title "<%= plural_name.titleize %>" %>
+
+<table>
+  <tr>
+  <%- for attribute in attributes -%>
+    <th><%= attribute.column.model_name.human.titleize %></th>
+  <%- end -%>
+  </tr>
+  <%% for <%= singular_name %> in @<%= plural_name %> %>
+    <tr>
+    <%- for attribute in attributes -%>
+      <td><%%=h <%= singular_name %>.<%= attribute.name %> %></td>
+    <%- end -%>
+    <%- if action? :show -%>
+      <td width="31"><%%= link_to "Show", [:admin, <%= singular_name %>] %></td>
+    <%- end -%>
+    <%- if action? :edit -%>
+      <td width="21"><%%= link_to "Edit", edit_admin_<%= singular_name %>_path(<%= singular_name %>) %></td>
+    <%- end -%>
+    <%- if action? :destroy -%>
+      <td width="37"><%%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, <%= singular_name %>], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    <%- end -%>
+    </tr>
+  <%% end %>
+</table>
+<%- if action? :new -%>
+<br />
+<p><%%= link_to "Add <%= singular_name.titleize %>", new_admin_<%= singular_name %>_path %></p>
+<%- end -%>

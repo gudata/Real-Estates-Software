@@ -1,0 +1,132 @@
+<div id="contact_list" class="ui-widget ui-widget-content ui-corner-all">
+  <% @contacts.each do |contact| %>
+
+    <% show_offers = defined?(show_offers) ? show_offers : false %>
+    <div id="<%= dom_id(contact) %>" class="contacts <%= (show_offers) ? "contacts_expanded" : ""  %> ui-widget ui-widget-content ui-corner-all">
+      <div class="contact_picture">
+        <%= image_tag (contact.picture.file? ? user.picture.url(:small_thumb): "/images/#{contact.is_company? ? 'missing_company' : 'missing'}.jpeg"), :size => "36x36"  %>
+      </div>
+      <div class="contact_info">
+        <div class="expand" id="<%=
+        contact_id = "expand_#{dom_id(contact)}"
+           %>">
+          <script type="text/javascript">
+            $(document).ready(function(){
+              var button = $("#<%= contact_id %>");
+              button.data("expanded", <%= show_offers ? "true" : "false"  %>);
+              button.data("empty", <%= show_offers ? "false" : "true"  %>);
+                
+              button.click(function(event){
+                var offers_div = $(this).parents(".contacts").first().children(".contact_offers");
+                if ($(this).data("expanded") == false) {
+                  //close
+                  if ($(this).data("empty")  == true) {
+                    var url = "<%= show_offers_admin_contact_url(:id => contact.id) %>"
+                    $(offers_div).load(url);
+                    $(this).data("empty", false)
+                  }
+                  $(this).data("expanded", true);
+                  $("#<%= dom_id(contact) %>").addClass("contacts_expanded");
+                  offers_div.slideDown("slow");
+                } else {
+                  //show
+                  $(this).data("expanded", false);
+                  offers_div.slideUp("slow", function(){
+                    $("#<%= dom_id(contact) %>").removeClass("contacts_expanded");
+                  });
+                }
+              }
+            );
+
+            }); // document ready
+          </script>
+        </div>
+        <div class="contact_name">
+          <%= truncate h(contact.name), :lenght => 20 %>
+        </div>
+
+        <% unless contact.phones.empty? %>
+          <div class="contact_phones">
+            <span onmouseover="$('#contact_phones_<%= contact.object_id.abs %>').toggle();" onmouseout="$('#contact_phones_<%= contact.object_id.abs %>').toggle();">
+              <%= truncate [contact.phones.first.phone_type.name, contact.phones.first.number].join(": "), :lenght => 20 %>
+            </span>
+
+            <% if contact.phones.size > 1 %>
+              <div class="all_details" style="display:none; position: absolute; z-index: 999;border: solid 1px gray" id="contact_phones_<%= contact.object_id.abs %>">
+                <%= show_phones(contact.phones) %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% unless contact.internet_comunicators.empty? %>
+          <div class="contact_internet_comunicators">
+            <span onmouseover="$('#contact_phones_<%= contact.object_id.abs %>').toggle();" onmouseout="$('#contact_phones_<%= contact.object_id.abs %>').toggle();">
+              <%= truncate [contact.internet_comunicators.first.try(:internet_comunicator_type).name, contact.internet_comunicators.first.value].join(": "), :lenght => 20 %>
+            </span>
+
+            <% if contact.phones.size > 1 %>
+              <div class="all_details" style="display:none; position: absolute; z-index: 999;border: solid 1px gray" id="contact_phones_<%= contact.object_id.abs %>">
+                <%= show_comunicators(contact.internet_comunicators) %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if can?(:peek_contact, contact) and contact.is_client? %>
+          <div class ="client">
+            <div>
+              <%= link_to(
+                t("Оферти предлага", :scope => [:admin, :contacts], :count => contact.sells_count),
+                admin_contact_sells_url(contact)
+              ) if contact.sells_count > 0 %>
+            </div>
+            <div>
+              <%= link_to(
+                t("Проекти", :scope => [:admin, :contacts], :count => contact.projects_count),
+                admin_contact_projects_url(contact)
+              ) if contact.projects_count > 0
+            %>
+            </div>
+            <div>
+              <%= link_to(
+                t("Оферти търси", :scope => [:admin, :contacts], :count => @buys_stat[contact.id]),
+                admin_contact_buys_url(contact)
+              ) if @buys_stat[contact.id] and @buys_stat[contact.id] > 0
+            %>
+            </div>
+          </div>
+        <%  end %>
+        <div>
+          <%= t("Обслужва се от", :scope => [:admin, :contacts]) %>
+          <% contact.users.each do |user| %>
+            <div><%= user.email %></div>
+          <% end %>
+        </div>
+      </div>
+      <div class="contact_actions">
+        <% if can?(:peek_contact, contact)  %>
+          <%= link_to t(:edit), edit_admin_contact_path(:id => contact.id, :key => contact.key), {:class => "action edit"} %>
+          <%= link_to t(:show), admin_contact_path(:id => contact.id, :key => contact.key), {:class => "action show"}%>
+          <%= link_to t(:delete), admin_contact_path(:id => contact.id, :key => contact.key), {:confirm => t(:delete), :method => :delete, :class => "action delete"} %>
+        <% else %>
+          <%= link_to t(:add), add_admin_contact_path(:id => contact.id, :key => contact.key), {:class => "action add"} %>
+        <% end %>
+      </div>
+      <div class="contact_offers">
+        <%= render :partial => "offers", :locals => {:contact => contact}  if show_offers %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @contacts.size > 0 %>
+  <%= t("намерени резултата", :count => @contacts.total_entries) %>
+<% else %>
+  <% if params[:commit] %>
+    <p><%= t("Няма резултати отговарящи на критериите") %></p>
+  <% end %>
+<% end %>
+
+<%= will_paginate contacts  %>
+

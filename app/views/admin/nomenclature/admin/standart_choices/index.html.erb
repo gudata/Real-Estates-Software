@@ -1,0 +1,24 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title t('.title') %>
+
+<p><%= image_tag("help.jpeg") + " " + t("standart_choices_help", :scope => [:admin, :dashboard]) %></p>
+
+<table>
+  <tr>
+    <th><%= StandartChoice.model_name.human(:name => "name")%> </th>
+    <th><%= t("status", :scope => [:admin, :standart_choices])%> </th>
+  </tr>
+  <% for standart_choice in @standart_choices %>
+    <tr>
+      <td><%= link_to image_tag("edit.png", :class => :icon) + h(standart_choice.name), edit_admin_standart_choice_path(standart_choice) %></td>
+      <td><%= standart_choice.active == true ? t("active", :scope => [:admin, :standart_choices]) : t("unactive", :scope => [:admin, :standart_choices]) %></td>
+      <td><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, standart_choice], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p>
+  <%= link_to t(".add"), new_admin_standart_choice_path,
+          :class => "action new" %>
+  
+</p>

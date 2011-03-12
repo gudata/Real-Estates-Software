@@ -1,0 +1,32 @@
+<%= form_for [:admin, @picture] do |f| %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.label :picture_filename %><br />
+    <%= f.text_field :picture_filename %>
+  </p>
+  <p>
+    <%= f.label :picture_content_type %><br />
+    <%= f.text_field :picture_content_type %>
+  </p>
+  <p>
+    <%= f.label :picture_file_size %><br />
+    <%= f.text_field :picture_file_size %>
+  </p>
+  <p>
+    <%= f.label :imagable_type %><br />
+    <%= f.text_field :imagable_type %>
+  </p>
+  <p>
+    <%= f.label :imagable_id %><br />
+    <%= f.text_field :imagable_id %>
+  </p>
+	<br />
+  <p><%= f.submit "Submit" %> &nbsp;or&nbsp; <%= link_to 'Cancel', admin_pictures_path %></p>
+<% end %>

@@ -1,0 +1,27 @@
+<% content_for :page_id, "buy_address" %>
+
+<% title(t("Редакция на документ", :scope => [:admin, :attachments])) %>
+
+<%= link_to t("Списък с документи", :scope => [:admin, :attachments]),
+  admin_contact_buy_attachments_url(:contact_id => @contact.id, :buy_id => @buy),
+  :class => :action
+%>
+
+<%= semantic_form_for @attachment, :as => :attachment,
+  :url => admin_contact_buy_attachment_path(
+  :contact_id =>  @contact.id,
+  :buy_id => @buy.id.to_param,
+  :id => @attachment.id.to_param
+),
+  :html => {:multipart => true, :method => :put}  do |attachment_form| %>
+  <%= attachment_form.error_messages %>
+  <%= render :partial => 'form', :locals => {:f => attachment_form} %>
+  <div style="clear: both;"></div>
+
+  <%= attachment_form.buttons do %>
+    <%= attachment_form.commit_button  :button_html => { :class => "large" } %>
+  <% end %>
+
+<% end %>
+
+

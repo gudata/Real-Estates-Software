@@ -1,0 +1,144 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    var $tabs = $('#sell_tabs').tabs();
+    var $selected = $tabs.tabs('select', <%= params[:current_tab] || params[:current_tab] = 0 %> );
+
+    $('.ui-tabs-selected').click(
+    function() {
+      if ($(this) != $selected) {
+        $selected.addClass('ui-tabs-hide');
+        $(this).removeClass('ui-tabs-hide');
+        $selected = $(this);
+      }
+    })
+
+    $('form').submit(function() {
+      var selected = $tabs.tabs('option', 'selected');
+      $('#current_tab').val(selected);
+    });
+
+  });
+</script>
+
+<div id="sell">
+  <div class="clear"></div>
+  <h2><%= @sell.offer_type.name %> <%= @sell.property_type.name %></h2>
+  <%= semantic_form_for [:admin, @sell.contact, @sell], :html => {:multipart => true} do |form| %>
+    <%= form.error_messages %>
+    <%= form.input :property_type_id, :as => :hidden, :value => @sell.property_type_id %>
+    <%= form.input :client_id, :as => :hidden, :value => @sell.client_id %>
+    <%= form.input :offer_type_id, :as => :hidden, :value => @sell.offer_type_id %>
+
+    <%= form.inputs t('Служебна информация', :scope => [:admin, :sells]) do %>
+      <% if can? :set_owner, @sell %>
+        <%= form.input :user_id,
+          :required => true,
+          :collection => current_user.my_users.collect{|chield| [chield.email, chield.id]},
+          :include_blank => current_user.root?,
+          :label => t("Обслужва се от", :scope => [:admin, :sells])
+      %>
+
+        <%= form.input :co_owner_id,
+          :required => false,
+          :collection => current_user.my_users.collect{|chield| [chield.email, chield.id]},
+          :include_blank => true,
+          :label => t("Възложена на", :scope => [:admin, :sells])
+      %>
+      <% else %>
+        <%= form.input :user_id, :as => :hidden, :value => @sell.user_id %>
+        <li><%= @sell.co_owner ? t("Възложена на", :scope => [:admin, :sells]) + " " + @sell.co_owner.email : "" %></li>
+      <% end %>
+
+      <%= form.input :canceled_type_id,
+        :required => false,
+        :collection => CanceledType.all,
+        :include_blank => true,
+        :label => t("Отказана", :scope => [:admin, :sells])
+    %>
+
+      <%= form.input :canceled_until,
+        :required => false,
+        :as => :calendar,
+        :include_blank => true,
+        :label => t("Отказана до", :scope => [:admin, :sells])
+    %>
+
+      <%=
+      form.input :status_id,
+        :required => true,
+        :as => :select,
+        :collection => $cache['Status'].collect{|status| [status.name, status.id]},
+        :include_blank => false
+    %>
+      <%=
+      form.input :source_id,
+        :required => true,
+        :as => :select,
+        :collection => $cache['Source'].collect{|source| [source.name, source.id]},
+        :include_blank => true
+    %>
+      <%= form.input :source_value %>
+    <% end %>
+
+    <!-- Атрибути на типа имот-->
+    <%= form.inputs t('Основни харктеристики', :scope => [:admin, :sells]) do %>
+      <%= form.semantic_fields_for :keywords_sells do |keyword_fields_form| %>
+        <%= keyword_fields_form.input :keyword_id, :as => :hidden, :value => keyword_fields_form.object.keyword.id %>
+        <%= render_keyword(keyword_fields_form, keyword_fields_form.object.keyword) %>
+      <% end %>
+    <% end %>
+
+    <!-- Описание -->
+    <%= form.inputs t('Описание', :scope => [:admin, :sells]) do %>
+      <%= form.input :description, :as => :text, :input_html => {:style => 'width: 800px'} %>
+    <% end %>
+
+    <!-- Табове -->
+    <%= tabs_for(:id => :sell_tabs) do |tab| %>
+
+      <!-- Адрес-->
+
+      <% tab.create('address', t('tab:Адрес', :scope => [:admin, :sells])) do %>
+        <%= form.semantic_fields_for :address, :id => "address_form" do |address|%>
+          <%= render :partial => "admin/addresses/address_form", :locals => {:f => address} %>
+        <% end %>
+        <div class="clear"></div>
+      <% end %>
+
+      <% tab.create('rooms', t('tab:Помещения', :scope => [:admin, :sells])) do %>
+        <%= form.inputs t(:"tab:Помещения", :scope => [:admin, :sells]), :id => "room_forms" do %>
+          <%= nested_edit form, :rooms, "/admin/shared/room_fields",  t("Добави помещение", :scope => [:partials, :rooms]), Proc.new{|item| true }  %>
+        <% end %>
+      <% end %>
+
+      <!-- Огледи -->
+      <% tab.create('inspections', t('tab:Огледи', :scope => [:admin, :sells])) do %>
+        <%= form.inputs t(:"Огледи", :scope => [:admin, :sells]), :id => "inspection_forms" do %>
+          <%= nested_edit form, :inspections, "/admin/shared/inspection_fields",  t("Добави оглед", :scope => [:partials, :inspections]), Proc.new{|item| !item.new_record? } %>
+        <% end %>
+      <% end %>
+
+      <!-- Снимки -->
+      <% tab.create('pictures', t('tab:Галерия', :scope => [:admin, :sells])) do %>
+        <%= form.inputs t(:"Снимки на имота", :scope => [:admin, :sells]), :id => "picture_forms" do %>
+          <%= nested_edit form, :pictures, "/admin/shared/picture_fields", t(:"Добави снимка", :scope => [:partials,  :pictures]), Proc.new{|item| item.picture.file? } %>
+        <% end %>
+      <% end %>
+
+      <!-- Документи-->
+      <% tab.create('documents', t('tab:Документи', :scope => [:admin, :sells])) do %>
+        <%= form.inputs t(:"Документи на проекта", :scope => [:admin, :project]), :id => "document_forms" do %>
+          <%= nested_edit form, :documents, "/admin/shared/document_fields", t(:"Добави файл", :scope => [:partials, :documents]), Proc.new{|item| item.document.file? }  %>
+        <% end %>
+      <% end %>
+
+    <% end %>
+
+    <%= form.buttons do %>
+      <%= form.commit_button  :button_html => { :class => "large" } %>
+    <% end %>
+
+  <% end %>
+
+  <%= render :partial => "/admin/shared/timestamps", :locals => {:object => @sell} %>
+</div>

@@ -1,0 +1,22 @@
+<%= semantic_form_for [:admin, @property_type]  do |property_type_form| %>
+  <%= property_type_form.error_messages %>
+
+  <%= property_type_form.inputs do %>
+    <%= property_type_form.input :locale, :value => I18n.locale, :as => :hidden %>
+    <%= property_type_form.input :active, :as => :boolean %>
+    <%= property_type_form.input :name %>
+  <% end %>
+
+  <% if @property_type.new_record? %>
+    <%= image_tag("help.jpeg") + ' ' + t("След като създадете обекта ще можете да редактирате неговите харектеристики", :scope => [:admin, :property_functions]) %>
+  <% else %>
+    <% property_type_form.inputs t("Харектеристики на имота", :scope => [:admin, :property_functions]) do %>
+      <%= render :partial => "form_keywords", :locals => {:property_type_form => property_type_form} %>
+    <% end %>
+  <% end %>
+  <p>
+    <%= property_type_form.submit t(:create) %> |
+    <%= link_to t("index", :scope => [:admin, :property_functions, :form]), admin_property_types_path %>
+  </p>
+
+<% end %>

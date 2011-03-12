@@ -1,0 +1,29 @@
+<% render :partial => '/admin/navigations/items' %>
+<% title "Inspections" %>
+
+<table>
+  <tr>
+    <th>Data</th>
+    <th>User</th>
+    <th>Description</th>
+    <th>Inspectable Type</th>
+    <th>Inspectaable</th>
+  </tr>
+  <% for inspection in @inspections %>
+    <tr>
+      <td><%=h inspection.data %></td>
+      <td><%=h inspection.user %></td>
+      <td><%=h inspection.description %></td>
+      <td><%=h inspection.inspectable_type %></td>
+      <td><%=h inspection.inspectaable_id %></td>
+      <td width="31"><%= link_to t("Show",:scope => [:admin]), [:admin, inspection] %></td>
+      <td width="21"><%= link_to image_tag("edit.png", :class => :icon) + "Edit", edit_admin_inspection_path(inspection) %></td>
+      <td width="37"><%= link_to t("Delete", :scope =>[:admin, :dashboard]), [:admin, inspection], :confirm => t('Are you sure?'), :method => :delete, :class => "action delete" %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<p><%= link_to "Add Inspection", new_admin_inspection_path,
+          :class => "action new" %>
+  
+</p>

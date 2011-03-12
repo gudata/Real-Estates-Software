@@ -1,0 +1,6 @@
+<%= breadcrumbs_for_contact(@contact, :contact_buys_index, @buy, :search_criteria_index, @matching_sell) %>
+
+<div id="criteria_search_results">
+  <%= render :partial => "/admin/search_criterias/search_result",
+    :locals => {:matching_sell => @matching_sell, :search_criteria => @search_criteria} %>
+</div>

@@ -1,0 +1,7 @@
+<% title t("Projects", :scope => [:admin, :project]) %>
+
+<%= render :partial => 'search_form', :locals => {:search => @search} %>
+
+<%= render :partial => 'search_results', :locals => {:projects => @projects} %>
+
+<%= will_paginate @projects %>

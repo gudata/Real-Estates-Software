@@ -1,0 +1,21 @@
+<div id="add_buy_content" >
+  <fieldset>
+    <legend><%= t('Добави оферта търси', :scope => [:admin, :contacts, :form]) %></legend>
+
+    <ul class="sf-menu">
+      <% $cache['OfferType'].each do |offer_type|
+        next if offer_type.category != OfferType::BUY_TYPE
+      %>
+        <li>
+          <%=
+          link_to (offer_type.name + ' ' + image_tag("#{offer_type.tag}.png", :size => "16x16")).html_safe,
+            new_admin_contact_buy_path(
+            :contact_id => contact.id,
+            :offer_type_id => offer_type.id),
+            :class => "ui-widget ui-state-default ui-corner-all"
+        %>
+        </li>
+      <% end %>
+    </ul>
+  </fieldset>
+</div>

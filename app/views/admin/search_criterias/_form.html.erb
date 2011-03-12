@@ -1,0 +1,49 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.property_type_radio').change(function (element) {
+      var element =  $('.property_type_radio:checked');
+      // console.log("Clicked value:" + jQuery.dump(element));
+      // console.log("Clicked value:" + element.val());
+      // console.log("Clicked value:" + element.val());
+      var data = {"search_criteria[property_type_id]": element.val()};
+
+      $.ajax({
+        // type:"POST",
+        url: "<%=
+property_type_keywords_admin_contact_buy_search_criteria_url(
+  :contact_id => @contact.id,
+  :buy_id => @buy.id,
+  :id => @search_criteria.id,
+  :debug => params[:debug]
+)
+%>",
+        data: data,
+        cache: false,
+        async: false,
+        success: function (html) {
+          $('#property_type_keywords').html(html);
+        }
+      });
+      return false;
+    });
+  });
+</script>
+
+<%= search_criteria_form.inputs t(:"Оферта търси", :scope => [:admin, :buys]) do %>
+  <%= search_criteria_form.input :property_type_id,
+    :collection => $cache[PropertyType],
+    :as => :radio,
+    :input_html => {
+    :class => 'property_type_radio'
+  }
+%>
+  <div style="clean: both"></div>
+
+  <div id="property_type_keywords">
+    <%= render :partial => 'property_type_keywords', :locals => {:search_criteria => @search_criteria} if @search_criteria.property_type_id %>
+  </div>
+<% end %>
+
+<%= search_criteria_form.buttons do %>
+  <%= search_criteria_form.commit_button  :button_html => { :class => "large" } %>
+<% end %>

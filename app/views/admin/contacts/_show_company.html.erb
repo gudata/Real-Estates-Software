@@ -1,0 +1,15 @@
+<div>  
+  <div>
+    <%= t("company", :scope => [:admin, :contacts, :form]) %>
+    <b><%= contact.company_name %></b>
+  </div>
+  <div>
+    <%= t("nationality", :scope => [:admin, :contacts]) %>
+    <b><%= contact.nationality.name %></b>
+  </div>
+  <div>
+    <%= t("МОЛ", :scope => [:admin, :contacts, :form]) %>
+    <b><%= [contact.mol_first_name, contact.mol_last_name].join(" ")  %></b>,
+    <%= t("phone", :scope => [:admin, :contacts]) %> <b><%= contact.mol_phone %></b>
+  </div>
+</div>

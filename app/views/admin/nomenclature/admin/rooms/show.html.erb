@@ -1,0 +1,14 @@
+<% title "Room" %>
+
+<p>
+  <strong>Room Type:</strong>
+  <%=h @room.room_type_id %>
+</p>
+<p>
+  <strong>Area:</strong>
+  <%=h @room.area %>
+</p>
+
+<p>
+  <%= link_to "View All", admin_rooms_path %>
+</p>

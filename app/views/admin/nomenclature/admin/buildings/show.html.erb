@@ -1,0 +1,18 @@
+<% title "Building" %>
+
+<p>
+  <strong>Building Type:</strong>
+  <%=h @building.building_type_id %>
+</p>
+<p>
+  <strong>Property Type:</strong>
+  <%=h @building.property_type_id %>
+</p>
+<p>
+  <strong>Area:</strong>
+  <%=h @building.area %>
+</p>
+
+<p>
+  <%= link_to "View All", admin_buildings_path %>
+</p>

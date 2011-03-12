@@ -1,0 +1,124 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    /*
+    $("#slider").slider({
+      animate: true,
+      max: 9000000000,
+      min: 100,
+      range: true,
+      step: 100
+    });
+
+    <div id="slider"
+         class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+         >
+      <a style="left: 0%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a>
+    </div>
+     */
+  });
+</script>
+
+<%= semantic_form_for sell_search, :as => :sell_search,  :url => admin_indexes_sells_url,
+  :html => {:method => :get} do |sell_search_form|%>
+  <%= sell_search_form.inputs t(:"Критерии", :scope => [:admin, :sell_search]) do %>
+    <%= sell_search_form.input :number, :label => t("Номер", :scope => [:admin, :sell_search]) %>
+    <%= sell_search_form.input :status_ids, :as => :check_boxes, :collection => $cache[Status], :label => t("Статус", :scope => [:admin, :sell_search]) %>
+    <br/>
+    <%= sell_search_form.input :offer_type_id, :as => :hidden %>
+
+
+    <%= sell_search_form.input :price_from, :label => t("Цена от", :scope => [:admin, :sell_search]) %>
+    <%= sell_search_form.input :price_to, :label => t("Цена до", :scope => [:admin, :sell_search]) %>
+
+    <%= sell_search_form.input :area_from, :label => t("Площ от", :scope => [:admin, :sell_search]) %>
+    <%= sell_search_form.input :area_to, :label => t("Площ до", :scope => [:admin, :sell_search]) %>
+
+    <%= sell_search_form.input :rooms_from, :label => t("Стаи от", :scope => [:admin, :sell_search]) %>
+    <%= sell_search_form.input :rooms_to, :label => t("Стаи до", :scope => [:admin, :sell_search]) %>
+
+    <%=
+    @users = User.all.sort{ |a,b| a.first_name.downcase <=> b.first_name.downcase}
+    sell_search_form.input :user_id, :collection => @users, :label => t("Потребител", :scope => [:admin, :sell_search])
+  %>
+    <%= sell_search_form.input :co_owner_id, :collection => @users, :label => t("Отговарящ", :scope => [:admin, :buy_search]) %>
+
+    <%= sell_search_form.input :team_id, :collection => Team.all, :label => t("Екип", :scope => [:admin, :sell_search]) %>
+    <%= sell_search_form.input :property_type_id, :collection => $cache[PropertyType], :label => t("Вид имот", :scope => [:admin, :sell_search]) %>
+    <% sell_search.address_documents.each do |address_document| %>
+      <%= sell_search_form.semantic_fields_for :address_documents, address_document do |single_address_document_form| %>
+        <%= single_address_document_form.input :municipality_id,
+          :collection => $cache[Municipality].sort{|a, b|
+          return -1 unless a.name or b.name
+          a.name.downcase <=> b.name.downcase
+        },
+          :label => t("Община", :scope => [:admin, :sell_search]),
+          :input_html => {:index => nil} %>
+      <% end %>
+    <% end %>
+
+
+    <%= content_tag :li, "Use the newest firefox/chrome/safari", :id => "sell_search_city_id_hint" %>
+    <%= sell_search_form.input :city_id,
+      :label => t("Град", :scope => [:admin, :buy_search]),
+      :as => :select,
+      :input_html => {:class => "city_select", :search_object_name => "sell_search"},
+      :collection => []
+  %>
+    <% content_for :head do %>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          fill_from_storage("#sell_search_city_id", "cities_storage", "<%= cities_navigations_path %>", '<%= sell_search_form.object.city_id %>');
+        });
+      </script>
+    <% end%>
+
+    <%=
+    if sell_search_form.object.city_id.blank?
+      content_tag :li, "", :id => "sell_search_quarter_ids_input"
+    else
+      render(:partial => "navigations/quarters", :locals => {
+          :search_object_name => @sell_search,
+          :quarters => City.find(sell_search_form.object.city_id).quarters
+        })
+    end
+  %>
+
+    <%= sell_search_form.input :apartment_type_ids, :as => :check_boxes,
+      :collection => $cache[ApartmentType],
+      :label => t("Вид Апартамент", :scope => [:admin, :sell_search]) %>
+
+
+    <%= sell_search_form.inputs(t("сортиране", :scope => [:admin, :sell_search]), :class => "inputs sorting") do
+      sort_order_options = SellSearch::SORT_KEYS.collect{|k, v| [t(k), v.to_s]}
+
+      SellSearch.sort_fields_html_names.each do |order_field|
+      %>
+
+        <%= sell_search_form.semantic_fields_for :order_fields, sell_search.order_fields do |single_order_field_form| %>
+
+          <%=
+          single_order_field_form.input(order_field,
+            :collection => sort_order_options,
+            :label => t(order_field, :scope => [:admin, :sell_search])
+            #:selected => sell_search.order_fields.send(order_field)
+          )
+        %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <select name="per_page">
+      <%= options_for_select([
+          ["5", "5"],
+          ["10", "10"],
+          ["20", "20"],
+          ["50", "50"],
+          ["100", "100"],
+        ],
+        params[:per_page]
+      ) %>
+    </select>
+    <%= submit_tag t("Търси", :scope => [:admin, :sell_search])%>
+  <% end %>
+
+<% end %>

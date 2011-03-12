@@ -1,0 +1,36 @@
+<% title t(".title") %>
+
+<%
+fields_for @search, :html => {:class => "search_form"}  do |f| %>
+  <% content_for :search_fields_for_clients do %>
+    <div style="float: left">
+      <%= f.label :clients_type, "Тип клиент" %>
+      <%= f.select :clients_type, Contact.client_types %>
+    </div>
+
+    <% if current_user.role?([:manager, :team_manager]) %>
+      <div style="float: left">
+        <%=
+        label_tag :users_id_equals,
+          sort_link(@search, :user_real_name, t("available_users", :scope => [:admin, :contacts, :index_clients]))
+      %>
+        <%=
+        f.select:contacts_users_user_id_equals,
+          current_user.my_users.collect{|user| [user.display_name(:short), user.id]},
+          {:include_blank => t(:chose)},
+          {:id => "users"}
+      %>
+      </div>
+    <% end %>
+  <% end %>
+<%
+end # form
+%>
+
+<%= form_for [:admin, @search], :url => index_clients_admin_contacts_url, :html => {:class => "search_forms"}  do |f| %>
+  <%= render :partial => "search_form", :locals => {:f => f} %>
+<% end %>
+<%= render :partial => "search_results", :locals => {:contacts => @contacts}%>
+<p>
+  <%= link_to t("check", :scope => [:admin, :contacts, :index_contacts]), check_admin_contacts_path, :class => "buttons" %>
+</p>

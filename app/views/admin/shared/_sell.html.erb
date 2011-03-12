@@ -1,0 +1,18 @@
+<div id="<%= dom_id(sell)%>" class="ui-widget ui-widget-content ui-corner-all offer_content" style="background-image: url(/images/offer_background.gif);">
+  <div class="picture">
+    <%= image_tag (!sell.pictures.blank? ? sell.pictures.first["thumb"]["url"] : "/images/photo_missing.gif") %>
+  </div>
+  <div class="info">
+    <%= render :partial => "/admin/shared/sell_info", :locals => {:sell => sell} %>
+    <div class="clear"></div>
+    <hr />
+
+    <div class="offer_actions">
+      <% if defined? contact %>
+        <%= render :partial => actions, :locals => {:contact => contact, :sell => sell } %>
+      <% else %>
+        <%= render :partial => actions, :locals => {:sell => sell } %>
+      <% end %>
+    </div>
+  </div>
+</div>

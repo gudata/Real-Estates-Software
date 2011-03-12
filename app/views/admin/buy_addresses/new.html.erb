@@ -1,0 +1,22 @@
+<% title(t("Добавяне на адрес", :scope => [:admin, :buys, :address_document])) %>
+
+<%= link_to t("Списък с адреси", :scope => [:admin, :buys, :address_document]),
+  admin_contact_buy_buy_addresses_url(:contact_id => @contact.id, :buy_id => @buy),
+  :class => :action
+%>
+
+<%= semantic_form_for @address_document,
+  :as => :address_document,
+  :url => admin_contact_buy_buy_addresses_path(:contact_id =>  @contact.id,
+  :buy_id => @buy.id, :id => @address_document),
+  :html => {:multipart => true}  do |address_document_form| %>
+  <%= address_document_form.error_messages %>
+
+  <%= render :partial => '/admin/addresses/address_form', :locals => {:f => address_document_form} %>
+  <div style="clear: both;"></div>
+  <%= address_document_form.buttons do %>
+    <%= address_document_form.commit_button  true, :button_html => { :class => "large" } %>
+  <% end %>
+
+<% end %>
+

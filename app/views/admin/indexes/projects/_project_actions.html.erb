@@ -1,0 +1,42 @@
+<%=
+link_to t(:edit),
+  edit_admin_contact_project_path(
+  :id => project.id,
+  :contact_id => project.contact.id,
+  :key => project.contact.key
+),
+  :class => "action edit" if can? :edit, project
+%>
+
+
+<%=
+link_to t(:show),
+  admin_contact_project_path(
+  project.contact,
+  project
+),
+  :class => "action show" if can? :show, project
+%>
+
+<%#
+link_to t(:print),
+  admin_contact_project_path(
+  project.contact,
+  project
+),
+  :class => "action print" if can? :print, project
+%>
+
+<%=
+link_to t("Клиент", :scope => [:admin, :project]),
+  edit_admin_contact_path(:id => project.contact,
+  :key => project.contact.key
+),
+  :class => "action edit_client" if can? :print, project
+%>
+
+<%=
+link_to t("Oферти", :scope => [:admin, :project]),
+  admin_indexes_project_sells_path(project),
+  :class => "action show_project_sells" 
+%>

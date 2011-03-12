@@ -1,0 +1,5 @@
+<div id="user">
+  <% title "#{t("Edit", :scope => [:admin, :users])} #{@user.login}, #{@user.email}" %>
+
+  <%= render :partial => 'form' %>
+</div>
