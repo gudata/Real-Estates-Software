@@ -119,7 +119,7 @@ namespace :deploy do
     elsif !branch.nil? and !branch.empty?
       set :branch, branch.to_sym
     else   # add more as needed
-      set :branch, "rails3".to_sym
+      set :branch, "master".to_sym
     end
     puts "working on branch #{branch} #{branch.class}"
   end
