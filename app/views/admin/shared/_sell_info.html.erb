@@ -58,7 +58,7 @@
       <% end %>
     <% end %>
     
-    <%# show_address(sell.address, :sell_info).html_safe if sell.address %>
+    <%= show_address(sell.address, :sell_info).html_safe if sell.address %>
   </div>
   <div class="box">
     <%= show_term(sell, "used_for") rescue "---" %>
