@@ -7,7 +7,7 @@ SellDocument.all.each do |sell_document|
   begin
     sell_document.sell
   rescue
-    puts "removing #{document.id}"
+    puts "removing #{sell_document.id}"
     sell_document.destroy
   end
 end.reject{true}
