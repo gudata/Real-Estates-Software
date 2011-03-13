@@ -23,6 +23,12 @@ Sell.find_each do |sell|
   end
 end.reject{true}
 
+
+require "rtranslate"
+def google_translate string
+  result = Translate.t(string, 'bg', 'ru')
+end
+
 Translates the nomeclatures to other languages automatically
 {
   OfferType => [:name],
@@ -31,7 +37,7 @@ Translates the nomeclatures to other languages automatically
 }.each_pair do |klass, fields|
   fields.each do |field|
     I18n.locale = :bg
-    klass.all.each{|k| bg_name = k.send(field); I18n.with_locale(:ru){next unless k.send(field).blank? ; k.send("#{field}=", bg_name); k.save }}.reject{true}
+    klass.all.each{|k| bg_name = k.send(field); I18n.with_locale(:ru){next unless k.send(field).blank? ; k.send("#{field}=",  google_translate(bg_name)); k.save }}.reject{true}
   end
 end.reject{true}
 
@@ -48,7 +54,7 @@ end.reject{true}
 }.each_pair do |klass, fields|
   fields.each do |field|
     I18n.locale = :bg
-    klass.all.each{|k| bg_name = k.send(field); I18n.with_locale(:ru){next unless k.send(field).blank? ; k.send("#{field}=", bg_name); k.save }}.reject{true}
+    klass.all.each{|k| bg_name = k.send(field); I18n.with_locale(:ru){next unless k.send(field).blank? ; k.send("#{field}=", google_translate(bg_name)); k.save }}.reject{true}
   end
 end.reject{true}
 
