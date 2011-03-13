@@ -3,11 +3,11 @@ module Admin::ApplicationHelper
   def show_phones(phones, style = "display: block")
     if phones.size > 1
       phone_list = phones.collect{|phone| "#{phone.phone_type.name}: #{phone.number};"} rescue ''
-      content_tag :ul do
-        phone_list.collect{|phone| content_tag(:li, phone)}
+      content_tag :ul, {}, false do
+        phone_list.collect{|phone| content_tag(:li, phone)}.join('').html_safe
       end
     else
-      content_tag :div, :style => style do
+      content_tag :div, {:style => style}, false do
         "#{phones.first.phone_type.name}: #{phones.first.number}" rescue ''
       end
     end
@@ -19,7 +19,7 @@ module Admin::ApplicationHelper
         "#{comunicator.internet_comunicator_type.name}: #{comunicator.value};" rescue ''
       end
       content_tag :ul do
-        comunicator_list.collect{|comunicator| content_tag(:li, comunicator)} rescue ''
+        comunicator_list.collect{|comunicator| content_tag(:li, comunicator)}.join('').html_safe rescue ''
       end
     else
       content_tag :div, :style => style do

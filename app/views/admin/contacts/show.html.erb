@@ -13,7 +13,7 @@
     <% end %>
     <div>
       <%= t("Адрес", :scope => [:admin, :contacts])%> :
-      <b><%= show_address(@contact.address, :long) %></b>
+      <b><%= show_address(@contact.address, :long) if @contact.address %></b>
     </div>
   </div>
 

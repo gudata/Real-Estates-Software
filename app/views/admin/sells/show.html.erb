@@ -27,7 +27,7 @@
       <br/>
       <strong>
         <%# can?(:peek_offer_from_contact, @sell) ? show_address(@sell.address, :full_array).join("<br/>").html_safe : show_address(@sell.address, :till_street) %>
-        <%= show_address(@sell.address, :full_array).join("<br/>").html_safe %>
+        <%= show_address(@sell.address, :full_array).join("<br/>").html_safe if @sell.address%>
       </strong>
     </div>
     <br/>

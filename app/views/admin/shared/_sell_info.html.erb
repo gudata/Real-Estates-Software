@@ -57,7 +57,8 @@
         </strong>
       <% end %>
     <% end %>
-    <%= show_address(sell.address, :sell_info).html_safe %>
+    
+    <%# show_address(sell.address, :sell_info).html_safe if sell.address %>
   </div>
   <div class="box">
     <%= show_term(sell, "used_for") rescue "---" %>
@@ -93,6 +94,7 @@
     end
   %>
   </div>
+  
   <% if can? :peek_offer_from_contact, sell %>
     <%= t("Клиент",:scope => [:admin, :sells, :search_results]) %>:
     <strong>

@@ -6,7 +6,7 @@
   <%=h project.source.name %>
 </p>
 
-  <%= render :partial => '/admin/shared/show_owners', :locals => {:object => project} %>
+<%= render :partial => '/admin/shared/show_owners', :locals => {:object => project} %>
 
 <p>
   <strong><%= t("furnish", :scope => [:activerecord, :attributes, :project]) %>:</strong>
@@ -37,7 +37,13 @@
 </p>
 <p>
   <strong><%= t("adres", :scope => [:activerecord, :attributes, :project]) %>:</strong>
-  <%= can?(:peek_offer_from_contact, project) ? show_address(project.address, :full_array).join("<br/>").html_safe : show_address(project.address, :short) %>
+  <%=
+  if can?(:peek_offer_from_contact, project) and project.address
+    show_address(project.address, :full_array).join("<br/>").html_safe
+  else
+    show_address(project.address, :short)
+  end
+%>
 </p>
 <p>
   <strong><%= t("property_category_location", :scope => [:activerecord, :attributes, :project]) %>:</strong>

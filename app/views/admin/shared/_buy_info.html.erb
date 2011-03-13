@@ -47,7 +47,7 @@
     <%=
     if buy.co_owner.blank?
       owner = buy.user
-      content_tag :strong, owner.display_name(:short), :title => t("Собствена",:scope => [:admin, :sells, :search_results])
+      content_tag :strong, owner.display_name(:short), :title => t("Собствена", :scope => [:admin, :sells, :search_results])
     else
       owner = buy.co_owner
       content_tag :span, owner.display_name(:short) + " (#{buy.user.display_name(:short)})", :title => t("Възложена на",:scope => [:admin, :sells, :search_results])
@@ -56,14 +56,14 @@
   </div>
   
   <% if can? :peek_offer_from_contact, buy %>
-    <%= t("Клиент",:scope => [:admin, :sells, :search_results]) %> :
+    <%= t("Клиент", :scope => [:admin, :sells, :search_results]) %> :
     <strong>
       <%= buy.contact.display_name(:short) %>
     </strong>
     <%= show_phones(buy.contact.phones, "") %>
     <%= show_comunicators buy.contact.internet_comunicators, "" %>
   <% else %>
-    <%= t("Брокер",:scope => [:admin, :sells, :search_results]) %> :
+    <%= t("Брокер", :scope => [:admin, :sells, :search_results]) %> :
     <%= User.human_attribute_name(:phone) %>:
     <strong>
       <%= buy.user.phone %>

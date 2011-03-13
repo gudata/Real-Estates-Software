@@ -18,7 +18,7 @@
       <% if @buy.address_documents.count > 0 %>
         <% @buy.address_documents.each do |address_document| %>
           <div>
-            <%=  can?(:peek_offer_from_contact, @buy) ? show_address(address_document, :long) : show_address(address_document, :short) %>
+            <%= can?(:peek_offer_from_contact, @buy) ? show_address(address_document, :long) : show_address(address_document, :short) %>
           </div>
         <% end %>
       <% else %>
