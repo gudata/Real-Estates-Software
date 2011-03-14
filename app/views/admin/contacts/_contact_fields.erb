@@ -55,7 +55,7 @@
             <div id="exisiting_address">
               <%= t("Адрес", :scope => [:admin, :contacts]) %> :
               <%=
-              link_to (@contact.address ? show_address(@contact.address) : t("Адрес", :scope => [:admin, :contacts]))
+              link_to (@contact.address ? show_address(@contact.address) : t("Адрес", :scope => [:admin, :contacts])),
                 "#",
                 {:class => "action edit"} unless @contact.new_record?
             %>
