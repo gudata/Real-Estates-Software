@@ -2,7 +2,7 @@ class CreateSpheres < ActiveRecord::Migration
   def self.up
     create_table :spheres do |t|
       t.boolean :active
-      t.initeger :position
+      t.integer :position
       t.timestamps
     end
 
