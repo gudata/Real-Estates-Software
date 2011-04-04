@@ -15,6 +15,7 @@ gem 'formtastic', '~> 1.1.0'
 #gem 'formtastic', '~> 1.2.0'
 
 gem 'ya2yaml'
+gem 'rmagick'
 gem 'cancan', '>= 1.3.4'
 
 source 'http://gemcutter.org'
