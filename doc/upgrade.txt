@@ -1,4 +1,8 @@
+Here are some upgrade notes for existing customers. Those are not made like migrations because
+are very dependend and it is choice of the user how to run them and check the results.
+Because of that they are extracted here and no used like migrations.
 
+Those are NOT optional for existing users. And you can totally skip them if you brand new user.
 
 === 1.7.4 => 1.7.5 ==
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 MONGO_HOME="$HOME/src/mongodb-linux-i686-1.4.2/"
 MONGO_HOME="$HOME/src/mongodb-linux-i686-1.6.0/"
+MONGO_HOME="$HOME/src/mongodb-linux-x86_64-1.8.0"
 
 # starting mongo in production
 echo "#################"
