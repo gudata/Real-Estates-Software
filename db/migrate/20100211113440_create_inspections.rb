@@ -1,7 +1,7 @@
 class CreateInspections < ActiveRecord::Migration
   def self.up
     create_table :inspections do |t|
-      t.datatime :data
+      t.datetime :data
       t.belongs_to :user
       t.integer :sell_id
       t.string :sell_document_id
