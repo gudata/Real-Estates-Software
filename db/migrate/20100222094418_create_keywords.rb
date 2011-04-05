@@ -9,7 +9,6 @@ class CreateKeywords < ActiveRecord::Migration
       t.integer :values
       t.string  :kind_of_search
       t.timestamps
-      t.index([:uniq], :unique => true, :name => 'tag_index')
     end
 
     Keyword.create_translation_table! :name => :string
