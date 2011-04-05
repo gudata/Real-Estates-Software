@@ -519,7 +519,7 @@ begin
   
   if ENV["data"].blank?
     puts "Импорт настройките за режим разработка - параметър data в environment-а показва друг файл с данни."
-    import_file = "development.rb"
+    import_file = "development"
   else
     puts "Импорт на настройките за #{import_file}"
     import_file = ENV["data"] #@partner
