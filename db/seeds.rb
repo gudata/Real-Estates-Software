@@ -145,9 +145,9 @@ begin
 
   puts "Добавяне на статуси към оферти предлага"
   [
-    {:name => "Предложен", :hide_on_this_status => false},
-    {:name => "Огледан", :hide_on_this_status => false},
-    {:name => "Отказана", :hide_on_this_status => false},
+    {:name => "Предложен", :hide_on_this_buy_status => false},
+    {:name => "Огледан", :hide_on_this_buy_status => false},
+    {:name => "Отказана", :hide_on_this_buy_status => false},
   ].each do |status|
     BuyStatus.create(status)
   end
