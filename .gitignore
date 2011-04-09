@@ -74,3 +74,4 @@ releware.png
 config/newrelic.yml
 config/database.yml
 doc/automation.txt
+get_diana.sh
