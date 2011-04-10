@@ -19,7 +19,7 @@ module OpenStructCache
   end
 
   def init_cache
-    puts "Init cache base method"
+    Rails.logger.debug "Init cache base method"
     @@models.each do |model_class|
       reload_model(model_class)
     end
@@ -35,16 +35,16 @@ module DirectCache
     key = get_key(model_class)
     klass = key.constantize
     object = klass.scoped
-    puts "Loading cache for #{key}..."
+    Rails.logger.debug "Loading cache for #{key}..."
     if klass.respond_to?(:translates) and klass.translates?
-      puts "  Adding translation in the model for #{klass}"
+      Rails.logger.debug "  Adding translation in the model for #{klass}"
       object = object.includes(:translations)
       self.storage[key] = object.send("all")
     end
   end
 
   def [] class_name_or_object
-    puts "Hiting cache for #{class_name_or_object}"
+    Rails.logger.debug "Hiting cache for #{class_name_or_object}"
     key = get_key(class_name_or_object)
     reload_model(class_name_or_object) if self.storage[key].blank? or self.storage[key].empty?
     raise "#{key} is missing in the cache #{@cache.keys.join ', '}" unless key? key
@@ -68,7 +68,7 @@ module NoCache
     klass = self.storage[key]
     object = klass.scoped
     if klass.respond_to?(:translates) and klass.translates?
-      puts "Adding translation in the model for #{klass}"
+      Rails.logger.debug "Adding translation in the model for #{klass}"
       object = object.includes(:translations)
     end
     object.send("all")
