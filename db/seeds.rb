@@ -190,6 +190,10 @@ begin
 
   puts "Добавяне на типове разположение на имот"
   exposure_types = [
+    {:name => "Ю", :active => true},
+    {:name => "С", :active => true},
+    {:name => "З", :active => true},
+    {:name => "И", :active => true},
     {:name => "С/Ю", :active => true},
     {:name => "Ю/С", :active => true},
     {:name => "И/З", :active => true},
@@ -471,12 +475,16 @@ begin
   property_types.each do |property_type_template|
     property_type = PropertyType.create(property_type_template)
     puts "Добавяне на шаблон за #{property_type_template[:name]}"
-    property_type.keywords_property_types = template_keywords[property_type_template[:name]].collect do |keyword|
-      keywords_property_types = KeywordsPropertyType.new(
+    template_keywords[property_type_template[:name]].each do |keyword_name|
+
+      founded_keyword = Keyword.find_by_name(keyword_name).first
+      raise "keyword #{keyword_name} not found. Has been created infront?" unless founded_keyword
+
+      KeywordsPropertyType.new(
         :end_of_line => false,
         :style => '',
         :property_type_id => property_type.id,
-        :keyword_id => Keyword.find_by_name(keyword).id
+        :keyword_id => founded_keyword.id
       )
     end
   end
