@@ -8,7 +8,7 @@ source 'http://rubygems.org'
 gem 'mysql2', "~> 0.2.6"
 gem 'ya2yaml'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.6'
 
 gem 'awesome_print', :require => 'ap'
 gem 'formtastic', '~> 1.1.0'
