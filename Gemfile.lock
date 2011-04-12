@@ -67,6 +67,7 @@ GEM
     globalize3 (0.0.10)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
+    haml (3.0.25)
     highline (1.6.1)
     i18n (0.5.0)
     jeweler (1.5.1)
@@ -181,6 +182,7 @@ DEPENDENCIES
   formtastic (~> 1.1.0)
   geokit (>= 1.5.0)
   globalize3
+  haml
   machinist_mongo
   meta_search
   mongoid (= 2.0.0.beta.20)

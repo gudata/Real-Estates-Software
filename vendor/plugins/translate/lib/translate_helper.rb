@@ -35,7 +35,7 @@ module TranslateHelper
     if File.exists?(File.join(Rails.root, "public", "javascripts", "prototype.js"))
       sources << "/javascripts/prototype.js"
     else
-      sources << "http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"
+      sources << "http://ajax.googleapis.com/ajax/libs/prototype/1.7/prototype.js"
     end
     sources << "http://www.google.com/jsapi"
     sources.map do |src|

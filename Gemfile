@@ -30,6 +30,7 @@ gem "meta_search" #, '>=0.9.10'  # Last officially released gem
 gem 'geokit', '>= 1.5.0'
 
 gem "globalize3"
+gem "haml"
 
 #gem 'mongoid', git: 'git://github.com/durran/mongoid.git', branch: 'prerelease'
 gem "mongoid", "2.0.0.beta.20", :require => 'mongoid'

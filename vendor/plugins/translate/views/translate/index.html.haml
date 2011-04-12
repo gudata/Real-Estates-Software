@@ -1,0 +1,86 @@
+- @page_title = "Translate"
+- show_filters = ["all", "untranslated", "translated"]
+- show_filters << "changed" if @from_locale != @to_locale
+
+%fieldset
+  %legend Search filter
+  #show-sort
+    %p
+      %label Show:
+      = raw simple_filter(show_filters)
+    %p
+      %label Sort by:
+      = raw simple_filter(["key", "text"], 'sort_by')
+  - form_tag(params, :method => :get) do
+    #languages
+      %p
+        = hidden_field_tag(:filter, params[:filter])
+        = hidden_field_tag(:sort_by, params[:sort_by])
+        %label Translate from
+        = select_tag(:from_locale, options_for_select(I18n.valid_locales, @from_locale.to_sym))
+        %span to
+        = select_tag(:to_locale, options_for_select(I18n.valid_locales, @to_locale.to_sym))
+        = submit_tag "Display"
+    #filter-pattern
+      %p
+        %label{:for => "key_pattern_value"} Key
+        = select_tag(:key_type, options_for_select([["contains", 'contains'], ["starts with", 'starts_with']], params[:key_type]))
+        = text_field_tag(:key_pattern, params[:key_pattern], :size => 50, :id => "key_pattern_value", :class => "text-default")
+      %p
+        %label{:for => "text_pattern_value"} Text
+        = select_tag(:text_type, options_for_select(['contains', 'equals'], params[:text_type]))
+        = text_field_tag(:text_pattern, params[:text_pattern], :size => 50, :id => "text_pattern_value", :class => "text-default")
+      %p
+        = submit_tag "Search"
+        = link_to "clear", params.merge({:text_pattern => nil, :key_pattern => nil})
+  %p.hits
+    Found
+    %strong= @total_entries
+    messages
+  %p
+    = link_to "Reload messages", translate_reload_path
+.paging
+  = render :partial => 'pagination', :locals => {:total_entries => @total_entries, :per_page => per_page}
+- if @total_entries > 0
+  - form_tag(translate_path) do
+    %div
+      = hidden_field_tag(:filter, params[:filter], :id => "hid_filter")
+      = hidden_field_tag(:sort_by, params[:sort_by], :id => "hid_sort_by")
+      = hidden_field_tag(:key_type, params[:key_type], :id => "hid_key_type")
+      = hidden_field_tag(:key_pattern, params[:key_pattern], :id => "hid_key_pattern")
+      = hidden_field_tag(:text_type, params[:text_type], :id => "hid_text_type")
+      = hidden_field_tag(:text_pattern, params[:text_pattern], :id => "hid_text_pattern")
+    .translations
+      %h2
+        Translations from #{@from_locale} to #{@to_locale}
+      %p.translate
+        = submit_tag "Save Translations"
+      - @paginated_keys.each do |key|
+      - from_text = lookup(@from_locale, key)
+      - to_text = lookup(@to_locale, key)
+      - line_size = 100
+      - n_lines = n_lines(from_text, line_size)
+      - field_name = "key[#{key}]"
+        .translation
+          - if from_text.present?
+            %p.translation-text
+              = simple_format(h(from_text))
+          %p.edit-form
+            - if n_lines > 1
+              = text_area_tag(field_name, to_text, :size => "#{line_size}x#{n_lines}", :id => key)
+            - else
+              = text_field_tag(field_name, to_text, :size => line_size, :id => key)
+          %p
+            %em
+              = link_to_function 'Auto Translate', "getGoogleTranslation('#{key}', \"#{escape_javascript(from_text)}\", '#{@from_locale}', '#{@to_locale}')", :style => 'padding: 0; margin: 0;'
+              %br/
+              %strong Key:
+              = h key
+              %br/
+              - if @files[key]
+                %strong File:
+                = @files[key].join("<br/>")
+      %p.translate
+        = submit_tag "Save Translations"
+.paging
+  = render :partial => 'pagination', :locals => {:total_entries => @total_entries, :per_page => per_page}

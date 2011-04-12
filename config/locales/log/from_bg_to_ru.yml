@@ -34,6 +34,8 @@ activemodel:
     floor_type: "Тип етаж"
     inspection: Оглед
     search_criteria: Критерий
+    sell: "Оферта продава"
+    sell_document: "Оферта продава"
     street_type: "Тип улица"
 activerecord: 
   attributes: 
@@ -55,21 +57,20 @@ activerecord:
         phone_type_id: "Вид телефон"
     internet_comunicator_type: 
       is_email: "Емайл ли е?"
+    project: 
+      status_id: Статус
     user: 
       assistant: Асистент
-      current_login_at: "Текущо влезнал на"
-      current_login_ip: "Влезнал от адрес"
+      current_login_at: "Последен вход на"
+      current_login_ip: "Вход от адрес"
       last_login_at: "Последно логнал се на"
-      last_login_ip: "Последно влезнал от адрес"
+      last_login_ip: "Последен вход от адрес"
       last_request_at: "Последно действие на"
       locale: Език
       login_count: "Брой влизания"
       picture: Снимка
   models: 
     apartment_type: "Апартамент типове"
-    internet_comunicator_type: "Тип на интернет комуникатор"
-    project: Проект
-    property_category_location_id: "Категория местоположение на имот"
 date: 
   formats: 
     default: "%d.%m.%Y"

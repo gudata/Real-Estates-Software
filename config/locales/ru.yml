@@ -4,7 +4,7 @@ ru:
   : "Вы уверены?"
   Delete: Удалить
   ? "Internal fields"
-  : ""
+  : "Сферы деятельности"
   active: ""
   activemodel: 
     attributes: 
@@ -38,6 +38,8 @@ ru:
       floor_type: ""
       inspection: ""
       search_criteria: ""
+      sell: ""
+      sell_document: ""
       street_type: ""
   activerecord: 
     attributes: 
@@ -188,6 +190,7 @@ ru:
         source_value: Источник
         start_date: "Дата строительства"
         status: Статус
+        status_id: ""
         team: Команда
         user: Обслуживается
         website: Веб-сайт
@@ -1316,9 +1319,11 @@ ru:
     formats: 
       default: "%d.%m.%Y"
       human: "%d %B %Y"
+      human_date: "%d %B %Y"
       long: "%d %B %Y"
       month: "%B %Y"
       short: "%d %b"
+      year: "%Y"
     month_names: 
       - ~
       - Януари
@@ -1410,8 +1415,8 @@ ru:
   edit: Изменение
   formtastic: 
     actions: 
-      create: Запись %{model}
-      update: Запись %{model}
+      create: "Запись %{model}"
+      update: "Запись %{model}"
     labels: 
       buy: 
         description: Описание
@@ -1596,9 +1601,11 @@ ru:
     formats: 
       default: "%a, %d %b %Y, %H:%M:%S %z"
       human: "%d %B %Y, %H:%M"
+      human_date: "%d %B %Y"
       long: "%d %B %Y, %H:%M"
       month: "%B %Y"
       short: "%d %b, %H:%M"
+      year: "%Y"
     pm: следобед
   update: Запись
   user_sessions: 

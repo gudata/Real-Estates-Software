@@ -75,3 +75,6 @@ config/newrelic.yml
 config/database.yml
 doc/automation.txt
 get_diana.sh
+z.rb
+doc/продавачи наемодатели.doc
+doc/статистика купувачи наематели.doc
