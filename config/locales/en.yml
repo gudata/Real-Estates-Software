@@ -1,15 +1,274 @@
 --- 
 en: 
+  ? "Are you sure?"
+  : "Are you sure?"
+  Delete: Delete
+  ? "Internal fields"
+  : "Internal data"
+  active: Active
   activemodel: 
+    attributes: 
+      attachment: 
+        attachment: Document
+        description: Description
+        name: Name
+      canceled_type: 
+        active: Active
+        name: "Reason for refusal"
+        position: Position
+      floor_type: 
+        active: Active
+        name: "Floor Description"
+        position: Position
+        value: Value
+      inspection: 
+        description: Description
+      street_type: 
+        active: Active
+        name: "Street type"
+        position: Position
     errors: 
       messages: 
         taken: "is already taken"
+    models: 
+      address_document: Address
+      attachment: Document
+      buy: "Offer buy"
+      canceled_type: "Reason for refusal"
+      floor_type: "Type Floor"
+      inspection: "Open house"
+      search_criteria: Criterion
+      sell: "Offer for sale"
+      sell_document: "Offer for sale"
+      street_type: "Street type "
   activerecord: 
     attributes: 
+      address: 
+        apartment: "ап. №"
+        building: Block
+        city_id: City
+        country_id: Country
+        description: Description
+        district_id: District
+        entrance: ent.
+        floor: fl
+        municipality_id: Municipality
+        number: №
+        quarter_id: Quarter
+        street: Street
+        street_hint: "Street name"
+      apartment_type: 
+        active: Active
+        name: "Apartment Type"
+        position: Position
+      building_type: 
+        active: Active
+        name: "Building / Outbuilding"
+        position: Position
+      city: 
+        municipality_id: Municipality
+        name: Name
+      company: 
+        bank_account: Account
+        bik: BIC
+        bulstat: Bulstat
+        name: Name
+        owner: Owner
+      construction_type: 
+        active: Active
+        name: Construction
+        position: Position
+      contact: 
+        banc_account: Account
+        company_branch: Branch
+        company_name: "Company Name"
+        description: Description
+        iban: IBAN
+        important: "Important contacts"
+        internet_comunicators: 
+          internet_comunicator_type: "Internet communicator type"
+          internet_comunicator_value: "Internet Communicator value"
+          value: "Internet Communicator"
+        is_company: "Legal person"
+        mol_first_name: Name
+        mol_last_name: Family
+        mol_phone: Phone
+        nationality_id: Nationality
+        person_employment: Affiliation
+        person_first_name: Name
+        person_last_name: Family
+        person_middle_name: Surname
+        person_position: Position
+        phones: 
+          number: Number
+          phone_type_id: "Phone type"
+        picture: Photo
+        web: Website
+      contact_category: 
+        active: Active
+        name: Name
+        position: Position
+      country: 
+        name: Name
+      district: 
+        country_id: Country
+        name: Name
+      exposure_type: 
+        active: Active
+        name: ""
+        position: Position
+      fence_type: 
+        active: Active
+        name: Fence
+        position: Position
+      heating_type: 
+        active: Active
+        name: Heating
+        position: Position
+      infrastructure_type: 
+        active: Active
+        name: Infrastructure
+        position: Position
+      internet_comunicator: 
+        contact_id: Contact
+        internet_comunicator_type_id: "Contact Type"
+        value: Contact
+      internet_comunicator_type: 
+        is_email: "Is email?"
+        name: Type
+      keyword: 
+        as: "Displayed as"
+        kind_of_search: "Search Type"
+        name: Attribute
+        patern: Type
+      keywords_property_type: 
+        keyword_id: Attribute
+        position: "Position on render"
+        property_type_id: "Property Type"
+      municipality: 
+        district_id: District
+        name: Name
+      name: Name
+      office: 
+        active: Active
+        address_id: Address
+        description: Description
+        mobile_phone: "Mobile phone"
+        name: Name
+        phone: Phone
+      person: 
+        first_name: Name
+        last_name: Family
+        middle_name: Surname
+        name: Name
+      phone: 
+        contact_id: Contact
+        number: Number
+        phone_type_id: "Phone Type"
+      phone_type: 
+        name: Type
+      project: 
+        active: Active
+        additional_description: "Additional description"
+        address: Address
+        adres: Address
+        brokerage: Commission
+        contact: Customer
+        contact_person: "Contact person"
+        contact_person_phone: ""
+        description: Description
+        discount: Discounts
+        finish_date: "Completion Date"
+        furnish: Furnishing
+        id: Number
+        managment_fee: "Management fee"
+        name: Name
+        project_stage: Completion
+        property_category_location: Category
+        reference_point: Landmark
+        source: "Source type"
+        source_value: Source
+        start_date: "Construction Date"
+        status: Status
+        status_id: Status
+      project_stage: 
+        position: Position
+      property_category_location: 
+        name: "Location of the property"
+        position: Position
+      property_function: 
+        active: Active
+        name: Purpose
+        position: Position
+      property_location: 
+        active: Active
+        name: "Location of property"
+        position: Position
+      property_type: 
+        active: Active
+        name: "Property Type"
+        position: Position
+      quarter: 
+        city_id: City
+        name: Name
+      road_type: 
+        active: Active
+        name: Road
+        position: Position
+      room: 
+        area: Area
+        balcony: Balcony
+        condition: ""
+        exposure_type_id: Exhibition
+        room_type_id: "Type room"
+      room_type: 
+        active: Active
+        name: Room
+        position: Position
+      sell: 
+        address_id: "Property Address"
+        client_id: Seller
+        description: Description
+        offer_type: "Offer type"
+        offer_type_id: "Offer type"
+        property_type_id: "Property Type"
+        source_id: "Source type"
+        source_value: Source
+        status_id: Status
+        user_id: User
+      sell_type: 
+        active: Active
+        category: Category
+        name: ""
+        position: Position
+      sphere: 
+        active: Active
+        name: Name
+        position: Position
+      standart_choice: 
+        active: Active
+        name: Select
+        position: Position
+      status: 
+        default: ""
+        hide_on_this_status: "Hide the object with this status"
+        name: Name
+      team: 
+        active: Active
+        description: Description
+        name: Name
       user: 
+        assistant: Assistant
+        birth: "Date of birth"
+        chat: "Chat client"
+        company_webpage: ""
+        current_login_at: ""
+        current_login_ip: ""
         default_language_id: ""
         email: ""
         login: ""
+      validation_type: 
+        position: Position
     errors: 
       full_messages: 
         format: "%{attribute} %{message}"
@@ -56,9 +315,74 @@ en:
     models: 
       user: ""
   admin: 
+    apartment_types: 
+      form: 
+        position: Position
+    building_types: 
+      form: 
+        position: Position
+    canceled_types: 
+      form: 
+        position: Position
+    construction_types: 
+      form: 
+        position: Position
+    exposure_types: 
+      form: 
+        position: Position
+    fence_types: 
+      form: 
+        position: Position
+    floor_types: 
+      form: 
+        position: Position
+    heating_types: 
+      form: 
+        position: Position
+    infrastructure_types: 
+      form: 
+        position: Position
+    keywords: 
+      form: 
+        position: Position
+    offer_types: 
+      form: 
+        position: Position
+    project: 
+      Active: Active
+    project_stages: 
+      form: 
+        position: Position
+    property_category_locations: 
+      form: 
+        position: Position
+    property_functions: 
+      form: 
+        position: Position
+    property_locations: 
+      form: 
+        position: Position
+    property_types: 
+      form: 
+        position: Position
+    road_types: 
+      form: 
+        position: Position
+    room_types: 
+      form: 
+        position: Position
+    standart_choices: 
+      form: 
+        position: Position
     statistic: 
       ? "Статистика по екипи"
       : ""
+    street_types: 
+      form: 
+        position: Position
+    validation_types: 
+      form: 
+        position: Position
   date: 
     abbr_day_names: 
       - Sun
@@ -190,6 +514,19 @@ en:
       header: 
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
+  formtastic: 
+    labels: 
+      buy_status: 
+        hide_on_this_buy_status: "Hide deals with this status"
+      name: Name
+      property_type: ""
+      search_criteria: 
+        property_type: ""
+        property_type_id: ""
+      status: 
+        client_visible: ""
+    titles: 
+      sell_details: ""
   helpers: 
     select: 
       prompt: "Please select"
@@ -197,6 +534,69 @@ en:
       create: "Create %{model}"
       submit: "Save %{model}"
       update: "Update %{model}"
+  inactive: ""
+  index: ""
+  keywords: 
+    ? "Mножествен избор - select"
+    : ""
+    Да/Не: ""
+    ? "Единичен избор - select"
+    : ""
+    ? "Календар дата"
+    : ""
+    ? "Календар с година"
+    : ""
+    ? "Календар с месеци и години"
+    : ""
+    ? "Множествен избор - checkboxes"
+    : ""
+    ? "Текстова кутия"
+    : ""
+  layouts: 
+    admin: 
+      ? "Oферти предлага"
+      : ""
+      confirm_logout: ""
+      dashboard: ""
+      forgot_password: ""
+      login: ""
+      logout: ""
+      register: ""
+      ? "Всички клиенти"
+      : ""
+      ? "Всички проекти"
+      : ""
+      ? "Добави клиент"
+      : ""
+      ? "Добави контакт"
+      : ""
+      Клиенти: ""
+      Контакти: ""
+      Купува: ""
+      Купувачи: ""
+      ? "Моите оферти"
+      : ""
+      ? "Моите проекти"
+      : ""
+      Наема: ""
+      Наематели: ""
+      Наемодатели: ""
+      Отдава: ""
+      Оферти: ""
+      Продава: ""
+      Продавачи: ""
+      Проекти: ""
+      ? "Списък клиенти"
+      : ""
+      ? "Списък контакти"
+      : ""
+    application: 
+      confirm_logout: ""
+      dashboard: ""
+      login: ""
+      logout: ""
+      my_account: ""
+      register: ""
   meta_search: 
     predicates: 
       contains: "%{attribute} contains"
@@ -281,22 +681,81 @@ en:
     precision: 
       format: 
         delimiter: ""
+  password_resets: 
+    new: 
+      reset_password: "Send instructions"
+  place_types: 
+    ? "1"
+    : city
+    ? "3"
+    : ""
+  please_wait: "Please wait ..."
+  print: Print
+  remove: Delete
+  search: Search
+  shared: 
+    select_user: 
+      team: "by team"
+      user: "Belongs to"
+    ? "Дата на създаване"
+    : "Creation date"
+    ? "Последно обновена"
+    : "Last update"
+  show: View
   support: 
     array: 
       last_word_connector: ", and "
+      sentence_connector: and
       two_words_connector: " and "
       words_connector: ", "
     select: 
       prompt: "Please select"
+  test: test
   time: 
     am: am
     formats: 
       default: "%a, %d %b %Y %H:%M:%S %z"
+      human: "% D% B% Y,% H:% M"
+      human_date: "% D% B% Y"
       long: "%B %d, %Y %H:%M"
+      month: "% B% Y"
       short: "%d %b %H:%M"
+      year: "% Y"
     pm: pm
+  update: Update
+  user_sessions: 
+    login_successfull: Welcome!
+    logout_successfull: "You logged out successfully!"
+    must_be_logged: "This page requires user"
+    must_be_not_logged: "This page does not require user"
+    new: 
+      forgot_password: "Forgot your password?"
+      login: Login
+      must_be_logged: "This page requires user"
+      password: Password
+      remember_me: "Remember me"
+  users: 
+    ? "Account updated"
+    : "Account has been updated"
+    edit: 
+      edit_my_account: "Edit Account"
+      my_profile: "View Data"
+      update: Refresh
+    form: 
+      password: Password
+      password_confirmation: "Confirm Password"
+    new: 
+      register: Registration
+      register_new_user: "New User Registration"
+    show: 
+      edit: Version
+      my_account: "My Account"
   will_paginate: 
     ? "Next page"
     : "&raquo;"
     ? "Previous page"
     : "&laquo;"
+  ? "Няма резултати отговарящи на критериите"
+  : "No results meet the criteria"
+  ? "намерени резултата"
+  : "search results% {count}"

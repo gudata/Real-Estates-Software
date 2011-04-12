@@ -1,56 +1,129 @@
 --- 
+? "Are you sure?"
+: "Сигурен ли сте?"
+Delete: Изтриване
+? "Internal fields"
+: "Служебни полета"
+active: Активен
+activemodel: 
+  attributes: 
+    attachment: 
+      attachment: Документ
+      description: Описание
+      name: Име
+    canceled_type: 
+      active: Активена
+      name: "Причина за отказ"
+      position: Позиция
+    floor_type: 
+      active: Активен
+      name: "Описание етаж"
+      position: Позиция
+      value: Стойност
+    inspection: 
+      description: Описание
+    street_type: 
+      active: Активена
+      name: "Вид улица"
+      position: Позиция
+  models: 
+    address_document: Адрес
+    attachment: Документ
+    buy: "Оферта купува"
+    canceled_type: "Причина за отказ"
+    floor_type: "Тип етаж"
+    inspection: Оглед
+    search_criteria: Критерий
+    sell: "Оферта продава"
+    sell_document: "Оферта продава"
+    street_type: "Тип улица"
 activerecord: 
   attributes: 
-    user: 
-      default_language_id: "език по подразбиране"
-      email: имейл
-      login: потребител
-  errors: 
-    messages: 
-      accepted: "трябва да се потвърди"
-      blank: "не може да е без стойност"
-      confirmation: "не съответства на потвърждението"
-      empty: "не може да е празно"
-      equal_to: "може да е единствено със стойност, равна на %{count}"
-      even: "може да е единствено нечетно"
-      exclusion: "съдържа предварително зададена стойност"
-      greater_than: "може да е със стойност, по-голяма от %{count}"
-      greater_than_or_equal_to: "може да е със стойност, по-голяма или равна на %{count}"
-      inclusion: "съдържа непредвидена стойност"
-      invalid: "съдържа невярна стойност"
-      less_than: "може да е със стойност, по-малка от %{count}"
-      less_than_or_equal_to: "може да е със стойност, по-голяма или равна на %{count}"
-      not_a_number: "не е число"
-      odd: "може да е единствено четно"
-      taken: "вече съществува"
-      too_long: 
-        few: "е с прекалена дължина (не може да е повече от %{count} символа)"
-        many: "е с прекалена дължина (не може да е повече от %{count} символи)"
-        one: "е с прекалена дължина (не може да е повече от %{count} символ)"
-        other: "е с прекалена дължина (не може да е повече от %{count} символа)"
-      too_short: 
-        few: "е с недостатъчна дължина (не може да бъде по малко %{count} символа)"
-        many: "е с недостатъчна дължина (не може да бъде по малко %{count} символи)"
-        one: "е с недостатъчна дължина (не може да бъде по малко %{count} символ)"
-        other: "е с недостатъчна дължина (не може да бъде по малко %{count} символа)"
-      wrong_length: 
-        few: "е с грешна дължина (трябва да е с дължина, равна на %{count} символа)"
-        many: "е с грешна дължина (трябва да е с дължина, равна на %{count} символа)"
-        one: "е с грешна дължина (трябва да е с дължина, равна на %{count} символ)"
-        other: "е с грешна дължина (трябва да е с дължина,  равна на %{count} символа)"
-    template: 
-      body: "Възникнаха проблеми при следните полета:"
-      header: 
-        few: "%{model}: записа неуспешен заради %{count} грешки"
-        many: "%{model}: записа неуспешен заради %{count} грешки"
-        one: "%{model}: записа неуспешен заради %{count} грешка"
-        other: "%{model}: записа неуспешен заради %{count} грешки"
-  models: 
-    user: Потребител
+    exposure_type: 
+      name: Разположение
+    internet_comunicator: 
+      value: Контакт
+    internet_comunicator_type: 
+      is_email: "Емайл ли е?"
+      name: Тип
+    keyword: 
+      as: "Изобразява се като"
+      kind_of_search: "Тип търсене"
+      name: Атрибут
+      patern: "От тип"
+    keywords_property_type: 
+      keyword_id: Атрибут
+      property_type_id: "Тип имот"
+    municipality: 
+      district_id: Област
+      name: Име
+    name: Име
+    office: 
+      active: Активен
+      address_id: Адрес
+      description: Описание
+      mobile_phone: "Мобилен телефон"
+      name: Име
+      phone: Телефон
+    person: 
+      first_name: Име
+      last_name: Фамилия
+      middle_name: Презиме
+      name: Име
+    phone: 
+      contact_id: Контакт
+      number: Номер
+      phone_type_id: "Тип телефон"
+    phone_type: 
+      name: Тип
+    project: 
+      active: Активен
+      additional_description: "Допълнително описание"
+      address: Адрес
+      adres: Адрес
+      brokerage: Комисионна
+      contact: Клиент
+      contact_person: "Лице за контакт"
+      contact_person_phone: "Телефон на л.к."
+      description: Описание
+      discount: Отстъпки
+      finish_date: "Дата завършване"
+      furnish: Обзавеждане
+      id: Номер
+      managment_fee: "Такса управление"
+      name: Име
+      project_stage: Завършеност
+      property_category_location: Категория
+      reference_point: Ориентир
+      source: "Тип източник"
+      source_value: Източник
+      start_date: "Дата строителство"
+      status: Статус
+      status_id: Статус
 admin: 
-  statistic: 
-    ? "Статистика по екипи"
-    : "Статистика по екипи"
+  buy_statuses: 
+    Име: Име
+  buys: 
+    ? "Име оферта"
+    : "Име оферта"
+  contacts: 
+    name: Име
+    person_first_name: Име
+  offer_types: 
+    name: Име
+  project: 
+    full_name: Име
+    Име: Име
+  property_types: 
+    form: 
+      name: Име
+  statuses: 
+    Име: Име
+  users: 
+    first_name: Име
+    Име: Име
+    ? "Име за вход"
+    : "Име за вход"
 date: 
   formats: 
     default: "%d.%m.%Y"
@@ -71,3 +144,135 @@ datetime:
     about_x_years: 
       few: "около %{count} години"
       many: "около %{count} години"
+formtastic: 
+  labels: 
+    buy_status: 
+      hide_on_this_buy_status: "Скриване на оферти с този статус"
+    name: Име
+    property_type: "Тип имот"
+    search_criteria: 
+      property_type: "Тип имот"
+      property_type_id: "Вид имот"
+    status: 
+      client_visible: "Клиента е видим"
+  titles: 
+    sell_details: "Оферта продава"
+inactive: "Не активен"
+index: "Към списъка"
+keywords: 
+  ? "Mножествен избор - select"
+  : "Mножествен избор - select"
+  Да/Не: Да/Не
+  ? "Единичен избор - select"
+  : "Единичен избор - select"
+  ? "Календар дата"
+  : "Календар дата"
+  ? "Календар с година"
+  : "Календар с година"
+  ? "Календар с месеци и години"
+  : "Календар с месеци и години"
+  ? "Множествен избор - checkboxes"
+  : "Множествен избор - checkboxes"
+  ? "Текстова кутия"
+  : "Текстова кутия"
+layouts: 
+  admin: 
+    ? "Oферти предлага"
+    : "Oферти предлага"
+    confirm_logout: "Сигурни ли сте?"
+    dashboard: "Начална страница"
+    forgot_password: "Забравена парола"
+    login: Вход
+    logout: Изход
+    register: Регистрация
+    ? "Всички клиенти"
+    : "Всички клиенти"
+    ? "Всички проекти"
+    : "Всички проекти"
+    ? "Добави клиент"
+    : "Добави клиент"
+    ? "Добави контакт"
+    : "Добави контакт"
+    Клиенти: Клиенти
+    Контакти: Контакти
+    Купува: "Оферти купува"
+    Купувачи: Kупувачи
+    ? "Моите оферти"
+    : "Моите оферти"
+    ? "Моите проекти"
+    : "Моите проекти"
+    Наема: "Оферти наема"
+    Наематели: Наематели
+    Наемодатели: Наемодатели
+    Отдава: "Оферти отдава"
+    Оферти: Оферти
+    Продава: "Оферти продава"
+    Продавачи: Продавачи
+    Проекти: Проекти
+    ? "Списък клиенти"
+    : "Списък клиенти"
+    ? "Списък контакти"
+    : "Списък контакти"
+  application: 
+    confirm_logout: "Сигурни ли сте?"
+    dashboard: "Начална страница"
+    login: Вход
+    logout: Изход
+    my_account: "Моя акаунт"
+    register: Регистрация
+password_resets: 
+  new: 
+    reset_password: "Изпрати инструкции"
+place_types: 
+  ? "1"
+  : гр.
+  ? "3"
+  : с.
+please_wait: "Моля изчакайте ..."
+print: Печат
+remove: Изтрий
+search: Търси
+shared: 
+  select_user: 
+    team: "от екип"
+    user: "Принадлежи на"
+  ? "Дата на създаване"
+  : "Дата на създаване"
+  ? "Последно обновена"
+  : "Последно обновяване"
+show: Преглед
+support: 
+  array: 
+    sentence_connector: и
+test: тест
+time: 
+  formats: 
+    human: "%d %B %Y, %H:%M"
+    human_date: "%d %B %Y"
+    month: "%B %Y"
+    year: "%Y"
+update: Запис
+user_sessions: 
+  new: 
+    login: Вход
+    must_be_logged: "Тази страница изисква потребител"
+users: 
+  ? "Account updated"
+  : "Акаунта беше обновен"
+  edit: 
+    edit_my_account: "Редакция Акаунт"
+    my_profile: "Преглед на данните"
+    update: Обнови
+  form: 
+    password: Парола
+    password_confirmation: "Потвърди парола"
+  new: 
+    register: Регистрация
+    register_new_user: "Регистрация на нов потребител"
+  show: 
+    edit: Редакция
+    my_account: "Моя Акаунт"
+? "Няма резултати отговарящи на критериите"
+: "Няма резултати отговарящи на критериите"
+? "намерени резултата"
+: "намерени резултата %{count}"

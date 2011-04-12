@@ -1,4 +1,7 @@
 --- 
+? "Are you sure?"
+: "Сигурен ли сте?"
+Delete: Изтриване
 ? "Internal fields"
 : "Служебни полета"
 active: Активен
@@ -39,28 +42,7 @@ activemodel:
     street_type: "Тип улица"
 activerecord: 
   attributes: 
-    address: 
-      building: Блок
-      description: Описание
-      street_hint: "Име на улица"
-    apartment_type: 
-      active: Активна
-      name: "Вид апартамент"
-      position: Позиция
-    contact: 
-      internet_comunicators: 
-        internet_comunicator_type: "Интернет комуникатор тип"
-        internet_comunicator_value: "Интернет комуникатор стойността"
-        value: "Интернет комуникатор"
-      phones: 
-        number: Номер
-        phone_type_id: "Вид телефон"
-    internet_comunicator_type: 
-      is_email: "Емайл ли е?"
-    project: 
-      status_id: Статус
     user: 
-      assistant: Асистент
       current_login_at: "Последен вход на"
       current_login_ip: "Вход от адрес"
       last_login_at: "Последно логнал се на"
@@ -71,6 +53,71 @@ activerecord:
       picture: Снимка
   models: 
     apartment_type: "Апартамент типове"
+    internet_comunicator_type: "Тип на интернет комуникатор"
+    project: Проект
+    property_category_location_id: "Категория местоположение на имот"
+admin: 
+  ? "Add Furnish"
+  : "Добави нов вид обзавеждане"
+  ? "Add Role"
+  : "Добави роля"
+  ? "Add Source"
+  : "Добави нов източник"
+  Name: Наименование
+  Show: Преглед
+  apartment_types: 
+    active: Активен
+    edit: 
+      title: "Редакция на тип апартамент"
+    form: 
+      active: Активна
+      index: "Списък - типове апартаменти"
+      name: "Тип апартамент"
+      position: Позиция
+    index: 
+      add: "Добави тип апартамент"
+      title: "Списък - типове апартаменти"
+    new: 
+      title: "Нов тип за апартамент"
+    status: Статус
+    unactive: Неактивен
+  attachments: 
+    ? "Без име"
+    : "Без име"
+    ? "В момента няма документи"
+    : "В момента няма документи"
+    ? "Добавяне на документ"
+    : "Добавяне на документ"
+    ? "Документа е бил изтрит"
+    : "Документа е бил изтрит"
+    ? "Документа е изтрит"
+    : "Документа е изтрит"
+    Документи: Документи
+    ? "Записан успешно"
+    : "Записан успешно"
+    ? "Качен от"
+    : "Качен от"
+    ? "Нов документ"
+    : "Нов документ"
+    ? "Редакция на документ"
+    : "Редакция на документ"
+    ? "Списък с документи"
+    : "Списък с документи"
+    ? "Текущ файл"
+    : "Текущ файл"
+  buy_search: 
+    city: Град
+    city_id: Град
+    created_at: Създадена
+    number_or_status_warning: "Когато се търси по номер на оферта, търсенето по статус е без значение"
+    price: Цена
+    something_from: "%{name} от"
+    something_to: "%{name} до"
+    ? "Вид Апартамент"
+    : "Вид Апартамент"
+    ? "Вид имот"
+    : "Вид имот"
+    Град: Град
 date: 
   formats: 
     default: "%d.%m.%Y"
@@ -91,10 +138,59 @@ datetime:
     about_x_years: 
       few: "около %{count} години"
       many: "около %{count} години"
+keywords: 
+  ? "Календар с месеци и години"
+  : "Календар с месеци и години"
+  ? "Множествен избор - checkboxes"
+  : "Множествен избор - checkboxes"
+  ? "Текстова кутия"
+  : "Текстова кутия"
 layouts: 
-  application: 
-    dashboard: "Начална страница"
-    login: Вход
-    logout: Изход
-    my_account: "Моя акаунт"
-    register: Регистрация
+  admin: 
+    forgot_password: "Забравена парола"
+mongoid: 
+  errors: 
+    messages: 
+      association_cant_have_inverse_of: "Дефинирането на inverse_of за тази асоциация не е позволено. Използвайте тази опция само за  embedded_in  или references_many като масив."
+      calling_document_find_with_nil_is_invalid: "Извикването на Document#find със nil е невалидно"
+      dependent_only_references_one_or_many: "Опцията dependent => destroy|delete, която е посочена е валидна само за references_one или references_many връзки"
+      document_not_found: "Не е намерен документ %{klass} с id(та) %{identifiers}."
+      embedded_in_must_have_inverse_of: "Опциите на embedded_in асоциацията трябва да съдържат invers_of."
+      invalid_collection: "Достъпа до колекцията за %{klass} не е разрешена, тъй като тя е вложен документ, можете да я достъпите през главният документ"
+      invalid_database: "Базата данни трябва да е от тип Mnogo:DB, а не  %{name}."
+      invalid_field: "Дефинирането на поле с име %{name} не е разрешено. Не дефинирайте полета, които са в конфликт с Mongoid вътрешните атрибути. Можете да ги видите с Document#instance_methods"
+      invalid_type: "Полето е дефинирано като a(n) %{klass}, но се присвоява %{other} със стойност %{value}."
+      too_many_nested_attribute_records: "Присвояването на вложини атрибути за %{association}  е ограничено до %{limit} записа"
+      unsupported_version: "MongoDB %{version} не се подържа, моля ползвайте версия след %{mongo_version}."
+      validations: "Неуспешна валидация - %{errors} грешки."
+partials: 
+  inspections: 
+    ? "Въведен от"
+    : "Въведен от"
+    ? "Направен от"
+    : "Направен от"
+    ? "Не е отбелязан"
+    : "Не е отбелязан"
+    ? "Параметри на огледа"
+    : "Параметри на огледа"
+    ? "Със придружител"
+    : "Със придружител"
+password_resets: 
+  ? "No user was found with that email address"
+  : "Грешен емайл"
+please_wait: "Моля изчакайте ..."
+shared: 
+  ? "Дата на създаване"
+  : "Дата на създаване"
+  ? "Последно обновена"
+  : "Последно обновяване"
+test: тест
+user_sessions: 
+  must_be_not_logged: "Тази страница не изисква потребител"
+users: 
+  ? "Account updated"
+  : "Акаунта беше обновен"
+? "Няма резултати отговарящи на критериите"
+: "Няма резултати отговарящи на критериите"
+? "намерени резултата"
+: "намерени резултата %{count}"

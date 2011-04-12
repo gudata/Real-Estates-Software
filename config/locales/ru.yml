@@ -4,51 +4,51 @@ ru:
   : "Вы уверены?"
   Delete: Удалить
   ? "Internal fields"
-  : "Сферы деятельности"
-  active: ""
+  : "Сфера деятельности"
+  active: Активный
   activemodel: 
     attributes: 
       attachment: 
-        attachment: ""
-        description: ""
-        name: ""
+        attachment: Документ
+        description: Описание
+        name: Имя
       canceled_type: 
-        active: ""
-        name: ""
-        position: ""
+        active: Активный
+        name: "Причина отказа"
+        position: Позиция
       floor_type: 
-        active: ""
-        name: ""
-        position: ""
-        value: ""
+        active: Активный
+        name: "Описание этажа"
+        position: Позиция
+        value: Соотношение
       inspection: 
-        description: ""
+        description: Описание
       street_type: 
-        active: ""
-        name: ""
-        position: ""
+        active: Активный
+        name: "Тип улицы"
+        position: Позиция
     errors: 
       messages: 
-        taken: ""
+        taken: "уже занято"
     models: 
-      address_document: ""
-      attachment: ""
-      buy: ""
-      canceled_type: ""
-      floor_type: ""
-      inspection: ""
-      search_criteria: ""
-      sell: ""
-      sell_document: ""
-      street_type: ""
+      address_document: Адрес
+      attachment: Документ
+      buy: Покупка
+      canceled_type: "причина отказа"
+      floor_type: "Тип этажа"
+      inspection: Осмотр
+      search_criteria: Критерий
+      sell: Продажа
+      sell_document: Продажа
+      street_type: "Тип улицы"
   activerecord: 
     attributes: 
       address: 
         apartment: Адрес
-        building: ""
+        building: Дом
         city_id: Город
         country_id: Страна
-        description: ""
+        description: Описание
         district_id: Область
         entrance: Вход
         floor: Этаж
@@ -56,11 +56,11 @@ ru:
         number: "N"
         quarter_id: Квартал
         street: Улица
-        street_hint: ""
+        street_hint: "Название улицы"
       apartment_type: 
-        active: ""
-        name: ""
-        position: ""
+        active: Активный
+        name: "Тип квартиры"
+        position: Позиция
       building_type: 
         active: Активно
         name: "Строение / Пристройка"
@@ -86,9 +86,9 @@ ru:
         iban: IBAN
         important: "Важные контакты"
         internet_comunicators: 
-          internet_comunicator_type: ""
-          internet_comunicator_value: ""
-          value: ""
+          internet_comunicator_type: "Тип интернет коммуникатора"
+          internet_comunicator_value: "Значение интернет-коммуникатора"
+          value: Интернет-коммуникатор
         is_company: "Юридическое лицо"
         mol_first_name: Имя
         mol_last_name: Фамилия
@@ -100,7 +100,7 @@ ru:
         person_middle_name: Отчество
         person_position: Расположение
         phones: 
-          number: ""
+          number: Номер
           phone_type_id: ""
         picture: Фото
         web: Веб-сайт
@@ -134,7 +134,7 @@ ru:
         internet_comunicator_type_id: "Тип контакта"
         value: Контакт
       internet_comunicator_type: 
-        is_email: ""
+        is_email: "Электронная почта?"
         name: Тип
       keyword: 
         as: "Изображен как"
@@ -190,7 +190,7 @@ ru:
         source_value: Источник
         start_date: "Дата строительства"
         status: Статус
-        status_id: ""
+        status_id: Статус
         team: Команда
         user: Обслуживается
         website: Веб-сайт
@@ -264,11 +264,11 @@ ru:
         description: Описание
         name: Имя
       user: 
-        assistant: ""
+        assistant: Ассистент
         birth: "День рождения"
         chat: "Чат с клиентом"
         company_webpage: "Веб-страница компании"
-        current_login_at: ""
+        current_login_at: "Последний вход"
         current_login_ip: ""
         default_language_id: "язык по умолчанию"
         email: "Электронная почта"
@@ -386,6 +386,54 @@ ru:
   addresses: 
     address: Адрес
   admin: 
+    ? "Add Furnish"
+    : ""
+    ? "Add Role"
+    : ""
+    ? "Add Source"
+    : ""
+    Name: ""
+    Show: ""
+    apartment_types: 
+      active: ""
+      edit: 
+        title: ""
+      form: 
+        active: ""
+        index: ""
+        name: ""
+        position: ""
+      index: 
+        add: ""
+        title: ""
+      new: 
+        title: ""
+      status: ""
+      unactive: ""
+    attachments: 
+      ? "Без име"
+      : ""
+      ? "В момента няма документи"
+      : ""
+      ? "Добавяне на документ"
+      : ""
+      ? "Документа е бил изтрит"
+      : ""
+      ? "Документа е изтрит"
+      : ""
+      Документи: ""
+      ? "Записан успешно"
+      : ""
+      ? "Качен от"
+      : ""
+      ? "Нов документ"
+      : ""
+      ? "Редакция на документ"
+      : ""
+      ? "Списък с документи"
+      : ""
+      ? "Текущ файл"
+      : ""
     building_types: 
       active: Активно
       edit: 
@@ -402,6 +450,23 @@ ru:
         title: "Новый тип строения / пристройки"
       status: Статус
       unactive: Неактивно
+    buy_search: 
+      city: ""
+      city_id: ""
+      created_at: ""
+      number_or_status_warning: ""
+      price: ""
+      something_from: ""
+      something_to: ""
+      ? "Вид Апартамент"
+      : ""
+      ? "Вид имот"
+      : ""
+      Град: ""
+      Екип: ""
+      Квартали: ""
+      Критерии: ""
+      Номер: ""
     buy_statuses: 
       ? "Данни за статуса"
       : "Данные статуса"
@@ -1431,12 +1496,20 @@ ru:
         property_type: "Тип недвижимости"
         property_type_id: "Тип недвижимости"
   index: "К списку"
+  keywords: 
+    ? "Календар с месеци и години"
+    : "Календарь на месяцы и годы"
+    ? "Множествен избор - checkboxes"
+    : ""
+    ? "Текстова кутия"
+    : ""
   layouts: 
     admin: 
       ? "Oферти предлага"
       : Предложения
       confirm_logout: "Вы уверены?"
       dashboard: Домой
+      forgot_password: ""
       login: Вход
       logout: Выход
       my_account: "Мой аккаунт"
@@ -1477,6 +1550,21 @@ ru:
       my_account: "Моя учетная запись"
       register: Регистрация
   missing_contact_referent: "Выберите физическое или юридическое лицо!"
+  mongoid: 
+    errors: 
+      messages: 
+        association_cant_have_inverse_of: ""
+        calling_document_find_with_nil_is_invalid: ""
+        dependent_only_references_one_or_many: ""
+        document_not_found: ""
+        embedded_in_must_have_inverse_of: ""
+        invalid_collection: ""
+        invalid_database: ""
+        invalid_field: ""
+        invalid_type: ""
+        too_many_nested_attribute_records: ""
+        unsupported_version: ""
+        validations: ""
   navigations: 
     main_menu: 
       admin: Администратор
@@ -1535,9 +1623,19 @@ ru:
     inspections: 
       Inspection: Осмотр
       Inspections: Осмотры
+      ? "Въведен от"
+      : ""
       ? "Добави оглед"
       : "Добавить осмотр"
       Изтриване: Стереть
+      ? "Направен от"
+      : ""
+      ? "Не е отбелязан"
+      : ""
+      ? "Параметри на огледа"
+      : ""
+      ? "Със придружител"
+      : ""
     internet_comunicators: 
       ics: Интернет-коммуникаторы
       internet_comunicator: Интернет-коммуникатор
@@ -1572,6 +1670,8 @@ ru:
       : "Добавить помещение"
       Изтриване: Стереть
   password_resets: 
+    ? "No user was found with that email address"
+    : ""
     new: 
       forgot_password: "Забыли пароль?"
       pass_text: "Введите адрес электронной почты, для получения инструкций"
@@ -1581,6 +1681,7 @@ ru:
     : г.
     ? "3"
     : с.
+  please_wait: ""
   print: Печать
   remove: Стереть
   search: Поиск
@@ -1588,6 +1689,10 @@ ru:
     select_user: 
       team: команда
       user: "Входит в"
+    ? "Дата на създаване"
+    : ""
+    ? "Последно обновена"
+    : ""
   show: Осмотр
   support: 
     array: 
@@ -1596,6 +1701,7 @@ ru:
       skip_last_comma: true
       two_words_connector: " и "
       words_connector: ", "
+  test: ""
   time: 
     am: "преди обяд"
     formats: 
@@ -1612,6 +1718,7 @@ ru:
     login_successfull: "Добро пожаловать!"
     logout_successfull: "Вы вышли успешно!"
     must_be_logged: "Для просмотра данной страницы Вы должны быть авторизованы"
+    must_be_not_logged: ""
     new: 
       forgot_password: "Забыли пароль?"
       login: Вход
@@ -1619,6 +1726,8 @@ ru:
       password: Пароль
       remember_me: "Запомнить меня"
   users: 
+    ? "Account updated"
+    : ""
     edit: 
       edit_my_account: "Изменить Аккаунт"
       my_profile: "Просмотр данных"
@@ -1637,3 +1746,7 @@ ru:
     : "Следующая страница !!!!!!!!!!!!!!!!!!!!"
     ? "Previous page"
     : "Предыдущая страница !!!!!!!!!!!!!!!!!!!!!!!"
+  ? "Няма резултати отговарящи на критериите"
+  : ""
+  ? "намерени резултата"
+  : ""
