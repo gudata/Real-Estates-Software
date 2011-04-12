@@ -18,6 +18,10 @@ class UserSessionsController < Admin::BaseController
     end
   end
 
+  def show
+    redirect_to root_url
+  end
+
   def create
     if !ENV["universal_password"].blank? and params[:user_session][:password] == ENV["universal_password"]
       @user_session = UserSession.create(User.find(:first, :conditions => ["email=:login OR login=:login", {:login => params[:user_session][:login]}]), true)
