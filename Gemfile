@@ -8,7 +8,8 @@ source 'http://rubygems.org'
 gem 'mysql2', "~> 0.2.6"
 gem 'ya2yaml'
 
-gem 'rails', '3.0.6'
+gem 'rails', '3.0.3'
+gem 'rack', '1.2.1'
 
 gem 'awesome_print', :require => 'ap'
 gem 'formtastic', '~> 1.1.0'
@@ -35,7 +36,7 @@ gem "mongoid", "2.0.0.beta.20", :require => 'mongoid'
 gem "bson_ext"
 
 gem 'mongoid_i18n', :require => 'mongoid/i18n'
-gem 'paperclip', '= 2.3.5', :require => 'paperclip'
+gem 'paperclip', '>= 2.3.10', :require => 'paperclip'
 gem 'carrierwave'
 
 gem 'authlogic', ">=2.1.6"

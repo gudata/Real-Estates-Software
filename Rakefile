@@ -5,4 +5,5 @@ require File.expand_path('../config/application', __FILE__)
 require 'rake'
 #require 'metric_fu'
 #require 'app/models/mongoid/address_document.rb'
+$: << "app/models/mongoid"
 Re::Application.load_tasks
