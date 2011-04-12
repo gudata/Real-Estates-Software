@@ -30,8 +30,8 @@ class Buy
   referenced_in :contact, :index => true
   referenced_in :user, :index => true
   referenced_in :team, :index => true
-  referenced_in :created_by_user, :class_name => "User"
-  referenced_in :source
+  referenced_in :created_by_user, :class_name => "User", :index => true
+  referenced_in :source, :index => true
   referenced_in :canceled_type, :index => true
   
   belongs_to_related :co_owner, :class_name => "User"
