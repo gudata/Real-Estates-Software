@@ -44,4 +44,8 @@ Re::Application.configure do
 
   #  require 'lib/rack/firebug_logger'
   #  config.middleware.use FirebugLogger
+  
+  config.middleware.use "Rack::Bug",
+    :secret_key => ActiveSupport::SecureRandom.hex(16)
+
 end
