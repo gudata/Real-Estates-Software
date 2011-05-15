@@ -67,7 +67,7 @@ class Admin::SellsController < Admin::BaseController
   end
   
   def edit
-    @sell = Sell.where(:id => params[:id]).
+    @sell = Sell.where(:id => params[:id]).where("keywords_sells.sell_id" => params[:id]).
       includes(:translations => [],
       :keywords_sells => {:keyword => [:validation_types]}, # :translations
       :offer_type => [:translations],
@@ -76,7 +76,9 @@ class Admin::SellsController < Admin::BaseController
       :documents => [:translations],
       :inspections => [:translations],
       :property_category_location => [:translations],
-      :property_type => [:translations]).first
+      :property_type => [:translations]).
+      limit(1).
+      first
 
     availble_keywords = Keyword.where("keywords_property_types.property_type_id" => @sell.property_type.id).
       includes(:keywords_property_types, :translations).
@@ -128,13 +130,9 @@ class Admin::SellsController < Admin::BaseController
       flash[:error] = "Can't display sell without contact"
       redirect_to :action => "index"
     end
-    check_contact_key(params[:key])
-  end
-
-  def check_contact_key(key)
-    unless @contact.key == key or @contact.key
+    unless @contact.key == params[:key] or @contact.key
       flash[:error] = "Нямате ключ за да достъпите офертите на контакта"
     end
   end
-  
+
 end

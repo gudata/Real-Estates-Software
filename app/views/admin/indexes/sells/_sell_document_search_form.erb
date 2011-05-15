@@ -64,6 +64,7 @@
       :input_html => {:class => "city_select", :search_object_name => "sell_search"},
       :collection => []
   %>
+
     <% content_for :head do %>
       <script type="text/javascript">
         $(document).ready(function(){
@@ -87,6 +88,9 @@
       :collection => $cache[ApartmentType],
       :label => t("Вид Апартамент", :scope => [:admin, :sell_search]) %>
 
+    <%= sell_search_form.input :construction_type_ids, :as => :check_boxes,
+      :collection => $cache[ConstructionType], #ConstructionType.all
+    :label => t("Конструкция", :scope => [:admin, :sell_search]) %>
 
     <%= sell_search_form.inputs(t("сортиране", :scope => [:admin, :sell_search]), :class => "inputs sorting") do
       sort_order_options = SellSearch::SORT_KEYS.collect{|k, v| [t(k), v.to_s]}

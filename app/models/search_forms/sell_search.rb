@@ -20,6 +20,7 @@ class SellSearch
     :city_name,
     :city_id,
     :quarter_ids,
+    :construction_type_ids
   ]
 
   SORT_KEYS = {
@@ -47,7 +48,7 @@ class SellSearch
       params[:address_documents].collect do |address|
         address_document = AddressDocument.new
         address_document.municipality_id = address[:municipality_id].to_i unless address[:municipality_id].blank?
-#        address_document.city_id = address[:city_id] unless address[:city_id].blank?
+        #        address_document.city_id = address[:city_id] unless address[:city_id].blank?
         address_document.city_id = @city_id unless params[:city_id].blank?
         #        if !city_name.blank? and !city_name.strip.blank?
         #          city = City.find(:first, :conditions => {:"city_translations.name" => city_name})
@@ -89,7 +90,7 @@ class SellSearch
       status_hash = {:status_id => {"$in" => status_ids.collect{|id| id if !id.blank?}.compact}}
       @matching_sell.add(status_hash, true)
     end
-
+    
     order_array = get_order_hash
     #    raise @matching_sell.sell_documents.inspect
     @matching_sell.sell_documents.first.order_by(order_array)
@@ -100,32 +101,44 @@ class SellSearch
   def get_buy
     # Търсенето се прави като се минава през оферта купува.
     buy = Buy.new()
-    buy.offer_type_id = offer_type_id unless offer_type_id.blank?
-    buy.number = number.to_i unless number.blank?
-    buy.user_id = user_id unless user_id.blank?
     buy.reverse_offer_type = false
-
-    search_criteria = SearchCriteria.new()
-    search_criteria.property_type_id = property_type_id unless property_type_id.blank?
-    search_criteria.terms << fill_range(Term.new(:tag => "price"), price_from, price_to)
-    search_criteria.terms << fill_range(Term.new(:tag => "area"), area_from, area_to)
-    search_criteria.terms << fill_range(Term.new(:tag => "rooms"), rooms_from, rooms_to)
-
-    if !apartment_type_ids.blank? and !apartment_type_ids.empty?
-      search_criteria.terms << Term.new(
-        :tag => "apartment_type",
-        :values => apartment_type_ids.collect{|id| id if !id.blank?}.compact
-      )
-    end
-
-    #    raise search_criteria.hash_for_searching.inspect
     
-    buy.search_criterias << search_criteria
+    buy.number = number.to_i unless number.blank?
+    
+    if number.blank?
+      buy.offer_type_id = offer_type_id unless offer_type_id.blank?
+      buy.user_id = user_id unless user_id.blank?
 
-    @address_documents.each do |address_document|
-      buy.address_documents << address_document
+      search_criteria = SearchCriteria.new()
+    
+      search_criteria.property_type_id = property_type_id unless property_type_id.blank?
+      search_criteria.terms << fill_range(Term.new(:tag => "price"), price_from, price_to)
+      search_criteria.terms << fill_range(Term.new(:tag => "area"), area_from, area_to)
+      search_criteria.terms << fill_range(Term.new(:tag => "rooms"), rooms_from, rooms_to)
+
+      if !apartment_type_ids.blank? and !apartment_type_ids.empty? 
+        search_criteria.terms << Term.new(
+          :tag => "apartment_type",
+          :values => apartment_type_ids.collect{|id| id if !id.blank?}.compact
+        )
+      end
+
+      if !construction_type_ids.blank? and !construction_type_ids.empty?  
+        search_criteria.terms << Term.new(
+          :tag => "construction",
+          :values => construction_type_ids.collect{|id| id if !id.blank?}.compact
+        )
+      end
+    
+      #    raise search_criteria.hash_for_searching.inspect
+    
+      buy.search_criterias << search_criteria
+
+      @address_documents.each do |address_document|
+        buy.address_documents << address_document
+      end
     end
-
+    
     #    raise buy.address_documents.inspect
     buy
   end

@@ -21,6 +21,7 @@ class BuySearch
     :city_id,
     :quarter_ids,
     :exact_price_interval,
+    :construction_type_ids
   ]
 
 
@@ -93,6 +94,9 @@ class BuySearch
     terms = []
     terms << fill_range(Term.new(:tag => "area"), area_from, area_to).hash_for_searching_ranged
     terms << Term.new(:tag => "apartment_type", :values => apartment_type_ids).hash_for_searching unless apartment_type_ids.blank?
+    unless construction_type_ids.blank?
+      terms << Term.new(:tag => "construction", :values => construction_type_ids.reject{|e| e.blank?}).hash_for_searching 
+    end
 
     price_term = fill_range(Term.new(:tag => "price"), price_from, price_to)
     if price_term.can_do_full_interval? and exact_price_interval == "0"
@@ -202,3 +206,14 @@ db.buys.find({
       }
     }
   })
+
+
+Buy.all.each do |buy|
+  buy.search_criterias.each do |search_criteria|
+    term = search_criteria.term('construction')
+    if term and term.values and term.values.size > 1
+      ap buy.id
+      ap search_criteria.term('construction').inspect
+    end
+  end
+end

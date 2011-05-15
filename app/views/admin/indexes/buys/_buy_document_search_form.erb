@@ -87,6 +87,10 @@
 
 
     <%= buy_search_form.input :apartment_type_ids, :as => :check_boxes, :collection => $cache[ApartmentType], :label => t("Вид Апартамент", :scope => [:admin, :buy_search]) %>
+      
+    <%# buy_search_form.input :construction_type_ids, :as => :check_boxes,
+      :collection => $cache[ConstructionType], #ConstructionType.all
+    :label => t("Конструкция", :scope => [:admin, :buy_search]) %>
 
     <%= buy_search_form.inputs(t("сортиране", :scope => [:admin, :buy_search]), :class => "inputs sorting") do
       sort_order_options = BuySearch::SORT_KEYS.collect{|k, v| [t(k), v.to_s]}

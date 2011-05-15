@@ -144,14 +144,9 @@ class Admin::ProjectsController < Admin::BaseController
       flash[:error] = "Can't display sell without contact"
       redirect_to :action => "index"
     end
-    check_contact_key(params[:key])
-  end
-
-  def check_contact_key(key)
-    unless @contact.key == key or @contact.key
+    unless @contact.key == params[:key] or @contact.key
       flash[:error] = "Нямате ключ за да достъпите офертите на контакта"
     end
   end
-
   
 end
