@@ -41,89 +41,65 @@ activerecord:
   attributes: 
     exposure_type: 
       name: Разположение
-    internet_comunicator: 
-      value: Контакт
-    internet_comunicator_type: 
-      is_email: "Емайл ли е?"
-      name: Тип
-    keyword: 
-      as: "Изобразява се като"
-      kind_of_search: "Тип търсене"
-      name: Атрибут
-      patern: "От тип"
-    keywords_property_type: 
-      keyword_id: Атрибут
-      property_type_id: "Тип имот"
-    municipality: 
-      district_id: Област
-      name: Име
-    name: Име
-    office: 
-      active: Активен
-      address_id: Адрес
-      description: Описание
-      mobile_phone: "Мобилен телефон"
-      name: Име
-      phone: Телефон
-    person: 
-      first_name: Име
-      last_name: Фамилия
-      middle_name: Презиме
-      name: Име
-    phone: 
-      contact_id: Контакт
-      number: Номер
-      phone_type_id: "Тип телефон"
-    phone_type: 
-      name: Тип
     project: 
-      active: Активен
-      additional_description: "Допълнително описание"
-      address: Адрес
-      adres: Адрес
-      brokerage: Комисионна
-      contact: Клиент
-      contact_person: "Лице за контакт"
       contact_person_phone: "Телефон на л.к."
-      description: Описание
-      discount: Отстъпки
-      finish_date: "Дата завършване"
-      furnish: Обзавеждане
-      id: Номер
-      managment_fee: "Такса управление"
-      name: Име
-      project_stage: Завършеност
-      property_category_location: Категория
-      reference_point: Ориентир
-      source: "Тип източник"
-      source_value: Източник
-      start_date: "Дата строителство"
-      status: Статус
-      status_id: Статус
+  errors: 
+    template: 
+      header: 
+        many: "%{model}: записа неуспешен заради %{count} грешки"
+  models: 
+    address: Адрес
+    apartment_type: "Апартамент типове"
+    building_type: Сграда/Пристройка
+    city: Град/Село
+    construction_type: "Конструкция на имот"
+    contact: Контакт
+    contact_category: "Категория на контакт"
+    country: Държава
+    district: Област
+    exposure_type: "Разположение на имот"
+    fence_type: Ограда
+    heating_type: "Отопление на имот"
+    infrastructure_type: Инфраструктура
+    internet_comunicator: "Интернет комуникатор"
+    internet_comunicator_type: "Тип на интернет комуникатор"
+    keyword: "Атрибути на имот"
+    keywords_property_type: "Шаблон на имот"
+    municipality: Община
+    office: Офис
+    person: "Физическо лице"
+    phone: Телефон
+    phone_type: "Тип на телефон"
+    project: Проект
+    project_stage: "Етапи на завършване на проект"
+    property_category_location: "Категория местоположение на имот"
+    property_category_location_id: "Категория местоположение на имот"
+    property_function: "Предназначение на имот"
+    property_location: "Локация на имот"
+    property_type: "Тип имот"
+    quarter: Квартал
+    road_type: "Тип път"
+    room: Помещение
+    room_type: "Тип помещение"
+    sell: "Оферта продава"
+    sell_type: "Тип оферта"
+    sphere: "Сфера на влияние"
+    standart_choice: "Стандартен избор"
+    team: Екип
+    user: Потребител
+    validation_type: Валидация
+add: Добави
+addresses: 
+  address: Адрес
 admin: 
-  buy_statuses: 
-    Име: Име
-  buys: 
-    ? "Име оферта"
-    : "Име оферта"
-  contacts: 
-    name: Име
-    person_first_name: Име
-  offer_types: 
-    name: Име
-  project: 
-    full_name: Име
-    Име: Име
-  property_types: 
-    form: 
-      name: Име
-  statuses: 
-    Име: Име
-  users: 
-    first_name: Име
-    Име: Име
-    ? "Име за вход"
-    : "Име за вход"
+  ? "Add Furnish"
+  : "Добави нов вид обзавеждане"
+  ? "Add Role"
+  : "Добави роля"
+  ? "Add Source"
+  : "Добави нов източник"
+  Name: Наименование
+  Show: Преглед
 date: 
   formats: 
     default: "%d.%m.%Y"

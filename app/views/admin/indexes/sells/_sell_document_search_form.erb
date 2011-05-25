@@ -62,13 +62,13 @@
       :label => t("Град", :scope => [:admin, :buy_search]),
       :as => :select,
       :input_html => {:class => "city_select", :search_object_name => "sell_search"},
-      :collection => []
+      :collection => City.all
   %>
 
     <% content_for :head do %>
       <script type="text/javascript">
         $(document).ready(function(){
-          fill_from_storage("#sell_search_city_id", "cities_storage", "<%= cities_navigations_path %>", '<%= sell_search_form.object.city_id %>');
+          // fill_from_storage("#sell_search_city_id", "cities_storage", "<%= cities_navigations_path %>", '<%= sell_search_form.object.city_id %>');
         });
       </script>
     <% end%>

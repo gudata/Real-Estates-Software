@@ -191,9 +191,15 @@ en:
         start_date: "Construction Date"
         status: Status
         status_id: Status
+        team: Team
+        user: "Managed by"
+        website: Website
       project_stage: 
+        active: Active
+        name: Name
         position: Position
       property_category_location: 
+        active: Active
         name: "Location of the property"
         position: Position
       property_function: 
@@ -218,7 +224,7 @@ en:
       room: 
         area: Area
         balcony: Balcony
-        condition: ""
+        condition: State
         exposure_type_id: Exhibition
         room_type_id: "Type room"
       room_type: 
@@ -239,7 +245,7 @@ en:
       sell_type: 
         active: Active
         category: Category
-        name: ""
+        name: Subtype
         position: Position
       sphere: 
         active: Active
@@ -250,7 +256,7 @@ en:
         name: Select
         position: Position
       status: 
-        default: ""
+        default: "Default flag"
         hide_on_this_status: "Hide the object with this status"
         name: Name
       team: 
@@ -261,13 +267,33 @@ en:
         assistant: Assistant
         birth: "Date of birth"
         chat: "Chat client"
-        company_webpage: ""
-        current_login_at: ""
-        current_login_ip: ""
-        default_language_id: ""
-        email: ""
-        login: ""
+        company_webpage: "Company web page"
+        current_login_at: "Last login"
+        current_login_ip: "Login from"
+        default_language_id: "Default Language"
+        email: Email
+        first_name: Name
+        last_login_at: "Last logged in"
+        last_login_ip: "Last logged in address"
+        last_name: Family
+        last_request_at: "Last Action"
+        locale: Language
+        login: User
+        login_count: "Number of logins"
+        mobile: Mobile
+        office_id: Office
+        password: Password
+        password_confirmation: "Confirm Password"
+        phone: Phone
+        picture: Photo
+        role_id: Role
+        second_name: Surname
+        signature: Signature
+        team_id: Team
+        webpage: "web page"
       validation_type: 
+        active: Active
+        name: Validation
         position: Position
     errors: 
       full_messages: 
@@ -291,30 +317,80 @@ en:
         record_invalid: "Validation failed: %{errors}"
         taken: "has already been taken"
         too_long: 
-          few: ""
-          many: ""
-          one: ""
-          other: ""
+          few: "is too long (not more than% {count} characters)"
+          many: "is too long (not more than% {count} characters)"
+          one: "is too long (not more than% {count} symbol)"
+          other: "is too long (not more than% {count} characters)"
         too_short: 
-          few: ""
-          many: ""
-          one: ""
-          other: ""
+          few: "is insufficient length (can not be less% {count} characters)"
+          many: "is insufficient length (can not be less% {count} characters)"
+          one: "is insufficient length (can not be less% {count} symbol)"
+          other: "is insufficient length (can not be less% {count} characters)"
         wrong_length: 
-          few: ""
-          many: ""
-          one: ""
-          other: ""
+          few: "is the wrong length (should have a length equal to% {count} characters)"
+          many: "is the wrong length (should have a length equal to% {count} characters)"
+          one: "is the wrong length (should have a length equal to% {count} symbol)"
+          other: "is the wrong length (should have a length equal to% {count} characters)"
       template: 
         body: "There were problems with the following fields:"
         header: 
-          few: ""
-          many: ""
+          few: "% {Model}: save failed because% {count} errors"
+          many: "% {Model}: entry failed because% {count} errors"
           one: "1 error prohibited this %{model} from being saved"
           other: "%{count} errors prohibited this %{model} from being saved"
     models: 
+      address: ""
+      apartment_type: ""
+      building_type: ""
+      city: ""
+      construction_type: ""
+      contact: ""
+      contact_category: ""
+      country: ""
+      district: ""
+      exposure_type: ""
+      fence_type: ""
+      heating_type: ""
+      infrastructure_type: ""
+      internet_comunicator: ""
+      internet_comunicator_type: ""
+      keyword: ""
+      keywords_property_type: ""
+      municipality: ""
+      office: ""
+      person: ""
+      phone: ""
+      phone_type: ""
+      project: ""
+      project_stage: ""
+      property_category_location: ""
+      property_category_location_id: ""
+      property_function: ""
+      property_location: ""
+      property_type: ""
+      quarter: ""
+      road_type: ""
+      room: ""
+      room_type: ""
+      sell: ""
+      sell_type: ""
+      sphere: ""
+      standart_choice: ""
+      team: ""
       user: ""
+      validation_type: ""
+  add: ""
+  addresses: 
+    address: ""
   admin: 
+    ? "Add Furnish"
+    : ""
+    ? "Add Role"
+    : ""
+    ? "Add Source"
+    : ""
+    Name: ""
+    Show: ""
     apartment_types: 
       form: 
         position: Position

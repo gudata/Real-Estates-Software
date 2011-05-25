@@ -101,7 +101,7 @@ ru:
         person_position: Расположение
         phones: 
           number: Номер
-          phone_type_id: ""
+          phone_type_id: "Тип телефона"
         picture: Фото
         web: Веб-сайт
       contact_category: 
@@ -269,7 +269,7 @@ ru:
         chat: "Чат с клиентом"
         company_webpage: "Веб-страница компании"
         current_login_at: "Последний вход"
-        current_login_ip: ""
+        current_login_ip: Логин
         default_language_id: "язык по умолчанию"
         email: "Электронная почта"
         first_name: Имя
@@ -279,7 +279,7 @@ ru:
         last_request_at: ""
         locale: ""
         login: Пользователь
-        login_count: ""
+        login_count: "Количество входов"
         mobile: Мобильный
         office_id: Офис
         password: Пароль
@@ -389,7 +389,7 @@ ru:
     ? "Add Furnish"
     : ""
     ? "Add Role"
-    : ""
+    : "Добавить роли"
     ? "Add Source"
     : ""
     Name: ""
@@ -451,7 +451,7 @@ ru:
       status: Статус
       unactive: Неактивно
     buy_search: 
-      city: ""
+      city: Город
       city_id: ""
       created_at: ""
       number_or_status_warning: ""
@@ -466,7 +466,9 @@ ru:
       Екип: ""
       Квартали: ""
       Критерии: ""
-      Номер: ""
+      Номер: Номер
+      ? "Няма квартали за това населено място"
+      : ""
     buy_statuses: 
       ? "Данни за статуса"
       : "Данные статуса"

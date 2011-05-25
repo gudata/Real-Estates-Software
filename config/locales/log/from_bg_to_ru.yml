@@ -43,13 +43,10 @@ activemodel:
 activerecord: 
   attributes: 
     user: 
-      current_login_at: "Последен вход на"
-      current_login_ip: "Вход от адрес"
       last_login_at: "Последно логнал се на"
       last_login_ip: "Последен вход от адрес"
       last_request_at: "Последно действие на"
       locale: Език
-      login_count: "Брой влизания"
       picture: Снимка
   models: 
     apartment_type: "Апартамент типове"
@@ -59,8 +56,6 @@ activerecord:
 admin: 
   ? "Add Furnish"
   : "Добави нов вид обзавеждане"
-  ? "Add Role"
-  : "Добави роля"
   ? "Add Source"
   : "Добави нов източник"
   Name: Наименование
@@ -106,7 +101,6 @@ admin:
     ? "Текущ файл"
     : "Текущ файл"
   buy_search: 
-    city: Град
     city_id: Град
     created_at: Създадена
     number_or_status_warning: "Когато се търси по номер на оферта, търсенето по статус е без значение"
@@ -118,6 +112,12 @@ admin:
     ? "Вид имот"
     : "Вид имот"
     Град: Град
+    Екип: Екип
+    Квартали: Квартали
+    Критерии: "Критерии за търсене"
+    Номер: Номер
+    ? "Няма квартали за това населено място"
+    : "Няма квартали за това населено място"
 date: 
   formats: 
     default: "%d.%m.%Y"
