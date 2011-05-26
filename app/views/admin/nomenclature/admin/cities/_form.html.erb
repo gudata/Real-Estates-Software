@@ -102,6 +102,7 @@ end
     key_values = t(:place_types).collect{|key, value| [value.to_s, key.to_s.to_i, ]}
     select("city","kind", key_values, {:include_blank => t(:chose)}) %>
     <%= f.input :name, :input_html => {:style => "width:160px"} %>
+    <%= f.input :main %>
     <%= f.input :locale, :value => I18n.locale, :as => :hidden %>
   <% end %>
 

@@ -21,6 +21,9 @@
 <%= semantic_form_for sell_search, :as => :sell_search,  :url => admin_indexes_sells_url,
   :html => {:method => :get} do |sell_search_form|%>
   <%= sell_search_form.inputs t(:"Критерии", :scope => [:admin, :sell_search]) do %>
+
+
+
     <%= sell_search_form.input :number, :label => t("Номер", :scope => [:admin, :sell_search]) %>
     <%= sell_search_form.input :status_ids, :as => :check_boxes, :collection => $cache[Status], :label => t("Статус", :scope => [:admin, :sell_search]) %>
     <br/>
@@ -42,19 +45,28 @@
   %>
     <%= sell_search_form.input :co_owner_id, :collection => @users, :label => t("Отговарящ", :scope => [:admin, :buy_search]) %>
 
+
+
+
+
+
     <%= sell_search_form.input :team_id, :collection => Team.all, :label => t("Екип", :scope => [:admin, :sell_search]) %>
     <%= sell_search_form.input :property_type_id, :collection => $cache[PropertyType], :label => t("Вид имот", :scope => [:admin, :sell_search]) %>
+
     <% sell_search.address_documents.each do |address_document| %>
       <%= sell_search_form.semantic_fields_for :address_documents, address_document do |single_address_document_form| %>
         <%= single_address_document_form.input :municipality_id,
-          :collection => $cache[Municipality].sort{|a, b|
-          return -1 unless a.name or b.name
-          a.name.downcase <=> b.name.downcase
-        },
+          :collection => Municipality.joins(:translations).order('name'),
           :label => t("Община", :scope => [:admin, :sell_search]),
           :input_html => {:index => nil} %>
       <% end %>
     <% end %>
+
+
+
+
+
+
 
 
     <%= content_tag :li, "Use the newest firefox/chrome/safari", :id => "sell_search_city_id_hint" %>
@@ -62,14 +74,17 @@
       :label => t("Град", :scope => [:admin, :buy_search]),
       :as => :select,
       :input_html => {:class => "city_select", :search_object_name => "sell_search"},
-      :collection => City.all
+      :collection => City.where(:main => true)
   %>
+
+
+
 
     <% content_for :head do %>
       <script type="text/javascript">
-        $(document).ready(function(){
-          // fill_from_storage("#sell_search_city_id", "cities_storage", "<%= cities_navigations_path %>", '<%= sell_search_form.object.city_id %>');
-        });
+        // $(document).ready(function(){
+        // fill_from_storage("#sell_search_city_id", "cities_storage", "<%= cities_navigations_path %>", '<%= sell_search_form.object.city_id %>');
+        // });
       </script>
     <% end%>
 
@@ -83,6 +98,11 @@
         })
     end
   %>
+
+
+
+
+
 
     <%= sell_search_form.input :apartment_type_ids, :as => :check_boxes,
       :collection => $cache[ApartmentType],
@@ -122,6 +142,7 @@
         params[:per_page]
       ) %>
     </select>
+
     <%= submit_tag t("Търси", :scope => [:admin, :sell_search])%>
   <% end %>
 

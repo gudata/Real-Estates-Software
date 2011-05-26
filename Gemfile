@@ -2,13 +2,14 @@
 gem 'capistrano'
 gem 'capistrano-ext'
 
+gem 'rake', '~> 0.8.7'
 
 source 'http://rubygems.org'
 
 gem 'mysql2', "~> 0.2.6"
 gem 'ya2yaml'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.7'
 gem 'rack', '1.2.1'
 
 gem 'awesome_print', :require => 'ap'
@@ -41,10 +42,10 @@ gem 'paperclip', '>= 2.3.10', :require => 'paperclip'
 gem 'carrierwave'
 
 gem 'authlogic', ">=2.1.6"
-#gem 'newrelic_rpm', '2.13.1'
 
 group :development do
   # patch for netbeans debuger
+  gem 'newrelic_rpm'
   gem 'mongrel'
   gem "ruby-debug"
   gem "annotate"

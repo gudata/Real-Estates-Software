@@ -64,13 +64,13 @@
       :label => t("Град", :scope => [:admin, :buy_search]),
       :as => :select,
       :input_html => {:class => "city_select", :search_object_name => "buy_search"},
-      :collection => []
+      :collection => City.where(:main => true)
   %>
     <% content_for :head do %>
       <script type="text/javascript">
-        $(document).ready(function(){
-          fill_from_storage("#buy_search_city_id", "cities_storage", "<%= cities_navigations_path %>", '<%= buy_search_form.object.city_id %>');
-        });
+        // $(document).ready(function(){
+          // fill_from_storage("#buy_search_city_id", "cities_storage", "<%= cities_navigations_path %>", '<%= buy_search_form.object.city_id %>');
+        // });
       </script>
     <% end%>
 
