@@ -14,9 +14,15 @@ Some inline documentation
 
   attr_reader :user
   def initialize(user)
+    Rails.logger.debug("--- Start Access Control ---------------------------------------- ")
     @user = @real_user = user
     @user = @real_user.parent if @real_user.assistant == true
-
+    
+#    if Rails.env != 'development'
+#      can :manage, :all
+#      return
+#    end
+    
     if user.role?(:manager) 
       can :manage, :all
       return
@@ -25,6 +31,7 @@ Some inline documentation
     end
     
     define_navigation
+    
     define_user if @user.role?([:manager, :team_manager])
     if @user.role?([:manager, :team_manager, :consultant])
       define_contact

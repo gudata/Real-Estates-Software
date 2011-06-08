@@ -18,7 +18,7 @@ gem 'formtastic', '~> 1.1.0'
 
 gem 'ya2yaml'
 gem 'rmagick'
-gem 'cancan', '>= 1.3.4'
+gem 'cancan', '1.3.4'
 
 source 'http://gemcutter.org'
 gem 'will_paginate', :branch => "rails3" '>= 3.0.pre2'
@@ -42,6 +42,7 @@ gem 'paperclip', '>= 2.3.10', :require => 'paperclip'
 gem 'carrierwave'
 
 gem 'authlogic', ">=2.1.6"
+gem 'omniauth' #, '0.1.6'
 
 group :development do
   # patch for netbeans debuger
@@ -49,6 +50,8 @@ group :development do
   gem 'mongrel'
   gem "ruby-debug"
   gem "annotate"
+  gem 'itslog'
+
   #  gem 'metric_fu', :require => 'metric_fu'
 end
 

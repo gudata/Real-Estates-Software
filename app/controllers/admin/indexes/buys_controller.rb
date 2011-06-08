@@ -39,13 +39,14 @@ class Admin::Indexes::BuysController < Admin::IndexesController
     per_page = params[:per_page] ? params[:per_page].to_i : @@per_page
     offset = params[:page] ? ((params[:page].to_i - 1) * per_page) : 0
     if params[:commit]
+      puts "selector"
+      ap(@buy_search.buy_documents.selector)
+      ap(@buy_search.buy_documents.options)
       @buys = @buy_search.buy_documents.skip(offset).limit(per_page).paginate
     else
       @buys = [].paginate
     end
     
-    ap(@buy_search.buy_documents.selector)
-    ap(@buy_search.buy_documents.options)
     @buys
   end
 end

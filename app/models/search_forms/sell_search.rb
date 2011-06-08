@@ -93,7 +93,9 @@ class SellSearch
     
     order_array = get_order_hash
     #    raise @matching_sell.sell_documents.inspect
-    @matching_sell.sell_documents.first.order_by(order_array)
+    sell_documents = @matching_sell.sell_documents.first
+    sell_documents.order_by(order_array) if sell_documents
+    sell_documents
   end
 
   private

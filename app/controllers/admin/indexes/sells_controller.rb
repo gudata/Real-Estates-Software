@@ -41,16 +41,12 @@ class Admin::Indexes::SellsController < Admin::IndexesController
     offset = params[:page] ? ((params[:page].to_i - 1) * per_page) : 0
 
     if params[:commit]
-      @sells = @sell_search.sell_documents.paginate(:page => params[:page], :per_page => params[:per_page])
+      @sells = (@sell_search.sell_documents || []).paginate(:page => params[:page], :per_page => params[:per_page])
     else
       @sells = [].paginate
     end
     
-    self.class.benchmark("Returning selsl") do
-      ap(@sell_search.sell_documents.selector)
-      ap(@sell_search.sell_documents.options)
-      @sells
-    end
+    @sells
   end
 
 end
