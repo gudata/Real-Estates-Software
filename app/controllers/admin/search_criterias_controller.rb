@@ -3,7 +3,7 @@ class Admin::SearchCriteriasController < Admin::BaseController
 
   load_and_authorize_resource :contact, :parent => true
   load_and_authorize_resource :buy, :class => Buy, :parent => true
-  load_and_authorize_resource :search_criteria, :through => :buy
+  #load_and_authorize_resource :search_criteria, :through => :buy
 
 
   verify :params => "search_criteria", :only => [:update, :create],
@@ -44,15 +44,16 @@ class Admin::SearchCriteriasController < Admin::BaseController
   end
 
   def edit
-    # @search_criteria = @buy.search_criterias.find(params[:id])
+    @search_criteria = @buy.search_criterias.find(params[:id])
     @matching_sell = MatchingSell.new
     @matching_sell << @search_criteria
   end
 
   def new
-#    @search_criteria = SearchCriteria.new()
+    @search_criteria = SearchCriteria.new()
     @search_criteria.property_type = PropertyType.first
     @search_criteria.load_terms(@search_criteria.property_type.id)
+    raise @search_criteria.inspect.to_s
   end
 
 

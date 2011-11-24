@@ -83,8 +83,11 @@
     <div>
       <%= t("Клиент",:scope => [:admin, :sells, :search_results]) %>:
       <%= h project.contact.name %>
-      <%= h project.contact.phones.first.phone_type.name %> :
-      <%= h project.contact.phones.first.number %>
+
+      <% if project.contact.phones.size > 0 %>
+        <%= h project.contact.phones.first.phone_type.name %> :
+        <%= h project.contact.phones.first.number %>
+      <% end%>
 
       <%  if project.contact.internet_comunicators.size > 0 %>
         <%= h project.contact.internet_comunicators.first.internet_comunicator_type.name %>  :

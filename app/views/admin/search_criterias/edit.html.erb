@@ -4,7 +4,8 @@
   <% title(t("Критерий", :scope => [:admin, :buys, :search_criteria])) %>
 
 
-  <%= semantic_form_for [:admin, @contact, @buy, @search_criteria], :html => {:multipart => true}  do |search_criteria_form| %>
+  <!-- [:admin, @contact, @buy, @search_criteria] това не сработва, незнайно защо-->
+  <%= semantic_form_for "edit", :url => admin_contact_buy_search_criteria_path(@search_criteria), :html => {:multipart => true}  do |search_criteria_form| %>
     <%= link_to(
       t("резултата", :scope =>  [:admin, :buys, :search_criteria], :count =>  @matching_sell[@search_criteria].count),
       criteria_search_result_admin_contact_buy_search_criteria_path(
