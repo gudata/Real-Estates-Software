@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class Admin::Indexes::SellsController < Admin::IndexesController
 
   load_and_authorize_resource :sell, "sell", :class => Sell
@@ -21,32 +23,39 @@ class Admin::Indexes::SellsController < Admin::IndexesController
 
   private
   def get_sells init_params={}
-    if params[:sell_search]
-      # параметрите от търсенето са значещи
-      search_params =  params[:sell_search]
-    else
-      # взимаме параметрите по-подразбиране за търсенето
-      search_params = init_params
-      search_params[:status_ids] = Status.active.all.collect{|s| s.id}
-      search_params[:offer_type_id] = params[:offer_type_id]
-    end
-    
-    @sell_search = SellSearch.new(search_params)
-
-    if !search_params[:status_ids].blank? and !search_params[:number].blank?
-      flash[:notice] = t("number_or_status_warning", :scope => [:admin, :sell_search])
-    end
-
-    per_page = params[:per_page] ? params[:per_page].to_i : @@per_page
-    offset = params[:page] ? ((params[:page].to_i - 1) * per_page) : 0
-
     if params[:commit]
+      if params[:sell_search]
+        # параметрите от търсенето са значещи
+        if params[:sell_search][:number].blank?
+          search_params =  params[:sell_search]
+        else
+          search_params = {}
+          search_params[:number] = params[:sell_search][:number]
+        end
+      else
+        # взимаме параметрите по-подразбиране за търсенето
+        search_params = init_params
+        search_params[:status_ids] = Status.active.all.collect{|s| s.id}
+        search_params[:offer_type_id] = params[:offer_type_id]
+      end
+
+
+      @sell_search = SellSearch.new(search_params)
+      #raise @sell_search.inspect.to_s
+      if !search_params[:status_ids].blank? and !search_params[:number].blank?
+        flash[:notice] = t("number_or_status_warning", :scope => [:admin, :sell_search])
+      end
+
+      per_page = params[:per_page] ? params[:per_page].to_i : @@per_page
+      offset = params[:page] ? ((params[:page].to_i - 1) * per_page) : 0
+
+
       @sells = (@sell_search.sell_documents || []).paginate(:page => params[:page], :per_page => params[:per_page])
     else
-      @sells = [].paginate
+      @sell_search = SellSearch.new({})
+      @sells = []
     end
-    
-    @sells
+
   end
 
 end

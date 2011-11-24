@@ -5,8 +5,8 @@
 class SearchCriteria
   include Mongoid::Document
   include Mongoid::Timestamps
-
   include Mongoid::ActiverecordPatch
+
   before_validation :fix_id_types
   before_validation :fix_terms_attributes
   
@@ -29,8 +29,10 @@ class SearchCriteria
 
     terms_hash =  self.terms.collect do |term|
       term_hash = term.hash_for_searching
+      Rails.logger.debug("Terms #{term_hash.inspect}")
       term_hash ? term_hash : nil
     end.compact
+
 
     unless terms_hash.empty?
       search_hash[:terms] = {"$all" => terms_hash}

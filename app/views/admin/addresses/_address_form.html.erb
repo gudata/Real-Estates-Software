@@ -36,7 +36,7 @@ address = address_for(f.object)
 </script>
 
 
-<div class="address" id="<%= dom_id(address) %>">
+<div class="address" id="<%= address.object_id %>">
 
   <%= field_set_tag t("address", :scope => [:admin, :contacts, :form]), :id => "address" do %>
     <div class="left">

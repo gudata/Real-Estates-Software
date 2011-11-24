@@ -3,6 +3,9 @@ class FloorType
   include Mongoid::Timestamps
   include Mongoid::I18n
   include Mongoid::Versioning
+  include Mongoid::ActiverecordPatch
+
+  before_validation :fix_id_types
 
 
   field :position, :type => Integer

@@ -1,5 +1,5 @@
 require 'app/uploaders/icon_uploader'
-require 'carrierwave/orm/activerecord'
+#require 'carrierwave/orm/activerecord'
 
 # == Schema Information
 #
@@ -23,7 +23,7 @@ class Country < ActiveRecord::Base
 
   default_scope :include => :translations
 
-#  field :icon
+  #field :icon
   mount_uploader :icon, IconUploader
 
 end

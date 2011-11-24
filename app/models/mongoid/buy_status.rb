@@ -4,6 +4,9 @@ class BuyStatus
   #  include MongoTranslation
   include Mongoid::I18n
   include Mongoid::Versioning
+  include Mongoid::ActiverecordPatch
+
+  before_validation :fix_id_types
 
   #  belongs_to :buy, :inverse_of => :terms
   #  

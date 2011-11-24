@@ -121,7 +121,7 @@ module Re
 
   #require 'mongo_mapper/nested_attributes'
   require 'patch/active_record.rb'
-  require 'patch/hash.rb'
+  #require 'patch/hash.rb'
   require 'array.rb'
   require 'object.rb'
   require 'string.rb'

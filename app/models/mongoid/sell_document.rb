@@ -4,8 +4,8 @@ class SellDocument
   include Mongoid::Timestamps
   #  include MongoTranslation
   include Mongoid::I18n
-
   include Mongoid::ActiverecordPatch
+
   before_validation :fix_id_types
   before_save :touch_last_update
 #  before_save :fix_i18n

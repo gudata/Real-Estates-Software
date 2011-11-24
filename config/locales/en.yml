@@ -826,7 +826,8 @@ en:
     show: 
       edit: Version
       my_account: "My Account"
-  will_paginate: 
+  will_paginate:
+    page_gap: ...
     ? "Next page"
     : "&raquo;"
     ? "Previous page"

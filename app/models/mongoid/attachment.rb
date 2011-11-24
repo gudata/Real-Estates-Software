@@ -1,5 +1,5 @@
 require 'app/uploaders/attachment_uploader'
-require 'carrierwave/orm/mongoid'
+#require 'carrierwave/orm/mongoid'
 
 class Attachment
   include Mongoid::Document

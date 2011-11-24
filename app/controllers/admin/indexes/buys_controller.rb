@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class Admin::Indexes::BuysController < Admin::IndexesController
 
   load_and_authorize_resource :buy, "buy", :class => Buy

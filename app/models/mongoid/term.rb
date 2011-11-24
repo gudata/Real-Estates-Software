@@ -2,8 +2,8 @@ class Term
   include Mongoid::Document
   #  include MongoTranslation
   include Mongoid::I18n
-
   include Mongoid::ActiverecordPatch
+
   before_validation :fix_id_types
   before_save :fix_attributes
   
@@ -63,6 +63,7 @@ class Term
 
     clause[:values] = {'$in' =>  values} if !(values.blank? || values.empty?)
 
+
     range = {}
     range['$gte'] = from if (!from.blank?)
     range['$lte'] = to if (!to.blank?)
@@ -73,8 +74,10 @@ class Term
     return false if clause.values.empty?
 
     clause[:tag] = tag
+
     {'$elemMatch' => clause}
   end
+
 
   # when searching in 'from - to' intervals
   # тука трябва да се получи точното търсене

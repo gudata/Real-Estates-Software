@@ -44,6 +44,7 @@ bg:
   will_paginate:
       Next page: "Напред &raquo;"
       Previous page: "&laquo; Назад"
+      page_gap: ...
 
   # 'formtastic.%{type}.%{model}.%{action}.%{attribute}'
   formtastic:

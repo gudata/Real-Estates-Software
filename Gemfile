@@ -21,8 +21,8 @@ gem 'rmagick'
 gem 'cancan', '1.3.4'
 
 source 'http://gemcutter.org'
-gem 'will_paginate', :branch => "rails3" '>= 3.0.pre2'
-
+#gem 'will_paginate', :branch => "rails3" '>= 3.0.pre2'
+gem 'will_paginate', :git => 'https://github.com/dbackeus/will_paginate.git'
 
 source 'http://gems.github.com'
 gem "meta_search" #, '>=0.9.10'  # Last officially released gem
@@ -40,13 +40,15 @@ gem "bson_ext"
 gem 'mongoid_i18n', :require => 'mongoid/i18n'
 gem 'paperclip', '>= 2.3.10', :require => 'paperclip'
 gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+
 
 gem 'authlogic', ">=2.1.6"
 gem 'omniauth' #, '0.1.6'
 
 group :development do
   # patch for netbeans debuger
-  gem 'newrelic_rpm'
+  #gem 'newrelic_rpm'
   gem 'mongrel'
   gem "ruby-debug"
   gem "annotate"
@@ -65,6 +67,6 @@ group :test do
   #   config.gem 'rspec-rails', :version => '>= 1.3.2', :lib => false unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
   gem 'machinist_mongo'
   # Bundle the extra gems:
-  gem 'machinist_mongo'
+  #gem 'machinist_mongo'
   #  gem 'webrat'
 end

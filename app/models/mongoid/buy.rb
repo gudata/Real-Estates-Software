@@ -5,9 +5,9 @@ class Buy
   include Mongoid::Versioning
   extend ActiveModel::Translation
   include ActiveModel::Observing
-  include Mongoid::ActiverecordPatch
-
-  before_validation :fix_id_types
+  #include Mongoid::ActiverecordPatch
+  #
+  #before_validation :fix_id_types
   before_validation :asign_team
 
   embeds_many :address_documents

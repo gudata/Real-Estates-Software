@@ -1,3 +1,4 @@
+
 <div class="box">
   <%= check_box_tag "offers[checked][]", sell.id, false, :id => "#{sell.id}_checked"  %>
 </div>
@@ -17,7 +18,7 @@
 <div class="box">
 <%# t("Тип имот",:scope => [:admin, :sells, :search_results]) %>
   <strong>
-    <%= sell.property_type.name %>
+    <%#= sell.property_type.name %>
   </strong>
 </div>
 

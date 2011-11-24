@@ -3,6 +3,9 @@ class CanceledType
   include Mongoid::Timestamps
   include Mongoid::Versioning
   include Mongoid::I18n
+  include Mongoid::ActiverecordPatch
+
+  before_validation :fix_id_types
   
   field :position, :type => Integer
   localized_field :name

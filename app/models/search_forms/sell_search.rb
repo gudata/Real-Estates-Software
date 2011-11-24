@@ -1,5 +1,7 @@
 # прокси клас към търсенето (Buy)
 # прави оферта buy и търси чрез Buy класа.
+require 'will_paginate/array'
+
 class SellSearch
   include SearchHelper
   extend ActiveModel::Naming
@@ -77,24 +79,30 @@ class SellSearch
     @matching_sell << buy
 
     # add some additional criterias
-    @matching_sell.add({:user_id => user_id}, true) unless user_id.blank?
-    @matching_sell.add({:co_owner_id => co_owner_id}, true) unless co_owner_id.blank?
-    @matching_sell.add({:team_id => team_id}, true) unless team_id.blank?
-    @matching_sell.add({:number => number}, true) unless number.blank?
-    @matching_sell.add({"address_document.quarter_id" => { "$in" => quarter_ids} }, true) unless quarter_ids.blank?
+    if number.blank?
+      @matching_sell.add({:user_id => user_id}, true) unless user_id.blank?
+      @matching_sell.add({:co_owner_id => co_owner_id}, true) unless co_owner_id.blank?
+      @matching_sell.add({:team_id => team_id}, true) unless team_id.blank?
 
-
-
-    if !status_ids.blank? and !status_ids.empty? and number.blank?
-      #      if status_ids.size != $cache[Status].size optimization some day - take in mind that some statuses could be active
-      status_hash = {:status_id => {"$in" => status_ids.collect{|id| id if !id.blank?}.compact}}
-      @matching_sell.add(status_hash, true)
+      @matching_sell.add({"address_document.quarter_id" => { "$in" => quarter_ids} }, true) unless quarter_ids.blank?
+    else
+      @matching_sell.add({:number => number}, true)
     end
-    
-    order_array = get_order_hash
-    #    raise @matching_sell.sell_documents.inspect
-    sell_documents = @matching_sell.sell_documents.first
-    sell_documents.order_by(order_array) if sell_documents
+
+    if number.blank?
+      unless status_ids.blank? && status_ids.empty?
+        #if status_ids.size != $cache[Status].size optimization some day - take in mind that some statuses could be active
+        status_hash = {:status_id => {"$in" => status_ids.collect{|id| id if !id.blank?}.compact}}
+        @matching_sell.add(status_hash, true)
+      end
+
+      order_array = get_order_hash
+      sell_documents = @matching_sell.sell_documents.first
+      sell_documents.order_by(order_array) if sell_documents
+    else
+      sell_documents = ([] << SellDocument.from_active_record(Sell.find(number)))
+    end
+
     sell_documents
   end
 
@@ -141,7 +149,7 @@ class SellSearch
       end
     end
     
-    #    raise buy.address_documents.inspect
+
     buy
   end
   
