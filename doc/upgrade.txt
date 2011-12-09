@@ -128,3 +128,6 @@ resetcounters.rb
 
 
 cap production deploy:web:enable
+
+Term#values трябва да са празен масив е не nil когато ги нямаме
+SellDocument.all.each {|document| document.terms.all.each {|term| term.values = [] if term.values.blank?}}
