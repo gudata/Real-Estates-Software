@@ -81,6 +81,7 @@ class SellSearch
     # add some additional criterias
     if number.blank?
       @matching_sell.add({:user_id => user_id}, true) unless user_id.blank?
+      @matching_sell.add({:offer_type_id => offer_type_id}, true) unless offer_type_id.blank?
       @matching_sell.add({:co_owner_id => co_owner_id}, true) unless co_owner_id.blank?
       @matching_sell.add({:team_id => team_id}, true) unless team_id.blank?
 

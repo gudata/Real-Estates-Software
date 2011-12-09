@@ -21,9 +21,6 @@
 <%= semantic_form_for sell_search, :as => :sell_search,  :url => admin_indexes_sells_url,
   :html => {:method => :get} do |sell_search_form|%>
   <%= sell_search_form.inputs t(:"Критерии", :scope => [:admin, :sell_search]) do %>
-
-
-
     <%= sell_search_form.input :number, :label => t("Номер", :scope => [:admin, :sell_search]) %>
     <%= sell_search_form.input :status_ids, :as => :check_boxes, :collection => $cache[Status], :label => t("Статус", :scope => [:admin, :sell_search]) %>
     <br/>

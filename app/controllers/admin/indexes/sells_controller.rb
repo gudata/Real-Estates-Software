@@ -36,12 +36,10 @@ class Admin::Indexes::SellsController < Admin::IndexesController
         # взимаме параметрите по-подразбиране за търсенето
         search_params = init_params
         search_params[:status_ids] = Status.active.all.collect{|s| s.id}
-        search_params[:offer_type_id] = params[:offer_type_id]
       end
 
-
       @sell_search = SellSearch.new(search_params)
-      #raise @sell_search.inspect.to_s
+
       if !search_params[:status_ids].blank? and !search_params[:number].blank?
         flash[:notice] = t("number_or_status_warning", :scope => [:admin, :sell_search])
       end
@@ -50,9 +48,9 @@ class Admin::Indexes::SellsController < Admin::IndexesController
       offset = params[:page] ? ((params[:page].to_i - 1) * per_page) : 0
 
 
-      @sells = (@sell_search.sell_documents || []).paginate(:page => params[:page], :per_page => params[:per_page])
+      @sells = @sell_search.sell_documents.paginate(:page => params[:page], :per_page => params[:per_page])
     else
-      @sell_search = SellSearch.new({})
+      @sell_search = SellSearch.new(:offer_type_id => params[:offer_type_id])
       @sells = []
     end
 
