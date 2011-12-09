@@ -15,6 +15,21 @@
       <a style="left: 0%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a>
     </div>
      */
+
+      if($('#property_type :selected').val() != 1)
+        $('#apartment_types').hide();
+
+      $('#property_type').change(function(){
+          if($(this).val() == '1'){
+            $('#apartment_types').show();
+          } else {
+            $('#apartment_types').hide();
+            $('#apartment_types input').each(function(){
+               $(this).attr('checked', false);
+            });
+
+          }
+      })
   });
 </script>
 
@@ -48,7 +63,11 @@
 
 
     <%= sell_search_form.input :team_id, :collection => Team.all, :label => t("Екип", :scope => [:admin, :sell_search]) %>
-    <%= sell_search_form.input :property_type_id, :collection => $cache[PropertyType], :label => t("Вид имот", :scope => [:admin, :sell_search]) %>
+    <%= sell_search_form.input :property_type_id,
+                               :collection => $cache[PropertyType],
+                               :label => t("Вид имот", :scope => [:admin, :sell_search]),
+                               :input_html => {:id => 'property_type'}
+    %>
 
     <% sell_search.address_documents.each do |address_document| %>
       <%= sell_search_form.semantic_fields_for :address_documents, address_document do |single_address_document_form| %>
@@ -101,9 +120,12 @@
 
 
 
-    <%= sell_search_form.input :apartment_type_ids, :as => :check_boxes,
-      :collection => $cache[ApartmentType],
-      :label => t("Вид Апартамент", :scope => [:admin, :sell_search]) %>
+    <%= sell_search_form.input :apartment_type_ids,
+                               :as => :check_boxes,
+                               :collection => $cache[ApartmentType],
+                               :label => t("Вид Апартамент", :scope => [:admin, :sell_search]),
+                               :wrapper_html => {:id => 'apartment_types'}
+    %>
 
     <%= sell_search_form.input :construction_type_ids, :as => :check_boxes,
       :collection => $cache[ConstructionType], #ConstructionType.all
