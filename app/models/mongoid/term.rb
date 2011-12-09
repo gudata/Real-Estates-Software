@@ -35,7 +35,7 @@ class Term
   field :value, :type => Integer, :index => true
 
   # multiple / nomeclature search
-  field :values, :type => Array, :index => true
+  field :values, :type => Array, :index => true, :default => []
   #  has_many :values
 
   # sort possition
