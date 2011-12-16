@@ -1,5 +1,5 @@
 class Admin::SearchCriteriasController < Admin::BaseController
-  #  before_filter :load_resources
+  #before_filter :load_resources
 
   load_and_authorize_resource :contact, :parent => true
   load_and_authorize_resource :buy, :class => Buy, :parent => true
@@ -53,7 +53,6 @@ class Admin::SearchCriteriasController < Admin::BaseController
     @search_criteria = SearchCriteria.new()
     @search_criteria.property_type = PropertyType.first
     @search_criteria.load_terms(@search_criteria.property_type.id)
-    raise @search_criteria.inspect.to_s
   end
 
 
@@ -73,6 +72,7 @@ class Admin::SearchCriteriasController < Admin::BaseController
 
   def update
     # TODO: mongoid patch
+    @search_criteria = @buy.search_criterias.find params[:id]
     @search_criteria.terms.delete_all
     @search_criteria.terms = []
 
@@ -86,7 +86,7 @@ class Admin::SearchCriteriasController < Admin::BaseController
     if @search_criteria.update_attributes(params[:search_criteria])
       #      ap "Терми брой" + @search_criteria.terms.size.to_s
       flash[:notice] = t( "Search criteria updated!", :scope =>[:admin, :buys, :search_criteria])
-      redirect_to :action => :edit, :id => @search_criteria.id
+      redirect_to :action => :edit
     else
       render :action => :edit
     end
