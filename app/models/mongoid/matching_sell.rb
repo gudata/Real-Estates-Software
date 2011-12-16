@@ -70,6 +70,7 @@ class MatchingSell
   end
 
   def merged_results
+    # TODO - maybe this must be paginated !!!
     merged_criteria = SellDocument.criteria
 
     @sell_documents.each do |criteria|
