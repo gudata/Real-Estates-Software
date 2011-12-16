@@ -62,7 +62,9 @@ module Admin::ApplicationHelper
         if buy.new_record?
           t("Нова оферта", :scope => [:admin, :buys], :number => buy.number)
         else
-          link_to(t("Оферта номер", :scope => [:admin, :buys], :number => buy.number, :kind => buy.offer_type.name), edit_admin_contact_buy_url(contact, buy))
+          link_to(t("Оферта номер", :scope => [:admin, :buys], :number => buy.number, :kind => buy.offer_type.name),
+                  edit_admin_contact_buy_url(contact, buy)
+          )
         end
       end,
       "Sell" => lambda do |*args|
@@ -82,9 +84,10 @@ module Admin::ApplicationHelper
       end,
       :search_criteria_index => lambda do |*args|
         contact, buys_index, buy, search_criteria_index = args
-        link_to(
-          t("Списък с критерии", :scope => [:admin, :buys, :search_criteria]),
-          admin_contact_buy_search_criterias_url(:buy_id => buy, :contact_id => contact.id)
+        link_to( t("Списък с критерии", :scope => [:admin, :buys, :search_criteria]),
+                 admin_contact_buy_search_criterias_url( :buy_id => buy.id.to_s,
+                                                         :contact_id => contact.id
+                 )
         )
       end,
       "SearchCriteria" => lambda do |*args|
@@ -92,17 +95,22 @@ module Admin::ApplicationHelper
         if search_criteria.new_record?
           t("Нов критерий", :scope => [:admin, :buys, :search_criteria], :number => buy.number)
         else
-          link_to(t("Критерий", :scope => [:admin, :buys, :search_criteria]), edit_admin_contact_buy_search_criteria_url(contact, buy, search_criteria))
+          link_to(t("Критерий", :scope => [:admin, :buys, :search_criteria]),
+                  edit_admin_contact_buy_search_criteria_url(:contact_id => contact.id,
+                                                             :buy_id => buy.id.to_s,
+                                                             :search_criteria_id => search_criteria.id
+                  )
+          )
         end
       end,
       "MatchingSell" => lambda do |*args|
         contact, buys_index, buy, search_criteria_index, matching_sell = args
 
-        link_to(
-          t("Съвпадащи резултати", :scope => [:admin, :buys, :search_criteria, :search_result]),
-          criteria_search_result_admin_contact_buy_search_criteria_path(
-            :contact_id => @contact.id, :buy_id => @buy, :id => matching_sell.presentation_object
-          )
+        link_to( t("Съвпадащи резултати", :scope => [:admin, :buys, :search_criteria, :search_result]),
+                 criteria_search_result_admin_contact_buy_search_criteria_path( :contact_id => @contact.id,
+                                                                                :buy_id => @buy.id.to_s,
+                                                                                :id => matching_sell.presentation_object
+                 )
         )
       end,
     }
