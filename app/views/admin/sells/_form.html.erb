@@ -1,7 +1,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     var $tabs = $('#sell_tabs').tabs();
-    var $selected = $tabs.tabs('select', <%= params[:current_tab] || params[:current_tab] = 0 %> );
+    var $selected = $tabs.tabs('select', '<%= params[:current_tab] || params[:current_tab] = 0 %>' );
 
     $('.ui-tabs-selected').click(
     function() {
