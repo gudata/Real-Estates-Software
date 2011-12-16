@@ -147,7 +147,7 @@ Some inline documentation
     can [:edit, :tab_projects, :tab_sells, :tab_buys, :tab_contact, :update, :show, :destroy, :index_clients, :index_contacts, :read], Contact do |subject|
       # Контакта съществува и може да е клиент и/или контакт
       result = check_access subject
-      Rails.logger.debug("  AC: #{result} - check contact :edit, :tabe_projects, ..., contact_id: #{subject.id}")
+      #Rails.logger.debug("  AC: #{result} - check contact :edit, :tabe_projects, ..., contact_id: #{subject.id}")
       result
     end
 

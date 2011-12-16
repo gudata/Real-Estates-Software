@@ -179,10 +179,12 @@ class User < ActiveRecord::Base
   def my_user_ids
     user = self.assistant ? self.parent : self
     user.self_and_sub_user_ids
+
   end
 
   def my_user? user_id
     return true if user_id == self.id
+    user_id = user_id.to_i
     @user_ownerships_cache ||= {}
     if @user_ownerships_cache[user_id].blank?
       @user_ownerships_cache[user_id] = my_user_ids.include? user_id
