@@ -4,6 +4,9 @@ Because of that they are extracted here and no used like migrations.
 
 Those are NOT optional for existing users. And you can totally skip them if you brand new user.
 
+# SellDocument with unexciting contact, why ??????
+SellDocument.where(:contact_id => 409).first.destroy
+
 === 1.7.4 => 1.7.5 ==
 
 Maintain scripts
@@ -131,3 +134,13 @@ cap production deploy:web:enable
 
 Term#values трябва да са празен масив е не nil когато ги нямаме
 SellDocument.all.each {|document| document.terms.all.each {|term| term.values = [] if term.values.blank?}}
+Buy.all.each do |buy|
+    buy.search_criterias.all.each do |criteria|
+        criteria.terms.all.each do |term|
+            if term.values.blank?
+                term.values = []
+                buy.save
+             end
+        end
+    end
+end
