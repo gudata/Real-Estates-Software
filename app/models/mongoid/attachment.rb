@@ -10,7 +10,7 @@ class Attachment
   localized_field :name
   localized_field :description
 
-  embedded_in :folder, :inverse_of => :attachment
+  embedded_in :folder, :class_name => 'Buy', :inverse_of => :attachments
 
   referenced_in :user, :index => true
 

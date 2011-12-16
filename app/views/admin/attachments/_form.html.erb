@@ -1,19 +1,26 @@
 <ul class="item_form" >
-  <%= t("Качен от",
+  <%#= t("Качен от",
     :client => @contact.name, :scope => [:admin, :attachments], :user_name => f.object.user.email) unless f.object.user.blank? %>
 
-  <%= t("Текущ файл", :client => @contact.name, :scope => [:admin, :attachments],
+  <%#= t("Текущ файл", :client => @contact.name, :scope => [:admin, :attachments],
     :file => link_to(f.object.attachment_filename, f.object.attachment.url)
   ) unless f.object.attachment.url.blank? %>
 
   <%= f.input :name,
-    :wrapper_html => {:style => "display: inline;", :class => "fieldset_#{dom_id(f.object)}"},
-    :input_html => {:style => "width: 120px; display: inline;margin-right: 10px;"} %>
+    :wrapper_html => {:style => "display: block;", :class => "fieldset_#{dom_id(f.object)}"},
+    :input_html => {:style => "width: 120px; display: inline;margin-right: 10px;"},
+    :label_html => {:style =>  'width: 70px; display: inline-block; padding: 2px 4px 2px 4px; text-align: right;'}
+
+  %>
   <%= f.input :attachment, :as => :file,
     :wrapper_html => {:style => "display: block;", :class => "fieldset_#{dom_id(f.object)}"},
-    :input_html => {:style => "display: inline;margin-right: 10px;"} %>
+    :input_html => {:style => "display: inline;margin-right: 10px;"},
+    :label_html => {:style =>  'width: 70px; display: inline-block; padding: 2px 4px 2px 4px; text-align: right;'}
+  %>
 
   <%= f.input :description, :as => :text,
     :wrapper_html => {:style => "display: block;clear:both;", :class => "fieldset_#{dom_id(f.object)}"},
-    :input_html => {:style => "display: inline;margin-right: 10px;height:50px;"} %>
+    :input_html => {:style => "display: inline;margin-right: 10px;height:50px;"},
+    :label_html => {:style =>  'width: 70px; display: block; padding: 2px;'}
+  %>
 </ul>

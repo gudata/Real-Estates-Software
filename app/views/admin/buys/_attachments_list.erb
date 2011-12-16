@@ -2,7 +2,7 @@
   <% @buy.attachments.each do |attachment| %>
     <%= content_tag :li, link_to_if(!attachment.attachment.url.blank?, image_tag("download.png"), attachment.attachment.url, :target => "_blank") +
       " " + 
-      (attachment.name.blank? ?  t("Без име", :scope => [:admin, :attachments], :i => i) : attachment.name) +
+      (attachment.name.blank? ?  t("Без име", :scope => [:admin, :attachments]) : attachment.name) +
       " " + 
       l(attachment.created_at, :format => :human)  +
       " " +
