@@ -40,7 +40,12 @@ class Admin::SearchCriteriasController < Admin::BaseController
 
   def criteria_search_result
     @matching_sell = MatchingSell.new
+    @search_criteria = @buy.search_criterias.find(params[:id])
     @matching_sell << @search_criteria
+    # TODO - is this can be paginated ??
+    #per_page = 4
+    #offset = params[:page] ? ((params[:page].to_i - 1) * per_page) : 0
+    #@matching_sell.paginate
   end
 
   def edit
@@ -94,6 +99,7 @@ class Admin::SearchCriteriasController < Admin::BaseController
 
   def destroy
     begin
+      @search_criteria = @buy.search_criterias.find params[:id]
       @search_criteria.destroy
       flash[:notice] = "Deleted"
     rescue
