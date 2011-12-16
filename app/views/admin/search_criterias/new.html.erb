@@ -2,7 +2,12 @@
 <div class="search_criteria new">
   <% title(t("Критерий", :scope => [:admin, :buys, :search_criteria])) %>
 
-  <%= semantic_form_for [:admin, @contact, @buy, @search_criteria], :html => {:multipart => true}  do |search_criteria_form| %>
+  <%= semantic_form_for :search_criteria,
+                        :url => admin_contact_buy_search_criterias_path(:contact_id => @contact.id.to_s,
+                                                                           :buy_id => @buy.id.to_s
+                        ),
+                        :html => {:multipart => true}  do |search_criteria_form|
+  %>
     <%= search_criteria_form.error_messages %>
 
     <%=
