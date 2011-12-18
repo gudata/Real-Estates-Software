@@ -14,7 +14,6 @@ class Attachment
 
   referenced_in :user, :index => true
 
-  field :attachment
   mount_uploader :attachment, AttachmentUploader
 
   #  validates_attachment_presence :document
