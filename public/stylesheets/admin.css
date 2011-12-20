@@ -875,6 +875,12 @@ button.fg-button { width:auto; overflow:visible; } /* removes extra button width
 
 #buy_form fieldset.inputs ol li, fieldset.buttons ol li {display: block; }
 
+#search-options {
+    clear: both;
+    margin:  4px;
+    display:inline-block;
+
+}
 
 form.sell_search fieldset.sorting, form.buy_search fieldset.sorting { margin: 10px 0 0 0;}
 form.sell_search fieldset.sorting select, form.buy_search fieldset.sorting select { width: 100px;}

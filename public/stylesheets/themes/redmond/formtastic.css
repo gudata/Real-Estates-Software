@@ -80,9 +80,10 @@ fieldset input[type=password]:hover, fieldset input[type=password]:focus {
 
 form input[type=submit] {
   display: inline-block;
-  height: 20px;
-  width: 80px;
+  height: 28px;
+  min-width: 80px;
   margin: 2px;
+  padding:  2px;
   font-size:1em;
   background:#F5F8F9 url(/images/ui-bg_inset-hard_100_f5f8f9_1x100.png) repeat-x scroll 50% 50%;
   border:1px solid #79B7E7;

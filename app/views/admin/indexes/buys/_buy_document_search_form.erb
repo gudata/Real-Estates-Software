@@ -15,6 +15,23 @@
       <a style="left: 0%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a>
     </div>
      */
+
+      console.log($('#property_type'));
+    if($('#property_type :selected').val() != '1')
+        $('#apartment_types').hide();
+
+
+    $('#property_type').change(function(){
+    if($(this).val() == '1'){
+        $('#apartment_types').show();
+    } else {
+        $('#apartment_types').hide();
+        $('#apartment_types input').each(function(){
+           $(this).attr('checked', false);
+        });
+
+        }
+    })
   });
 </script>
 
@@ -38,14 +55,21 @@
     <%= buy_search_form.input :rooms_from, :label => t("Стаи от", :scope => [:admin, :buy_search]) %>
     <%= buy_search_form.input :rooms_to, :label => t("Стаи до", :scope => [:admin, :buy_search]) %>
 
-    <%=
-    @users = User.all.sort{ |a,b| a.first_name.downcase <=> b.first_name.downcase}
-    buy_search_form.input :user_id, :collection => @users, :label => t("Потребител", :scope => [:admin, :buy_search])
-  %>
+    <%= @users = User.all.sort { |a,b| a.first_name.downcase <=> b.first_name.downcase}
+        buy_search_form.input :user_id, :collection => @users, :label => t("Потребител", :scope => [:admin, :buy_search])
+    %>
     <%= buy_search_form.input :co_owner_id, :collection => @users, :label => t("Отговарящ", :scope => [:admin, :buy_search]) %>
 
-    <%= buy_search_form.input :team_id, :collection => Team.all, :label => t("Екип", :scope => [:admin, :buy_search]) %>
-    <%= buy_search_form.input :property_type_id, :collection => $cache[PropertyType], :label => t("Вид имот", :scope => [:admin, :buy_search]) %>
+    <%= buy_search_form.input :team_id,
+                              :collection => Team.all,
+                              :label => t("Екип", :scope => [:admin, :buy_search])
+    %>
+
+    <%= buy_search_form.input :property_type_id,
+                              :collection => $cache[PropertyType],
+                              :label => t("Вид имот", :scope => [:admin, :buy_search]),
+                              :input_html => {:id => 'property_type'}
+    %>
 
     <% buy_search.address_documents.each do |address_document| %>
       <%= buy_search_form.semantic_fields_for :address_documents, address_document do |single_address_document_form| %>
@@ -86,7 +110,11 @@
   %>
 
 
-    <%= buy_search_form.input :apartment_type_ids, :as => :check_boxes, :collection => $cache[ApartmentType], :label => t("Вид Апартамент", :scope => [:admin, :buy_search]) %>
+    <%= buy_search_form.input :apartment_type_ids,
+                              :as => :check_boxes, :collection => $cache[ApartmentType],
+                              :label => t("Вид Апартамент", :scope => [:admin, :buy_search]),
+                              :wrapper_html => {:id => 'apartment_types'}
+    %>
       
     <%# buy_search_form.input :construction_type_ids, :as => :check_boxes,
       :collection => $cache[ConstructionType], #ConstructionType.all
@@ -108,18 +136,23 @@
         <% end %>
       <% end %>
     <% end %>
-    <select name="per_page">
-      <%= options_for_select([
-          ["5", "5"],
-          ["10", "10"],
-          ["20", "20"],
-          ["50", "50"],
-          ["100", "100"],
-        ],
-        params[:per_page]
-      ) %>
-    </select>
-    <%= submit_tag t("Търси", :scope => [:admin, :buy_search])%>
+    <div id="search-options">
+      <select name="per_page">
+        <%= options_for_select([
+                   ["5", "5"],
+                   ["10", "10"],
+                   ["20", "20"],
+                   ["50", "50"],
+                   ["100", "100"],
+               ],
+               params[:per_page]
+            )
+        %>
+      </select>
+
+      <%= submit_tag t("Търси", :scope => [:admin, :buy_search])%>
+    </div>
   <% end %>
+
 
 <% end %>
