@@ -4,6 +4,27 @@ Because of that they are extracted here and no used like migrations.
 
 Those are NOT optional for existing users. And you can totally skip them if you brand new user.
 
+-------------------------------------------------------------------------------
+
+At last update mongoid do not cast referenced_in AR relation id to integer. Run this sniped into console.
+
+ar_relations = [:user_id, :offer_type_id, :status_id, :contact_id, :team_id, :created_by_user, :source_id, :canceled_type_id]
+Buy.all.each do |document|
+  modified = false
+  ar_relations.each do |relation|
+    value = document.send(relation)
+    if value && value.kind_of?(String)
+      value = value.to_i
+      document.send("#{relation.to_s}=", value)
+      modified = true
+    end
+  end
+
+  document.save if modified
+end
+
+-------------------------------------------------------------------------------
+
 # SellDocument with unexciting contact, why ??????
 SellDocument.where(:contact_id => 409).first.destroy
 

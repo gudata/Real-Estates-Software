@@ -55,9 +55,12 @@ class Admin::BuysController < Admin::BaseController
       :number => next_number,
       :created_by_user_id => current_user.id
     }
+
     (params[:buy] || {}).each_pair do |key, value|
+      value = value.to_i if value && key.match(/_id/i)
       attributes[key.to_sym] = value
     end
+
 
     @buy = Buy.new(attributes)
 
@@ -76,6 +79,7 @@ class Admin::BuysController < Admin::BaseController
       :created_by_user_id => current_user.id
     }
     (params[:buy] || {}).each_pair do |key, value|
+      value = value.to_i if key.match(/_id/i)
       attributes[key.to_sym] = value
     end
 
@@ -138,3 +142,4 @@ class Admin::BuysController < Admin::BaseController
     render :text => "Лоши параметри!"
   end
 end
+
