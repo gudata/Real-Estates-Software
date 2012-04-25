@@ -8,7 +8,7 @@ Those are NOT optional for existing users. And you can totally skip them if you 
 Update co_owner_id
 
 Buy.all.each do |document|
-    document.co_owner = nil  if document.co_owner == 0
+    document.co_owner_id = nil  if document.co_owner_id == 0
     document.save
 end
 
