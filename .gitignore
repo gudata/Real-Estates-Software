@@ -87,3 +87,4 @@ get_production.sh
 /vendor/bundle/ruby/1.8/gems/railties-3.0.3/lib/rails/generators/rails/app/templates/public/images/
 /vendor/bundle/ruby/1.8/gems/rmagick-2.13.1/doc/ex/images/
 /vendor/bundle/ruby/1.8/gems/treetop-1.4.9/doc/site/images/
+/public/images/
