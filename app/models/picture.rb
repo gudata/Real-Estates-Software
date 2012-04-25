@@ -42,7 +42,7 @@ class Picture < ActiveRecord::Base
     picture.url(*args)
   end
 
-  def name
+  def file_name
     picture_file_name
   end
 
