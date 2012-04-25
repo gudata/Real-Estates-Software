@@ -61,6 +61,8 @@ module Formtastic
               :f => inner_form,
               :has_expanded_preview => preview_proc.call(inner_form.object)
             })
+
+          items_presentation << inner_form.input(:id, :as => :hidden)
         end
       end.html_safe
 

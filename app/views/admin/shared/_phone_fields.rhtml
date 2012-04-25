@@ -25,7 +25,7 @@
 
   <ul class="item_form" <%= f.object.new_record? ? "" : 'style="display:none"' %> >
     <%= f.input :number, :required => true %>
-
+    <%= f.input :id, :as => :hidden unless f.object.new_record?  %>
     <%= f.input :phone_type_id, :required => true,
       :as => :select, :collection => $cache[PhoneType].collect{|phone_type| [phone_type.name, phone_type.id]}
     %>

@@ -175,7 +175,7 @@ class Contact < ActiveRecord::Base
       errors.add_on_blank(:company_name, :empty)
       self.is_company = true
     else
-      errors.add_on_blank(:person_first_name, :empty)
+      errors.add_on_blank(:person_first_name, :empty)      
       self.is_company = false
     end
     

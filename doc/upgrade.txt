@@ -12,7 +12,7 @@ puts "broken:"
 Buy.where(:co_owner_id => 0).count
 
 Buy.where(:co_owner_id => 0).all.each do |document|
-    document.co_owner_id = nil  if document.co_owner_id == 0
+    document.co_owner_id = nil
     document.save
 end
 puts "broken:"

@@ -24,10 +24,10 @@ class Phone < ActiveRecord::Base
 
   validates  :number, :phone_type_id, :presence => true
 
-    validates_uniqueness_of :number
+#    validates_uniqueness_of :number
     validates_uniqueness_of :number_clean
 
-  def validate
+  def validate(*attributes)
     errors.add(:number, :phone_has_no_numbers_value) if self.number.blank? or self.number !~ /\d{2,}/
 #    phone = Phone.where("(number = :number OR number_clean = :number_clean) AND contact_id != :contact_id",
 #      {:number => number,

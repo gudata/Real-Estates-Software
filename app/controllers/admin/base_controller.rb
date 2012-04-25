@@ -15,7 +15,9 @@ class Admin::BaseController < ApplicationController
   # Когато искаме да фиксираме дадена релация към твърдо зададен потребител
   def merge_with_nested_attributes model_params, association, hash
     fixed_attributes = model_params["#{association}_attributes"] || []
-
+    
+    logger.ap fixed_attributes.inspect
+    
     fixed_attributes.each do |key, value|
       if value.keys.include?("id")
         hash.keys.each do |sanitize_key|
@@ -26,7 +28,8 @@ class Admin::BaseController < ApplicationController
       end
     end
 
-    #    logger.debug("#{fixed_attributes.inspect}")
+    
+    logger.ap fixed_attributes.inspect
     model_params
   end
 

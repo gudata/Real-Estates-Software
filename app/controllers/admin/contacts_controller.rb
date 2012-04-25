@@ -116,6 +116,7 @@ class Admin::ContactsController < Admin::BaseController
    
     @contact.contacts_spheres = get_spheres(@contact, params[:sphere_ids])
     @contact.contacts_contact_categories = get_categories(@contact, params[:contact_category_ids])
+    Rails.logger.debug("------------------ #{assigned_attributes} ------------------------------")
     if @contact.update_attributes(assigned_attributes)
       redirect_to edit_admin_contact_path(
         :id => @contact.id,
@@ -123,6 +124,7 @@ class Admin::ContactsController < Admin::BaseController
         :current_tab => params[:current_tab]
       )
     else
+      raise @contact.errors.inspect.to_s
       render :action => 'edit'
     end
     
