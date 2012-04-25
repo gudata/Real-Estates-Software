@@ -4,6 +4,14 @@ Because of that they are extracted here and no used like migrations.
 
 Those are NOT optional for existing users. And you can totally skip them if you brand new user.
 
+--------------------------------------------------------------------------------
+Update co_owner_id
+
+Buy.all.each do |document|
+    document.co_owner = nil  if document.co_owner == 0
+    document.save
+end
+
 -------------------------------------------------------------------------------
 
 At last update mongoid do not cast referenced_in AR relation id to integer. Run this sniped into console.
