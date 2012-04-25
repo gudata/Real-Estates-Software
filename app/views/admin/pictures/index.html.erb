@@ -28,10 +28,12 @@
         <% if @updated_picture %>
             var picture_content_for_list = '<%= escape_javascript( render :partial => 'picture', :locals => {:sell => @sell, :picture => @updated_picture}) %>';
             var picture_dom_id = '#<%= dom_id(@updated_picture)%>';
-            
-            console.log($(document).find('#picture-list').children(picture_dom_id));
             $(document).find('#picture-list').children(picture_dom_id).html(picture_content_for_list);
             //$(document).find('#picture-list').children(picture_dom_id).replace(picture_content_for_list);
+        <% end %>
+          
+        <% if @destroy_picture.present? %>
+          var picture_dom_id = '#picture_' +  '<%= @destroy_picture %> '
         <% end %>
         
         $('.nyroModal').nyroModal();

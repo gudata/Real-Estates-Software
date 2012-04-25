@@ -15,7 +15,7 @@
                         :class => 'picture_action nyroModal',
                         :remote => true
             %>
-
+          
             <%= link_to image_tag('delete_picture.png'),
                         admin_contact_sell_picture_path(:contact_id => sell.contact.id, :sell_id => sell.id, :id => picture.id),
                         :method => :delete,

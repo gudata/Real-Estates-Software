@@ -6,6 +6,8 @@ class Admin::PicturesController < Admin::BaseController
     @pictures = @sell.pictures
     @new_picture = nil
     @updated_picture = nil
+    @destroy_picture = nil
+    
 
     if params[:new_picture_id].present?
       @new_picture = Picture.find params[:new_picture_id]
@@ -13,6 +15,10 @@ class Admin::PicturesController < Admin::BaseController
 
     if params[:updated_picture_id].present?
       @updated_picture = Picture.find params[:updated_picture_id]
+    end
+    
+    if params[:destroy_picture_id].present?
+      @destroy_picture = params[:destroy_picture_id]
     end
   end
 
@@ -60,8 +66,16 @@ class Admin::PicturesController < Admin::BaseController
   end
 
   def destroy
-    @picture = Picture.find params[:id]
-    @picture.destroy    
+    @picture = Picture.find params[:id]    
+    @picture.destroy
+    respond_to do |format|
+      format.html {
+        @destroy_picture = @picture.id
+        redirect_to :action => :index, :destroy_picture_id => @destroy_picture
+      }
+      
+      format.js
+    end
   end
   
   private
