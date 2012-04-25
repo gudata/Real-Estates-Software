@@ -154,7 +154,15 @@ resetcounters.rb
 cap production deploy:web:enable
 
 Term#values трябва да са празен масив е не nil когато ги нямаме
-SellDocument.all.each {|document| document.terms.all.each {|term| term.values = [] if term.values.blank?}}
+SellDocument.all.each do |document|
+    document.terms.all.each do |term|
+        if term.values.empty?
+            term.values = nil
+            document.save
+        end
+    end
+end
+
 Buy.all.each do |buy|
     buy.search_criterias.all.each do |criteria|
         criteria.terms.all.each do |term|

@@ -42,7 +42,7 @@ class Admin::SellsController < Admin::BaseController
       
     @sell = @contact.sells.build({
         :property_type_id => params[:property_type_id],
-        :offer_type_id => params[:offer_type_id],
+        :offer_type_id => params[:offer_type_id].to_i,
         :user_id => current_user.id
       })
 
@@ -79,6 +79,8 @@ class Admin::SellsController < Admin::BaseController
       :property_type => [:translations]).
       limit(1).
       first
+
+    @pictures = @sell.pictures
 
     availble_keywords = Keyword.where("keywords_property_types.property_type_id" => @sell.property_type.id).
       includes(:keywords_property_types, :translations).

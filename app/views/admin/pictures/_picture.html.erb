@@ -1,0 +1,29 @@
+<li id="<%= dom_id picture%>">
+    <div class="picture_name">
+        <%= picture.name %>
+    </div>
+
+    <div class="picture">
+        <%= link_to picture.url(:normal), :class => 'picture-link', :rel => 'lightbox-group1', :remote => true do %>
+            <%= image_tag(picture.url(:thumb)) %>
+        <% end %>
+
+        <div class="picture_actions">
+            <%= link_to image_tag('edit_picture.png'),
+                        edit_admin_contact_sell_picture_path(:contact_id => sell.contact.id, :sell_id => sell.id, :id => picture.id),
+                        :title => 'Edit',
+                        :class => 'picture_action nyroModal',
+                        :remote => true
+            %>
+
+            <%= link_to image_tag('delete_picture.png'),
+                        admin_contact_sell_picture_path(:contact_id => sell.contact.id, :sell_id => sell.id, :id => picture.id),
+                        :method => :delete,
+                        :confirm => 'Are you sure',
+                        :remote => true,
+                        :title => 'Delete',
+                        :class => 'picture_action'
+            %>
+        </div>
+    </div>
+</li>

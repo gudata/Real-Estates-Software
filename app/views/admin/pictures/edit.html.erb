@@ -1,0 +1,13 @@
+<%= link_to t('Списък снимки', :scope => [:partials, :pictures]),
+            admin_contact_sell_pictures_path(:contact_id => @contact.id, :sell_id => @sell.id),
+            :class => 'nyroModal'
+%>
+
+<%= semantic_form_for [:admin, @contact, @sell, @picture],
+                      :html => { :class => 'nyroModal', :multipart => true} do |f|
+%>
+    <%= render :partial => 'from', :locals => {:f => f, :picture => @picture} %>
+
+<% end %>
+
+

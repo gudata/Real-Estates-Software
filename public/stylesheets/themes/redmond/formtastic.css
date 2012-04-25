@@ -144,6 +144,7 @@ fieldset.inputs ol li, fieldset.buttons ol li{
   list-style-type: none;
   padding: 0px;
   margin: 0px;
+  vertical-align: text-top;
   /*clear: both;*/
 }
 

@@ -61,7 +61,7 @@ class Term
   def hash_for_searching
     clause   = {}
 
-    clause[:values] = {'$in' =>  values} if !(values.blank? || values.empty?)
+    clause[:values] = {'$in' =>  values} unless (values.blank? || values.empty?)
 
 
     range = {}
@@ -98,12 +98,12 @@ class Term
     raise 'not supported search for value' if !value.blank?
 
     term_criteria = {}
-    if (!from.blank?)
+    unless from.blank?
       term_criteria['from'] = {}
       term_criteria['from']['$gte'] = from
     end
 
-    if (!to.blank?)
+    unless to.blank?
       term_criteria['to'] = {}
       term_criteria['to']['$lte'] = to
     end

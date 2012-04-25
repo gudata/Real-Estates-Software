@@ -1,0 +1,40 @@
+<%= tabs_for(:id => :sell_tabs) do |tab| %>
+
+  <!-- Адрес-->
+  <% tab.create('address', t('tab:Адрес', :scope => [:admin, :sells])) do %>
+    <%= form.semantic_fields_for :address, :id => "address_form" do |address|%>
+      <%= render :partial => "admin/addresses/address_form", :locals => {:f => address} %>
+    <% end %>
+    <div class="clear"></div>
+  <% end %>
+
+  <!-- Помещения -->
+  <% tab.create('rooms', t('tab:Помещения', :scope => [:admin, :sells])) do %>
+    <%= form.inputs t(:"tab:Помещения", :scope => [:admin, :sells]), :id => "room_forms" do %>
+      <%= nested_edit form, :rooms, "/admin/shared/room_fields",  t("Добави помещение", :scope => [:partials, :rooms]), Proc.new{|item| true }  %>
+    <% end %>
+  <% end %>
+
+  <!-- Огледи -->
+  <% tab.create('inspections', t('tab:Огледи', :scope => [:admin, :sells])) do %>
+    <%= form.inputs t(:"Огледи", :scope => [:admin, :sells]), :id => "inspection_forms" do %>
+      <%= nested_edit form, :inspections, "/admin/shared/inspection_fields",  t("Добави оглед", :scope => [:partials, :inspections]), Proc.new{|item| !item.new_record? } %>
+    <% end %>
+  <% end %>
+
+  <!-- Снимки -->
+  <% tab.create('pictures', t('tab:Галерия', :scope => [:admin, :sells])) do %>
+    <%= render :partial => 'admin/pictures/list', :locals => {:sell => form.object, :pictures => @pictures}%>
+    <%#= form.inputs t(:"Снимки на имота", :scope => [:admin, :sells]), :id => "picture_forms" do %>
+      <%#= nested_edit form, :pictures, "/admin/shared/picture_fields", t(:"Добави снимка", :scope => [:partials,  :pictures]), Proc.new{|item| item.picture.file? } %>
+    <%# end %>
+  <% end %>
+
+  <!-- Документи-->
+  <% tab.create('documents', t('tab:Документи', :scope => [:admin, :sells])) do %>
+    <%= form.inputs t(:"Документи на проекта", :scope => [:admin, :project]), :id => "document_forms" do %>
+      <%= nested_edit form, :documents, "/admin/shared/document_fields", t(:"Добави файл", :scope => [:partials, :documents]), Proc.new{|item| item.document.file? }  %>
+    <% end %>
+  <% end %>
+
+<% end %>

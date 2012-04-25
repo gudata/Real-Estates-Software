@@ -35,7 +35,7 @@ class Picture < ActiveRecord::Base
     :content_type => ['image/jpeg','image/pjpeg', 'image/x-png', 'image/gif', 'image/png'],
     :message => "Sorry, only jpg, png or gif image files are allowed"
 
-  default_scope :include => :translations
+  default_scope includes(:translations).order(:created_at => :desc)
 
   # За да работи полиморфизма се добавят тези методи
   def url(*args)

@@ -1,0 +1,18 @@
+<%= f.error_messages %>
+
+<% unless @picture.new_record? %>
+    <div class="edit-picture">
+        <%= image_tag @picture.url(:thumb) %>
+    </div>
+<% end %>
+
+</div>
+<%= f.inputs :pictures do %>
+    <%= f.input :name %>
+    <br />
+    <%= f.input :picture, :as => :file %>
+    <br />
+    <%= f.input :description, :as => :text %>
+<% end %>
+
+<%= f.commit_button %>

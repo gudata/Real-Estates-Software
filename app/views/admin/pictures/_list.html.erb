@@ -1,0 +1,25 @@
+<div class="add-image">
+    <%= link_to t('Добави снимка', :scope => [:partials, :pictures]),
+                new_admin_contact_sell_picture_path(:contact_id => sell.contact.id, :sell_id => sell.id),
+                :class => "add_picture nyroModal"
+    %>
+</div>
+
+<ul class="pictures" id="picture-list">
+    <% pictures.each do |picture| %>
+        <%= render :partial => 'admin/pictures/picture', :locals => {:sell => sell, :picture => picture } %>
+    <% end %>
+</ul>
+
+<div class="add-image">
+    <%= link_to t('Добави снимка', :scope => [:partials, :pictures]),
+                new_admin_contact_sell_picture_path(:contact_id => sell.contact.id, :sell_id => sell.id),
+                :class => "add_picture nyroModal"
+    %>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+          $('.nyroModal').nyroModal();
+    });
+</script>

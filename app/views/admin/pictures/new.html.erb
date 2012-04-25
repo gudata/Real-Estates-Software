@@ -1,0 +1,7 @@
+<%= semantic_form_for 'picture',
+                      :url => admin_contact_sell_pictures_path(:contact_id => @contact.id, :sell_id => @sell.id),
+                      :html => { :class => 'nyroModal', :multipart => true} do |f|
+%>
+    <%= render :partial => 'from', :locals => {:f => f, :picture => @picture} %>
+
+<% end %>

@@ -67,7 +67,13 @@ Re::Application.routes.draw do
         end
       end
 
-      resources :sells 
+      resources :sells do
+        resources :pictures do
+          collection do
+            get :reload_pictures
+          end
+        end
+      end
 
       resources :projects do
         resources :project_sells, :as => :sells
@@ -183,7 +189,7 @@ Re::Application.routes.draw do
     resources :validation_types
     resources :offer_types
     resources :inspections
-    resources :pictures
+    #resources :pictures
     resources :furnishes
     resources :sources
     resources :statuses
