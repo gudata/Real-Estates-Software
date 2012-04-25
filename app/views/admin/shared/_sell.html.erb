@@ -1,7 +1,11 @@
 <div id="<%= dom_id(sell)%>" class="ui-widget ui-widget-content ui-corner-all offer_content" style="background-image: url(/images/offer_background.gif);">
-  <div class="picture">
-    
-    <%= image_tag(sell.pictures.present? ? sell.pictures[0][:'thumb'][:'url'] : "/images/photo_missing.gif") %>
+  <div class="picture">    
+    <%  if sell.pictures.present? and (sell.pictures.first[:thumb] or sell.pictures.first[:'thumb']) %>
+        <%=  image_tag(sell.pictures.first[:thumb].present? ? sell.pictures.first[:thumb][:url] : sell.pictures.first['thumb']['url']) %>
+    <% else %>
+      <%= image_tag("/images/photo_missing.gif") %>
+    <% end %>
+      
   </div>
   <div class="info">
     <%= render :partial => "/admin/shared/sell_info", :locals => {:sell => sell} %>
