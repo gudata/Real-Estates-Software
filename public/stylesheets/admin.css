@@ -1102,7 +1102,7 @@ form#new_sell #short_info label {width: 104px;}
 form#new_sell #short_info textarea {height: 50px;}
 
 /*Offer Sell Pictures */
-#sell_tabs .add-image a {
+.add-image a {
     color: #1E364C;
     background: url('../images/add_picture.png') no-repeat 0 4px;
     padding: 2px 0 2px 20px;
@@ -1110,20 +1110,30 @@ form#new_sell #short_info textarea {height: 50px;}
     text-decoration: none;
 }
 
-#sell_tabs .add-image a:hover {
+.add-image a:hover {
     color: #592003;
     text-decoration: underline;
 }
 
-#sell_tabs .pictures {margin: 2px; border-top: 1px solid #cfcfcf}
-#sell_tabs .pictures {border-bottom: 1px solid #cfcfcf}
-#sell_tabs .pictures li {display: inline-block; width: 170px; height: 170px }
-#sell_tabs .pictures li .picture_name { width: 100%; text-align: center; word-wrap: break-word; padding: 2px; }
-#sell_tabs .pictures li .picture { width: 100%;}
-#sell_tabs .pictures li .picture a.picture-link {display: block; width: 130px; margin: 0px auto}
-#sell_tabs .pictures li .picture img {display: block; width: 130px;}
-#sell_tabs .pictures li .picture_actions {display: block; text-align: center;}
-#sell_tabs .pictures li .picture_actions img {display:inline-block; width: 16px; height: 16px; margin: 2px; padding: 2px;}
+.pictures {
+    width: 90%
+}
+.pictures li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 5px;
+    padding: 2px;
+}
+
+.pictures {margin: 2px; border-top: 1px solid #cfcfcf}
+.pictures {border-bottom: 1px solid #cfcfcf}
+.pictures li {display: inline-block; width: 170px; height: 170px }
+.pictures li .picture_name { width: 100%; text-align: center; word-wrap: break-word; padding: 2px; }
+.pictures li .picture { width: 100%;}
+.pictures li .picture a.picture-link {display: block; width: 130px; margin: 0px auto}
+.pictures li .picture img {display: block; width: 130px;}
+.pictures li .picture_actions {display: block; text-align: center;}
+.pictures li .picture_actions img {display:inline-block; width: 16px; height: 16px; margin: 2px; padding: 2px;}
 
 
 

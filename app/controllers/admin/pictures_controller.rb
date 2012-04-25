@@ -31,7 +31,7 @@ class Admin::PicturesController < Admin::BaseController
       redirect_to :action => :index, :new_picture_id => @picture.id
     else
       render :action => :new,
-             :contact_id => @contact.id,
+             :contact_id => @sell.contact.id,
              :sell_id => @sell.id
     end
   end
