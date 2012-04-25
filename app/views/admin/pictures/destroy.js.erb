@@ -1,0 +1,7 @@
+var picture_dom_id = '#<%= dom_id @picture %>'
+
+$(picture_dom_id).remove();
+
+if($('#nyroModalFull').length > 0) {  
+  $('#nyroModalFull').find(picture_dom_id).remove();
+}
