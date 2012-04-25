@@ -47,7 +47,7 @@ class Admin::Indexes::SellsController < Admin::IndexesController
       per_page = params[:per_page] ? params[:per_page].to_i : @@per_page
       offset = params[:page] ? ((params[:page].to_i - 1) * per_page) : 0
 
-
+      
       @sells = @sell_search.sell_documents.paginate(:page => params[:page], :per_page => params[:per_page])
     else
       @sell_search = SellSearch.new(:offer_type_id => params[:offer_type_id])
