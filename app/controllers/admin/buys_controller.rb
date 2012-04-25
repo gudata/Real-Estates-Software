@@ -57,6 +57,7 @@ class Admin::BuysController < Admin::BaseController
     }
 
     (params[:buy] || {}).each_pair do |key, value|
+      next if value.blank?
       value = value.to_i if value && key.match(/_id/i)
       attributes[key.to_sym] = value
     end
@@ -79,6 +80,7 @@ class Admin::BuysController < Admin::BaseController
       :created_by_user_id => current_user.id
     }
     (params[:buy] || {}).each_pair do |key, value|
+      next if value.blank?
       value = value.to_i if key.match(/_id/i)
       attributes[key.to_sym] = value
     end
