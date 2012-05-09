@@ -23,11 +23,13 @@
   <% end %>
 
   <!-- Снимки -->
-  <% tab.create('pictures', t('tab:Галерия', :scope => [:admin, :sells])) do %>
-    <%= render :partial => 'admin/pictures/list', :locals => {:sell => form.object, :pictures => @pictures}%>
-    <%#= form.inputs t(:"Снимки на имота", :scope => [:admin, :sells]), :id => "picture_forms" do %>
-      <%#= nested_edit form, :pictures, "/admin/shared/picture_fields", t(:"Добави снимка", :scope => [:partials,  :pictures]), Proc.new{|item| item.picture.file? } %>
-    <%# end %>
+  <% unless form.object.new_record? %>
+    <% tab.create('pictures', t('tab:Галерия', :scope => [:admin, :sells])) do %>
+      <%= render :partial => 'admin/pictures/list', :locals => {:sell => form.object, :pictures => @pictures}%>
+      <%#= form.inputs t(:"Снимки на имота", :scope => [:admin, :sells]), :id => "picture_forms" do %>
+        <%#= nested_edit form, :pictures, "/admin/shared/picture_fields", t(:"Добави снимка", :scope => [:partials,  :pictures]), Proc.new{|item| item.picture.file? } %>
+      <%# end %>
+    <% end %>
   <% end %>
 
   <!-- Документи-->
